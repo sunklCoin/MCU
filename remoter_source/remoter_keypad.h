@@ -1,0 +1,29 @@
+/*
+ * remoter_keypad.h
+ *
+ *  Created on: 2017年8月30日
+ *      Author: xuke
+ */
+
+#ifndef REMOTER_KEYPAD_H_
+#define REMOTER_KEYPAD_H_
+
+#include "remoter_base.h"
+#include "fsl_i2c.h"
+#include "keyboard_aw95238.h"
+
+#define KEY_I2C_MASTER		RMT_KEY_I2C_BASE
+#define KEY_I2C_MASTER_CLOCK_FREQUENCY		RMT_KEY_I2C_CLK_FREQ
+#define KEY_I2C_MASTER_SLAVE_ADDR_7BIT		RMT_KEY_I2C_CHG_SLAVE_ADDR
+#define KEY_I2C_BAUDRATE		RMT_KEY_I2C_BAUDRATE
+
+#define KEY_CLOCK_GPIO		RMT_KEY_CLOCK_GPIO
+#define KEY_CLOCK_FLEXCOMM		RMT_KEY_CLOCK_FLEXCOMM
+
+#define KEY_RESET_GPIO_PORT		RMT_KEY_RESET_GPIO_PORT
+#define KEY_RESET_GPIO_PIN		RMT_KEY_RESET_GPIO_PIN
+
+
+
+
+#endif /* REMOTER_KEYPAD_H_ */
