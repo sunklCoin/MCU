@@ -1,0 +1,1201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4D1BFFCC-9CEB-4ABF-A951-582870FE71FD}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\gui">
+      <UniqueIdentifier>{55A9C6CE-ADF3-4540-993C-E9292343A464}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated">
+      <UniqueIdentifier>{5E0884D2-978F-47B6-9070-EC3EC4FFBB3B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\analogclock_screen">
+      <UniqueIdentifier>{EE516401-E1AB-42E9-8F7E-8FC6F9F7A253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\btcontrol_screen">
+      <UniqueIdentifier>{68159BD6-5A8A-4BB5-BAB6-152988C454AB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\common">
+      <UniqueIdentifier>{F10AF2F1-0D29-4BF4-B894-C8F5D4221330}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\custom_controls_screen">
+      <UniqueIdentifier>{FA8D266E-D90C-4DFC-AD69-5CD65A143F90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\mainmenu_screen">
+      <UniqueIdentifier>{E4DBD722-34A8-465E-B104-D690A941FCA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\model">
+      <UniqueIdentifier>{2C611F08-5C6F-45D2-ABA5-CDC6994E6BA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\screensaverclock_screen">
+      <UniqueIdentifier>{8D7FE7DC-380E-4D6F-9E7B-0D87FC1562C0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\timeanddate_screen">
+      <UniqueIdentifier>{34A1265C-FE91-4EF5-BFC5-AB0EFC0F582B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\wificontrol_screen">
+      <UniqueIdentifier>{7B1CCFF3-95D4-467A-87BB-88E284CF1784}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\analogclock_screen">
+      <UniqueIdentifier>{D6A21ECE-29BA-4977-B62F-08946D2FF5DB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\btcontrol_screen">
+      <UniqueIdentifier>{595A929F-2ABC-4B76-9078-DDDD08C3FEE5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\common">
+      <UniqueIdentifier>{86BAAE75-09F4-468D-A1A8-E1E2F09C0855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\mainmenu_screen">
+      <UniqueIdentifier>{EBD1F3A2-B60A-40B1-BC88-1DDEA0294B67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\screensaverclock_screen">
+      <UniqueIdentifier>{3FB6E774-12AD-4E7D-A5CC-4BE74EAB7F85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\timeanddate_screen">
+      <UniqueIdentifier>{9C43F9D6-3DED-48FF-926F-F918182B7C80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui_generated\wificontrol_screen">
+      <UniqueIdentifier>{C2FD9BFF-5892-4FD9-B843-FA543801A40C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{92BBFF14-FBDB-4755-BA47-A830D863D92B}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;ttf;otf;bdf;png;wav;xlsx;props;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\assets">
+      <UniqueIdentifier>{55E00E7B-A2D7-418D-A235-48900333DBC8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{29E8A9F8-6504-4625-AB47-671A3F665E51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\fonts">
+      <UniqueIdentifier>{4BC51559-4881-4F23-9666-7AC40D3B131B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images">
+      <UniqueIdentifier>{22681702-763E-48D7-894B-CE1E65AD4F74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\texts">
+      <UniqueIdentifier>{AC17A57A-CBE8-4B46-A5EC-9471EF822B35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\config\msvs">
+      <UniqueIdentifier>{C24EAEDB-9A3F-43DC-87FB-C7AC2729A078}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\animation">
+      <UniqueIdentifier>{0CD6CF01-450A-4988-8519-DB14696137AA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\batty">
+      <UniqueIdentifier>{2E76F395-04B7-4310-9B33-44A06BE6CD3D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\Clock">
+      <UniqueIdentifier>{58AEECC6-E874-4EB9-8091-69F8F64F9D3B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\CustomControls">
+      <UniqueIdentifier>{C800D034-4471-4579-949B-7FE6CDCF0665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\MainMenu">
+      <UniqueIdentifier>{6D42983F-C34D-486F-925C-6B000AAE5314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\assets\images\SunListMenu">
+      <UniqueIdentifier>{AFEE1E7F-949E-468F-AD9F-43F5500C769D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2F3FC0AA-97C4-4366-9939-94A0FF4E028C}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>{4EDD3ED8-E0F3-41E9-AA0A-596336D84D34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated">
+      <UniqueIdentifier>{28F7BF63-7C3D-4C27-8F38-DF4AA1F35D7C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\analogclock_screen">
+      <UniqueIdentifier>{BAF3D850-93B9-487D-B531-611E4A0392D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\btcontrol_screen">
+      <UniqueIdentifier>{67D72942-80C5-49BA-A4DB-B235576D9305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\common">
+      <UniqueIdentifier>{85D45F5D-6B66-44F0-BCC3-AC0DB71E31CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\custom_controls_screen">
+      <UniqueIdentifier>{AE6D67D5-2854-4716-A31E-DAE32ACE7000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\mainmenu_screen">
+      <UniqueIdentifier>{054D4158-548D-487B-8845-6DC22D51A8DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\model">
+      <UniqueIdentifier>{5B57C3C4-5751-4705-A2B8-C45F44D30BAB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\screensaverclock_screen">
+      <UniqueIdentifier>{61CFBC75-1694-4E4A-ACCD-01FD87E963FA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\simulator">
+      <UniqueIdentifier>{7F1C62AE-9530-4314-9D99-C3310677556F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\timeanddate_screen">
+      <UniqueIdentifier>{BA8311D0-B286-48DE-96A1-FB5BDAC8F07C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\wificontrol_screen">
+      <UniqueIdentifier>{EA801E55-D643-4394-A761-4130792A006E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\analogclock_screen">
+      <UniqueIdentifier>{A7C56190-A57C-4F40-AE0A-80A6AADCBBA9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\btcontrol_screen">
+      <UniqueIdentifier>{E30B3406-5089-4A79-8E7D-7A5274877D67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\common">
+      <UniqueIdentifier>{C55E7AFF-7218-4174-A7FB-E6679DC0FA64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\mainmenu_screen">
+      <UniqueIdentifier>{BFF03697-7792-4DC7-858C-92EFA3607F2F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\screensaverclock_screen">
+      <UniqueIdentifier>{4D7ED18C-DCC9-451D-8CA2-DF06BA53658B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\timeanddate_screen">
+      <UniqueIdentifier>{09D36329-6066-4B1C-B0C0-D142E8CA5F7F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui_generated\wificontrol_screen">
+      <UniqueIdentifier>{92A1E359-60C7-4CEC-A793-2CF51C8C210B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\target">
+      <UniqueIdentifier>{a73698fb-398a-4f19-a301-7040257138f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\target">
+      <UniqueIdentifier>{612d1e97-52e2-4e61-b204-93fe1bf309eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\HALSDL2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\HALSDL2_icon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\OSWrappers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\analogclock_screen\analogclockViewBase.cpp">
+      <Filter>Source Files\gui_generated\analogclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\btcontrol_screen\BTControlViewBase.cpp">
+      <Filter>Source Files\gui_generated\btcontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp">
+      <Filter>Source Files\gui_generated\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\mainmenu_screen\MainMenuViewBase.cpp">
+      <Filter>Source Files\gui_generated\mainmenu_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\screensaverclock_screen\ScreenSaverClockViewBase.cpp">
+      <Filter>Source Files\gui_generated\screensaverclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\timeanddate_screen\TimeAndDateViewBase.cpp">
+      <Filter>Source Files\gui_generated\timeanddate_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\wificontrol_screen\WifiControlViewBase.cpp">
+      <Filter>Source Files\gui_generated\wificontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\analogclock_screen\analogclockPresenter.cpp">
+      <Filter>Source Files\gui\analogclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\analogclock_screen\analogclockView.cpp">
+      <Filter>Source Files\gui\analogclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\btcontrol_screen\BTControlPresenter.cpp">
+      <Filter>Source Files\gui\btcontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\btcontrol_screen\BTControlView.cpp">
+      <Filter>Source Files\gui\btcontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\ControlData.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\CustomListElement.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\DemoPresenter.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\ImageMenu.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\McuLoadSlider.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\StatusBar.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\TimeUtils.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\CircularProgress.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\CustomControlsPresenter.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\CustomControlsView.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\DatePicker.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\Gauge.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalSlideMenu.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBar.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBarCircle.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\TimeFormarSet.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\TimePicker.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\VerticalSlideMenu.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\WheelSelector.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\WheelSelectorExtra.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuPresenter.cpp">
+      <Filter>Source Files\gui\mainmenu_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuView.cpp">
+      <Filter>Source Files\gui\mainmenu_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\model\Model.cpp">
+      <Filter>Source Files\gui\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\analogclock.cpp">
+      <Filter>Source Files\gui\screensaverclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\DigitalClock.cpp">
+      <Filter>Source Files\gui\screensaverclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockPresenter.cpp">
+      <Filter>Source Files\gui\screensaverclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockView.cpp">
+      <Filter>Source Files\gui\screensaverclock_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\timeanddate_screen\TimeAndDatePresenter.cpp">
+      <Filter>Source Files\gui\timeanddate_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\timeanddate_screen\TimeAndDateView.cpp">
+      <Filter>Source Files\gui\timeanddate_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\wificontrol_screen\WifiControlPresenter.cpp">
+      <Filter>Source Files\gui\wificontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\wificontrol_screen\WifiControlView.cpp">
+      <Filter>Source Files\gui\wificontrol_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\simulator\main.cpp">
+      <Filter>Source Files\gui\simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\model\ModelListener.cpp">
+      <Filter>Source Files\gui\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\framework\DevicePort.cpp">
+      <Filter>Source Files\gui\target</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\assets\fonts\SIMYOU.TTF">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\fonts\Vanib.ttf">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\fonts\verdana.ttf">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\fonts\verdanab.ttf">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\fonts\vijayab.ttf">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\fonts\vrindab.ttf">
+      <Filter>Resource Files\assets\fonts</Filter>
+    </None>
+    <None Include="..\..\assets\images\animation\btn_ani_01.png">
+      <Filter>Resource Files\assets\images\animation</Filter>
+    </None>
+    <None Include="..\..\assets\images\animation\btn_ani_02.png">
+      <Filter>Resource Files\assets\images\animation</Filter>
+    </None>
+    <None Include="..\..\assets\images\animation\btn_ani_03.png">
+      <Filter>Resource Files\assets\images\animation</Filter>
+    </None>
+    <None Include="..\..\assets\images\animation\btn_ani_04.png">
+      <Filter>Resource Files\assets\images\animation</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battry00.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battry01.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battry02.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battry03.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battry04.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\batty\battrylow.png">
+      <Filter>Resource Files\assets\images\batty</Filter>
+    </None>
+    <None Include="..\..\assets\images\BlueTooth_16x16.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\BlueTooth_32x32.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\BtnBack.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\BtnBack_pressed.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\BtnOff.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\BtnOn.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\Clock\background.png">
+      <Filter>Resource Files\assets\images\Clock</Filter>
+    </None>
+    <None Include="..\..\assets\images\Clock\Watch5Background.png">
+      <Filter>Resource Files\assets\images\Clock</Filter>
+    </None>
+    <None Include="..\..\assets\images\Clock\Watch5Foreground.png">
+      <Filter>Resource Files\assets\images\Clock</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_center_button.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_center_button_pressed.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_color_wheel.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_down.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_down_inactive.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_down_pressed.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_up-inactive.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_up-pressed.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_arrow_up.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_button.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_button_pressed.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_datepicker_large.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_datepicker_small.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_gauge_large.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_gauge_small.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_percentage_large.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_percentage_small.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_three_way_large.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_icon_three_way_small.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_shadow_bottom.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\control_menu_shadow_top.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\controls_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\controls_menu_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\controls_three_way_small_circle.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\controls_wheel_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\datepicker_bottom_shadow_overlay.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\datepicker_glass_overlay.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\datepicker_main_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\datepicker_top_shadow_overlay.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\Done_48.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\gauge_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\gauge_needle_pin.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\Home_48.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_bin_icon_active.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_bin_icon_inactive.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_folder_icon_active.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_folder_icon_inactive.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_papers_icon_active.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\small_circle_papers_icon_inactive.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\timepicker_bottom_shadow_overlay.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\timepicker_main_background.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\CustomControls\timepicker_top_shadow_overlay.png">
+      <Filter>Resource Files\assets\images\CustomControls</Filter>
+    </None>
+    <None Include="..\..\assets\images\demo_mcu_load_background.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\Main_bg_240x320px.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\demo_back_button.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\demo_back_button_pressed.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_BT.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_BT_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Mic.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Mic_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Remoter.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Remoter_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_ST.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_ST_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Time.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Time_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Wifi.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\MainMenu_btn_Wifi_pressed.png">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\menu_demo_button.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\menu_demo_button_pressed.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\menu_demo_in_progress.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\MainMenu\menu_description_field_background.bmp">
+      <Filter>Resource Files\assets\images\MainMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\Off_43x30.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\Off_pressed_43x30.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\On.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\On_43x30.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\On_pressed_43x30.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\bg.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\delete_button.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\delete_button_pressed.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\list_element_0.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\list_element_1.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\SunListMenu\list_element_2.png">
+      <Filter>Resource Files\assets\images\SunListMenu</Filter>
+    </None>
+    <None Include="..\..\assets\images\Wifi_16X16.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\images\Wifi_32x32.png">
+      <Filter>Resource Files\assets\images</Filter>
+    </None>
+    <None Include="..\..\assets\texts\texts.xlsx">
+      <Filter>Resource Files\assets\texts</Filter>
+    </None>
+    <None Include="..\..\config\msvs\Application.props">
+      <Filter>Resource Files\config\msvs</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\common\AbstractPartition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\common\Meta.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\common\Partition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\common\TouchGFXInit.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\mvp\MVPApplication.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\mvp\MVPHeap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\mvp\Presenter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\mvp\View.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\lcd\LCD16bpp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\lcd\LCD1bpp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\lcd\LCD24bpp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\lcd\LCD2bpp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\lcd\LCD4bpp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\driver\touch\SDL2TouchController.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\platform\hal\simulator\sdl2\HALSDL2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Callback.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\CanvasWidgetRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\Cell.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\Outline.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\Rasterizer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\Renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\RenderingBuffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\RGBA8.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\canvas_widget_renderer\Scanline.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\ConstFont.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\clock\AbstractClock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\clock\AnalogClock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\clock\DigitalClock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\Container.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\ListLayout.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\ModalWindow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\AbstractDirectionProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\AbstractProgressIndicator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\BoxProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\CircleProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\ImageProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\LineProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\progress_indicators\TextProgress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\ScrollableContainer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\SlideMenu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\Slider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\containers\ZoomAnimationImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Drawable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\EasingEquations.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\events\ClickEvent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\events\DragEvent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\events\GestureEvent.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\FontManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\Atomic.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\BlitOp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\BoardConfiguration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\Buttons.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\Config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\DMA.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\Gestures.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\GPIO.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\HAL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\LED.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\NoDMA.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\OSWrappers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\hal\Types.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\InternalFlashFont.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\JSMOCHelper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\lcd\LCD.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Math3D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\ClickListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\Draggable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\FadeAnimator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\MoveAnimator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\PreRenderable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\mixins\Snapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Screen.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\TextProvider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Texts.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\TextureMapTypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\transforms\DisplayTransformation.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\transforms\TouchCalibration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\transitions\NoTransition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\transitions\SlideTransition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\transitions\Transition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\TypedText.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\UIEventListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Unicode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\Utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\AbstractButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\AnimatedImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\AnimationTextureMapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Box.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Button.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\ButtonWithIcon.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\ButtonWithLabel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainterBW.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainterGRAY2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainterGRAY4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainterRGB565.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractPainterRGB888.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\AbstractShape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\Canvas.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\CanvasWidget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\Circle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\CWRUtil.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\Line.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterBW.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterGRAY2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterGRAY2Bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterGRAY4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterGRAY4Bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterRGB565.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterRGB565Bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterRGB888.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\PainterRGB888Bitmap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\canvas\Shape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\PixelDataWidget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\RadioButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\RadioButtonGroup.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\RepeatButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\ScalableImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\SnapshotWidget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TextArea.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TextAreaWithWildcard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TextureMapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TiledImage.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\ToggleButton.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TouchArea.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Widget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\analogclock_screen\analogclockViewBase.hpp">
+      <Filter>Header Files\gui_generated\analogclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\btcontrol_screen\BTControlViewBase.hpp">
+      <Filter>Header Files\gui_generated\btcontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp">
+      <Filter>Header Files\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp">
+      <Filter>Header Files\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp">
+      <Filter>Header Files\gui_generated\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\mainmenu_screen\MainMenuViewBase.hpp">
+      <Filter>Header Files\gui_generated\mainmenu_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screensaverclock_screen\ScreenSaverClockViewBase.hpp">
+      <Filter>Header Files\gui_generated\screensaverclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\timeanddate_screen\TimeAndDateViewBase.hpp">
+      <Filter>Header Files\gui_generated\timeanddate_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\wificontrol_screen\WifiControlViewBase.hpp">
+      <Filter>Header Files\gui_generated\wificontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\analogclock_screen\analogclockPresenter.hpp">
+      <Filter>Header Files\gui\analogclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\analogclock_screen\analogclockView.hpp">
+      <Filter>Header Files\gui\analogclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\btcontrol_screen\BTControlData.hpp">
+      <Filter>Header Files\gui\btcontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\btcontrol_screen\BTControlPresenter.hpp">
+      <Filter>Header Files\gui\btcontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\btcontrol_screen\BTControlView.hpp">
+      <Filter>Header Files\gui\btcontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\ControlData.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\CustomListElement.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\DemoPresenter.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\DemoView.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\DemoViewInterface.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\ImageMenu.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\ImageMenuElement.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\McuLoadSlider.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\StatusBar.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\TimeUtils.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\Utils.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CircularProgress.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CustomControlsPresenter.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CustomControlsView.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\DatePicker.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\Gauge.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalSlideMenu.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBar.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBarCircle.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\TimeFormatSet.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\TimeFormatStyle.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\TimePicker.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\VerticalSlideMenu.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelector.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelectorExtra.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\MainMenuPresenter.hpp">
+      <Filter>Header Files\gui\mainmenu_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\MainMenuView.hpp">
+      <Filter>Header Files\gui\mainmenu_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\Model.hpp">
+      <Filter>Header Files\gui\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp">
+      <Filter>Header Files\gui\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\model\Time.hpp">
+      <Filter>Header Files\gui\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\analogclock.hpp">
+      <Filter>Header Files\gui\screensaverclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\DigitalClock.hpp">
+      <Filter>Header Files\gui\screensaverclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockPresenter.hpp">
+      <Filter>Header Files\gui\screensaverclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockView.hpp">
+      <Filter>Header Files\gui\screensaverclock_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\timeanddate_screen\TimeAndDatePresenter.hpp">
+      <Filter>Header Files\gui\timeanddate_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\timeanddate_screen\TimeAndDateView.hpp">
+      <Filter>Header Files\gui\timeanddate_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\wificontrol_screen\WifiControlPresenter.hpp">
+      <Filter>Header Files\gui\wificontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\wificontrol_screen\WifiControlView.hpp">
+      <Filter>Header Files\gui\wificontrol_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\target\simulator_remoter_messsage_gui.h">
+      <Filter>Header Files\gui\target</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="$(TouchGFXReleasePath)\config\TouchGFX.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

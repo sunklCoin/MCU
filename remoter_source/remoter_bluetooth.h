@@ -1,0 +1,33 @@
+/*
+ * remoter_lcd.h
+ *
+ *  Created on: 2017年8月15日
+ *      Author: xuke
+ */
+
+#ifndef REMOTER_BLUETOOTH_H_
+#define REMOTER_BLUETOOTH_H_
+
+#include "remoter_base.h"
+#include "fsl_usart_freertos.h"
+#include "fsl_usart.h"
+#include "remoter_message.h"
+
+#define BLUETOOTH_USART		RMT_BT_UART_INDEX
+#define BLUETOOTH_USART_IRQn		RMT_BT_UART_IRQ
+#define BLUETOOTH_USART_IRQHandler		RMT_BT_UART_IRQ_HANDLER
+#define BLUETOOTH_USART_CLK_FREQ		RMT_BT_UART_CLK_FREQ
+#define BLUETOOTH_FLEXCOMM_CLOCK		RMT_BT_UART_FLEXCOMM
+
+#define USART_NVIC_PRIO		5
+#define USART_BAUDRATE		RMT_BT_UART_BAUDRATE
+#define USART_BUFFER		128
+
+#define BT_GPIO_WAKEUP_PORT	RMT_BT_WAKEUP_GPIO_PORT
+#define BT_GPIO_WAKEUP_PIN	RMT_BT_WAKEUP_GPIO_PIN
+#define BT_GPIO_HW_RESET_PORT	RMT_BT_HW_RESET_GPIO_PORT
+#define BT_GPIO_HW_RESET_PIN	RMT_BT_HW_RESET_GPIO_PIN
+#define BT_GPIO_SW_RESET_PORT	RMT_BT_SW_RESET_GPIO_PORT
+#define BT_GPIO_SW_RESET_PIN	RMT_BT_SW_RESET_GPIO_PIN
+
+#endif /* REMOTER_BLUETOOTH_H_ */
