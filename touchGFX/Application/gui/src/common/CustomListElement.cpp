@@ -89,8 +89,8 @@ void CustomListElement::setupListElement(const Bitmap& bmp, const Unicode::Unico
 void CustomListElement::buttonClicked(const AbstractButton& source)
 {
 	// Inform the view of the event
-	/*if (viewCallback->isValid())
+	if (viewCallback->isValid())
 	{
 		viewCallback->execute(*this);
-	}*/
+	}
 }

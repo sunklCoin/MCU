@@ -151,7 +151,7 @@ void Wifi_Close() {
     SendMessageEmpty(MSG_ID_GUI_WIFI_CLOSE_REQ);
 #else
     SM_InitMessage();
-    sm_message.msgid = MSG_ID_GUI_WIFI_CLOSE_RSP);
+    sm_message.msgid = MSG_ID_GUI_WIFI_CLOSE_RSP;
     SM_SendMessage();
 #endif
 }
@@ -171,7 +171,7 @@ void Wifi_Connect() {
     SendMessageEmpty(MSG_ID_GUI_WIFI_CONNECT_REQ);
 #else
     SM_InitMessage();
-    sm_message.msgid = MSG_ID_GUI_WIFI_CONNECT_RSP);
+    sm_message.msgid = MSG_ID_GUI_WIFI_CONNECT_RSP;
     SM_SendMessage();
 #endif
 }
@@ -181,7 +181,7 @@ void Wifi_Disconnect() {
     SendMessageEmpty(MSG_ID_GUI_WIFI_DISCONNECT_REQ);
 #else
     SM_InitMessage();
-    sm_message.msgid = MSG_ID_GUI_WIFI_DISCONNECT_RSP);
+    sm_message.msgid = MSG_ID_GUI_WIFI_DISCONNECT_RSP;
     SM_SendMessage();
 #endif
 }

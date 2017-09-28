@@ -62,49 +62,16 @@ numberOfListElements(0)
     //animation.setDoneAction(animationEndedCallback);
     animation.setVisible(false);
     add(animation);
-#if 0
 
-    Unicode::strncpy(listElements[0].ListMenuEleBuffer, "pm", sizeof(listElements[0].ListMenuEleBuffer));
-    listElements[0].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID));
-    Unicode::strncpy(listElements[1].ListMenuEleBuffer, "am", sizeof(listElements[1].ListMenuEleBuffer));
-    listElements[1].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID));
-    Unicode::strncpy(listElements[2].ListMenuEleBuffer, "61:13:E8AA:3E:D2", sizeof(listElements[2].ListMenuEleBuffer));//djkqwxz-
-    listElements[2].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID));
-    //Unicode::snprintf(listElements[3].deviceTextBuffer, 60, "%s", "4");
-    //listElements[3].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[3].deviceTextBuffer);
-    //Unicode::snprintf(listElements[4].deviceTextBuffer, 60, "%s", "5");
-    //listElements[4].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[4].deviceTextBuffer);
-    //Unicode::snprintf(listElements[5].deviceTextBuffer, 60, "%s", "6");
-    //listElements[5].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[5].deviceTextBuffer);
-    //Unicode::snprintf(listElements[6].deviceTextBuffer, 60, "%s", "7");
-    //listElements[6].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[6].deviceTextBuffer);
-    //Unicode::snprintf(listElements[7].deviceTextBuffer, 60, "%s", "8");
-    //listElements[7].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[7].deviceTextBuffer);
-    //Unicode::snprintf(listElements[8].deviceTextBuffer, 60, "%s", "9");
-    //listElements[8].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[8].deviceTextBuffer);
-    //Unicode::snprintf(listElements[9].deviceTextBuffer, 60, "%s", "0");
-    //listElements[9].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID), listElements[9].deviceTextBuffer);
-
-    for (uint8_t i = 0; i < 3; ++i){
-        listElements[i].setAction(listElementClickedCallback);
-        list.add(listElements[i]);
-    }
-
-    Unicode::strncpy(ListMenuMap[0].ListMenuEleBuffer, "pm", sizeof(ListMenuMap[0].ListMenuEleBuffer));
-    ListMenuMap[0].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID));
-
-    for (uint8_t i = 0; i < 1; ++i){
-        ListMenuMap[0].setAction(listElementClickedCallback);
-        list.add(ListMenuMap[0]);
-    }
-#endif // 0
+    keyboard.setPosition(0, 320 - 186, 240, 186);
+    keyboard.setVisible(false);
+    add(keyboard);
     // Position and set the size of the scrollable container.
     // The width is the area is the list element width plus some extra
     // for space between element and scrollbar
     scrollCnt.setPosition(0, 90, 240, 230);
     scrollCnt.add(list);
     add(scrollCnt);
-
     count = 0;
 }
 
@@ -158,8 +125,11 @@ void BTControlView::listElementClicked(CustomListElement& element)
 {
     // The button of the list element has been pressed
     // so it is removed from the list
-    list.remove(element);
-    scrollCnt.invalidate();
+    //list.remove(element);
+    //scrollCnt.invalidate();
+    keyboard.setVisible(true);
+    keyboard.invalidate();
+    scrollCnt.setVisible(false);
 }
 
 void BTControlView::setBluetoothState(bool state)
