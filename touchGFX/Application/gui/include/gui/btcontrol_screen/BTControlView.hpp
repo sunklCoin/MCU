@@ -16,6 +16,7 @@
 #include <touchgfx/containers/ListLayout.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
 #include <map>
+#include <gui/keyboard/CustomKeyboard.hpp>
 using namespace touchgfx;
 using namespace std;
 
@@ -60,7 +61,7 @@ protected:
 
     void handleTickEvent();
 private:
-
+    CustomKeyboard keyboard;
     /*
     * Callback Handler Declarations
     */
