@@ -1,2 +1,0 @@
-# MCU
-Remoter
