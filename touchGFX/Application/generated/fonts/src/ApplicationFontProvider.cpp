@@ -24,6 +24,10 @@ extern touchgfx::InternalFlashFont& getFont_verdana_20_1bpp();
 extern touchgfx::InternalFlashFont& getFont_verdana_18_1bpp();
 extern touchgfx::InternalFlashFont& getFont_verdana_18_1bpp();
 extern touchgfx::InternalFlashFont& getFont_verdana_16_1bpp();
+extern touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_28_4bpp();
+extern touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_20_4bpp();
+extern touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_24_4bpp();
+extern touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_16_4bpp();
 
 touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId fontId)
 {
@@ -77,6 +81,18 @@ touchgfx::Font* ApplicationFontProvider::getFont(touchgfx::FontId fontId)
     
     case Typography::LISTMENUELEFONT:
       return &(getFont_verdana_16_1bpp());
+    
+    case Typography::DISPLAY:
+      return &(getFont_RobotoCondensed_Regular_28_4bpp());
+    
+    case Typography::KEYBOARD:
+      return &(getFont_RobotoCondensed_Regular_20_4bpp());
+    
+    case Typography::MODE:
+      return &(getFont_RobotoCondensed_Regular_24_4bpp());
+    
+    case Typography::SLEEPDURATION:
+      return &(getFont_RobotoCondensed_Regular_16_4bpp());
     
     default:
       return 0;

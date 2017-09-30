@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros">
     <UseBPP>16</UseBPP>
     <RotateImage90>false</RotateImage90>
-    <TouchGFXReleasePath>C:\touchgfx\4.8.0\\touchgfx</TouchGFXReleasePath>
+    <TouchGFXReleasePath>E:\touchgfx\4.8.0\\touchgfx</TouchGFXReleasePath>
     <AlphaDitherImage>yes</AlphaDitherImage>
     <DitherAlgorithm>2</DitherAlgorithm>
     <OpaqueImageOutputFormat>RGB565</OpaqueImageOutputFormat>
