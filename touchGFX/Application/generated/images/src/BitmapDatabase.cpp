@@ -173,6 +173,16 @@ extern const unsigned char _ic_wifi_signal_3_dark[];
 extern const unsigned char _ic_wifi_signal_3_dark_alpha_channel[]; 
 extern const unsigned char _ic_wifi_signal_4_dark[]; 
 extern const unsigned char _ic_wifi_signal_4_dark_alpha_channel[]; 
+extern const unsigned char _icon_keyboard_even_row[]; 
+extern const unsigned char _icon_keyboard_highlighted[]; 
+extern const unsigned char _icon_keyboard_odd_row[]; 
+extern const unsigned char _keyboard_background[]; 
+extern const unsigned char _keyboard_background_alpha_channel[]; 
+extern const unsigned char _keyboard_key_delete_highlighted[]; 
+extern const unsigned char _keyboard_key_highlighted[]; 
+extern const unsigned char _keyboard_key_num_highlighted[]; 
+extern const unsigned char _keyboard_key_shift_highlighted[]; 
+extern const unsigned char _keyboard_space_highlighted[]; 
 extern const unsigned char _list_element_0[]; 
 extern const unsigned char _list_element_1[]; 
 extern const unsigned char _list_element_2[]; 
@@ -180,6 +190,15 @@ extern const unsigned char _menu_demo_button[];
 extern const unsigned char _menu_demo_button_pressed[]; 
 extern const unsigned char _menu_demo_in_progress[]; 
 extern const unsigned char _menu_description_field_background[]; 
+extern const unsigned char _schedule_set_time_duration_bottom_gradient[]; 
+extern const unsigned char _schedule_set_time_duration_bottom_gradient_alpha_channel[]; 
+extern const unsigned char _schedule_set_time_duration_glass_overlay[]; 
+extern const unsigned char _schedule_set_time_duration_glass_overlay_alpha_channel[]; 
+extern const unsigned char _schedule_set_time_duration_top_gradient[]; 
+extern const unsigned char _schedule_set_time_duration_top_gradient_alpha_channel[]; 
+extern const unsigned char _schedule_set_time_duration_wheel_gradient[]; 
+extern const unsigned char _set_time_background[]; 
+extern const unsigned char _set_time_background_alpha_channel[]; 
 extern const unsigned char _small_circle_bin_icon_active[]; 
 extern const unsigned char _small_circle_bin_icon_active_alpha_channel[]; 
 extern const unsigned char _small_circle_bin_icon_inactive[]; 
@@ -288,6 +307,15 @@ const touchgfx::Bitmap::BitmapData bitmap_database[] = {
     { _ic_wifi_signal_2_dark, _ic_wifi_signal_2_dark_alpha_channel, 32, 32, 15, 18, 2, 1, touchgfx::Bitmap::RGB565 },
     { _ic_wifi_signal_3_dark, _ic_wifi_signal_3_dark_alpha_channel, 32, 32, 17, 14, 4, 1, touchgfx::Bitmap::RGB565 },
     { _ic_wifi_signal_4_dark, _ic_wifi_signal_4_dark_alpha_channel, 32, 32, 17, 9, 5, 1, touchgfx::Bitmap::RGB565 },
+    { _icon_keyboard_even_row, 0, 47, 28, 0, 0, 47, 28, touchgfx::Bitmap::RGB565 },
+    { _icon_keyboard_highlighted, 0, 47, 28, 0, 0, 47, 28, touchgfx::Bitmap::RGB565 },
+    { _icon_keyboard_odd_row, 0, 47, 28, 0, 0, 47, 28, touchgfx::Bitmap::RGB565 },
+    { _keyboard_background, _keyboard_background_alpha_channel, 240, 186, 148, 148, 88, 35, touchgfx::Bitmap::RGB565 },
+    { _keyboard_key_delete_highlighted, 0, 56, 40, 0, 0, 56, 40, touchgfx::Bitmap::RGB565 },
+    { _keyboard_key_highlighted, 0, 26, 40, 0, 0, 26, 40, touchgfx::Bitmap::RGB565 },
+    { _keyboard_key_num_highlighted, 0, 56, 40, 0, 0, 56, 40, touchgfx::Bitmap::RGB565 },
+    { _keyboard_key_shift_highlighted, 0, 56, 40, 0, 0, 56, 40, touchgfx::Bitmap::RGB565 },
+    { _keyboard_space_highlighted, 0, 252, 40, 0, 0, 252, 40, touchgfx::Bitmap::RGB565 },
     { _list_element_0, 0, 240, 37, 0, 0, 240, 37, touchgfx::Bitmap::RGB565 },
     { _list_element_1, 0, 240, 37, 0, 0, 240, 37, touchgfx::Bitmap::RGB565 },
     { _list_element_2, 0, 240, 37, 0, 0, 240, 37, touchgfx::Bitmap::RGB565 },
@@ -295,6 +323,11 @@ const touchgfx::Bitmap::BitmapData bitmap_database[] = {
     { _menu_demo_button_pressed, 0, 73, 30, 0, 0, 73, 30, touchgfx::Bitmap::RGB565 },
     { _menu_demo_in_progress, 0, 240, 320, 0, 0, 240, 320, touchgfx::Bitmap::RGB565 },
     { _menu_description_field_background, 0, 240, 320, 0, 0, 240, 320, touchgfx::Bitmap::RGB565 },
+    { _schedule_set_time_duration_bottom_gradient, _schedule_set_time_duration_bottom_gradient_alpha_channel, 50, 14, 0, 0, 0, 0, touchgfx::Bitmap::RGB565 },
+    { _schedule_set_time_duration_glass_overlay, _schedule_set_time_duration_glass_overlay_alpha_channel, 54, 33, 0, 0, 0, 0, touchgfx::Bitmap::RGB565 },
+    { _schedule_set_time_duration_top_gradient, _schedule_set_time_duration_top_gradient_alpha_channel, 50, 15, 0, 0, 50, 1, touchgfx::Bitmap::RGB565 },
+    { _schedule_set_time_duration_wheel_gradient, 0, 50, 105, 0, 0, 50, 105, touchgfx::Bitmap::RGB565 },
+    { _set_time_background, _set_time_background_alpha_channel, 420, 232, 2, 0, 415, 232, touchgfx::Bitmap::RGB565 },
     { _small_circle_bin_icon_active, _small_circle_bin_icon_active_alpha_channel, 30, 34, 9, 12, 12, 16, touchgfx::Bitmap::RGB565 },
     { _small_circle_bin_icon_inactive, _small_circle_bin_icon_inactive_alpha_channel, 30, 34, 9, 12, 12, 16, touchgfx::Bitmap::RGB565 },
     { _small_circle_folder_icon_active, _small_circle_folder_icon_active_alpha_channel, 30, 34, 6, 14, 18, 14, touchgfx::Bitmap::RGB565 },

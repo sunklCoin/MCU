@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\DatePicker.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\Gauge.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalSlideMenu.cpp" />
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\SleepSchedule.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBar.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBarCircle.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\TimeFormarSet.cpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\WheelSelector.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\WheelSelectorExtra.cpp" />
     <ClCompile Include="..\..\gui\src\framework\DevicePort.cpp" />
+    <ClCompile Include="..\..\gui\src\keyboard\CustomKeyboard.cpp" />
     <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuView.cpp" />
     <ClCompile Include="..\..\gui\src\model\Model.cpp" />
@@ -333,6 +335,7 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\DatePicker.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\Gauge.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalSlideMenu.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\SleepSchedule.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBar.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBarCircle.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\TimeFormatSet.hpp" />
@@ -341,6 +344,9 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\VerticalSlideMenu.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelector.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelectorExtra.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\keyboard\CustomKeyboard.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardKeyMapping.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardLayout.hpp" />
     <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\MainMenuPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\MainMenuView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\model\Model.hpp" />
@@ -408,7 +414,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GUI_RESOURCE_ONLY_INTERNAL_FLASH=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GUI_RESOURCE_ONLY_INTERNAL_FLASH=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DisableSpecificWarnings>4355;4457;4458;4459</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>

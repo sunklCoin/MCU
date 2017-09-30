@@ -6,6 +6,54 @@
 using namespace touchgfx;
 #endif
 
+// RobotoCondensed_Regular_16_4bpp
+extern const touchgfx::GlyphNode glyphs_RobotoCondensed_Regular_16_4bpp[];
+extern const uint8_t unicodes_RobotoCondensed_Regular_16_4bpp[];
+extern const touchgfx::KerningNode kerning_RobotoCondensed_Regular_16_4bpp[];
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_16_4bpp();
+
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_16_4bpp()
+{
+  static touchgfx::InternalFlashFont RobotoCondensed_Regular_16_4bpp(glyphs_RobotoCondensed_Regular_16_4bpp, 12, 16, 0, 4, 0, 0, unicodes_RobotoCondensed_Regular_16_4bpp, kerning_RobotoCondensed_Regular_16_4bpp, 0, 0);
+  return RobotoCondensed_Regular_16_4bpp;
+}
+
+// RobotoCondensed_Regular_20_4bpp
+extern const touchgfx::GlyphNode glyphs_RobotoCondensed_Regular_20_4bpp[];
+extern const uint8_t unicodes_RobotoCondensed_Regular_20_4bpp[];
+extern const touchgfx::KerningNode kerning_RobotoCondensed_Regular_20_4bpp[];
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_20_4bpp();
+
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_20_4bpp()
+{
+  static touchgfx::InternalFlashFont RobotoCondensed_Regular_20_4bpp(glyphs_RobotoCondensed_Regular_20_4bpp, 110, 20, 4, 4, 1, 1, unicodes_RobotoCondensed_Regular_20_4bpp, kerning_RobotoCondensed_Regular_20_4bpp, 63, 0);
+  return RobotoCondensed_Regular_20_4bpp;
+}
+
+// RobotoCondensed_Regular_24_4bpp
+extern const touchgfx::GlyphNode glyphs_RobotoCondensed_Regular_24_4bpp[];
+extern const uint8_t unicodes_RobotoCondensed_Regular_24_4bpp[];
+extern const touchgfx::KerningNode kerning_RobotoCondensed_Regular_24_4bpp[];
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_24_4bpp();
+
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_24_4bpp()
+{
+  static touchgfx::InternalFlashFont RobotoCondensed_Regular_24_4bpp(glyphs_RobotoCondensed_Regular_24_4bpp, 7, 24, 0, 4, 0, 1, unicodes_RobotoCondensed_Regular_24_4bpp, kerning_RobotoCondensed_Regular_24_4bpp, 0, 0);
+  return RobotoCondensed_Regular_24_4bpp;
+}
+
+// RobotoCondensed_Regular_28_4bpp
+extern const touchgfx::GlyphNode glyphs_RobotoCondensed_Regular_28_4bpp[];
+extern const uint8_t unicodes_RobotoCondensed_Regular_28_4bpp[];
+extern const touchgfx::KerningNode kerning_RobotoCondensed_Regular_28_4bpp[];
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_28_4bpp();
+
+touchgfx::InternalFlashFont& getFont_RobotoCondensed_Regular_28_4bpp()
+{
+  static touchgfx::InternalFlashFont RobotoCondensed_Regular_28_4bpp(glyphs_RobotoCondensed_Regular_28_4bpp, 111, 28, 6, 4, 1, 1, unicodes_RobotoCondensed_Regular_28_4bpp, kerning_RobotoCondensed_Regular_28_4bpp, 63, 0);
+  return RobotoCondensed_Regular_28_4bpp;
+}
+
 // verdana_12_1bpp
 extern const touchgfx::GlyphNode glyphs_verdana_12_1bpp[];
 extern const uint8_t unicodes_verdana_12_1bpp[];

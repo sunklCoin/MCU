@@ -24,6 +24,10 @@ struct Typography
   static const touchgfx::FontId MENUELEMENTFONT = 13;
   static const touchgfx::FontId MENUELEMENTFONT_DEMO = 14;
   static const touchgfx::FontId LISTMENUELEFONT = 15;
+  static const touchgfx::FontId DISPLAY = 16;
+  static const touchgfx::FontId KEYBOARD = 17;
+  static const touchgfx::FontId MODE = 18;
+  static const touchgfx::FontId SLEEPDURATION = 19;
 };
 
 class ApplicationFontProvider : public touchgfx::FontProvider

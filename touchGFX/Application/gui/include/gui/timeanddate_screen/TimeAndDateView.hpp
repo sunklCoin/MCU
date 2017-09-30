@@ -17,6 +17,8 @@
 #include <gui/custom_controls_screen/Gauge.hpp>
 #include <gui/custom_controls_screen/VerticalSlideMenu.hpp>
 #include <gui/custom_controls_screen/HorizontalSlideMenu.hpp>
+#include <gui/custom_controls_screen/SleepSchedule.hpp>
+
 //class TimeAndDateView : public DemoView<TimeAndDatePresenter>
 //{
 //public:
@@ -68,6 +70,7 @@ private:
 	DatePicker datePicker;
     TimePicker timePicker;
     TimeFormatSet timeFormatStyle;
+	SleepSchedule sleepSchedule;
 	//Gauge gauge;
 
 	// Animation members

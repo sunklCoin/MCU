@@ -40,10 +40,11 @@ tickCounter(0)
 	add(menuDown);
 
 	slideMenu.setPosition(0, 41, 240, Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID).getHeight());
-	slideMenu.setup(3, 0, Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID), Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID));
+	slideMenu.setup(4, 0, Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID), Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID));
 	slideMenu.setBitmapsForElement(0, BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID, BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID);
 	slideMenu.setBitmapsForElement(1, BITMAP_CONTROL_MENU_ICON_GAUGE_SMALL_ID, BITMAP_CONTROL_MENU_ICON_GAUGE_LARGE_ID);
 	slideMenu.setBitmapsForElement(2, BITMAP_CONTROL_MENU_ICON_PERCENTAGE_SMALL_ID, BITMAP_CONTROL_MENU_ICON_PERCENTAGE_LARGE_ID);
+	slideMenu.setBitmapsForElement(3, BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID, BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID);
 	slideMenu.setAnimationDuration(8);
 	slideMenu.setElementSelectedCallback(slideMenuElementSelectedCallback);
 	add(slideMenu);
@@ -73,6 +74,10 @@ tickCounter(0)
     timePicker.setVisible(false);
     add(timePicker);
 
+	sleepSchedule.setXY(0, 133);
+	sleepSchedule.setVisible(false);
+	add(sleepSchedule);
+	
 	for (int i = 0; i < NUMBER_OF_BARS; i++)
 	{
 		barAnimationState[i] = NO_ANIMATION;
@@ -260,11 +265,11 @@ void TimeAndDateView::slideMenuElementSelectedHandler(const HorizontalSlideMenu&
 	datePicker.setVisible(selectedElement == 0);
     timePicker.setVisible(selectedElement == 1);
     timeFormatStyle.setVisible(selectedElement == 2);
-
+	sleepSchedule.setVisible(selectedElement == 3);
 	datePicker.invalidate();
     timePicker.invalidate();
     timeFormatStyle.invalidate();
-
+	sleepSchedule.invalidate();
 
 	currentAnimationState = NO_ANIMATION;
 
