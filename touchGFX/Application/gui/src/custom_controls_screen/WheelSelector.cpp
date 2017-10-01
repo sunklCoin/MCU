@@ -70,7 +70,7 @@ void WheelSelector::setup(int width, int height, int textXPosition, int textYPos
     textSelectedContainer.setPosition(textContainer.getX(), textContainer.getY(), textContainer.getWidth(), 0);
     add(textSelectedContainer);
 
-    textSelectedBackground.setPosition(6, 0, textSelectedContainer.getWidth(), 0);
+    textSelectedBackground.setPosition(3, 0, textSelectedContainer.getWidth(), 0);
     textSelectedContainer.add(textSelectedBackground);
 
     textSelected.setTypedText(text.getTypedText());
@@ -86,6 +86,7 @@ void WheelSelector::setup(int width, int height, int textXPosition, int textYPos
 
     reset();
 }
+
 
 void WheelSelector::setTextColor(colortype normalColor, colortype selectedColor, colortype selectedBackgroundColor, int selectedYOffset, int selectedHeight)
 {

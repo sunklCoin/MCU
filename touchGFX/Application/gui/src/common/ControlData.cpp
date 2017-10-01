@@ -2,15 +2,20 @@
 
 bool glb_BtState = false;
 bool glb_Wifistate = false;
-int  glb_wifiSignal = 0;
+int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
-int glb_BatteryLevel = 0;
-
+int glb_BatteryLevel = 33;
+int glb_currBacklight = 0;
+int glb_currSleepSchedule = 1;
 
 
 ControlData::ControlData()
 {
-
+#ifndef SIMULATOR
+    glb_currBacklight = Backlight_Get();
+#else
+    glb_currBacklight = 100;
+#endif
 }
 
 bool ControlData::isBTEnable()
@@ -63,4 +68,31 @@ void ControlData::setBatteryLevel(int level)
 int ControlData::getBatteryLevel()
 {
     return glb_BatteryLevel;
+}
+
+int ControlData::getBackLightLevel()
+{
+    return glb_currBacklight;
+}
+
+
+void ControlData::setBackLightLevel(int value)
+{
+    glb_currBacklight = value;
+#ifndef SIMULATOR
+    Backlight_Adjust(value);
+#endif
+}
+
+void ControlData::setSleepSchedule(int value)
+{
+    glb_currSleepSchedule = value;
+#ifndef SIMULATOR
+    Backlight_Adjust(value);
+#endif
+}
+
+int ControlData::getSleepSchedule()
+{
+    return glb_currSleepSchedule;
 }

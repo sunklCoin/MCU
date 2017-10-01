@@ -23,7 +23,8 @@
 #include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
 #include <gui/wificontrol_screen/WifiControlView.hpp>
 #include <gui/wificontrol_screen/WifiControlPresenter.hpp>
-
+#include <gui/setting_screen/SettingView.hpp>
+#include <gui/setting_screen/SettingPresenter.hpp>
 
 /**
  * This class provides the memory that shall be used for memory allocations
@@ -51,7 +52,8 @@ public:
             meta::TypeList< BTControlView,
             meta::TypeList< ScreenSaverClockView,
             meta::TypeList< WifiControlView,
-            meta::Nil > > > > >
+            meta::TypeList< SettingView,
+            meta::Nil > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -69,7 +71,8 @@ public:
             meta::TypeList< BTControlPresenter,
             meta::TypeList< ScreenSaverClockPresenter,
             meta::TypeList< WifiControlPresenter,
-            meta::Nil > > > > >
+            meta::TypeList< SettingPresenter,
+            meta::Nil > > > > > >
             > GeneratedPresenterTypes;
 
     /**

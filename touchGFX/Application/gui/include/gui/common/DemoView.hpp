@@ -82,13 +82,11 @@ public:
 		mStatusBar.setXY(HAL::DISPLAY_WIDTH - mStatusBar.getWidth(), 0);
     }
 
-    DemoView(BitmapId id)
+    void setDemoVieBackground(BitmapId id)
     {
-        DemoView();
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 0
-        MainBg.setXY(0, 0);
         MainBg.setBitmap(Bitmap(id));
-		View<T>::add(MainBg);
+        MainBg.invalidate();
 #endif
     }
 

@@ -1,39 +1,6 @@
-/******************************************************************************
-*
-* @brief     This file is part of the Sprinklers Demo distribution.
-*
-* @author    Embedded Partners <http://www.embeddedpartners.co.il> in
-*            cooperation with Draupner Graphics A/S <http://www.touchgfx.com>
-*
-******************************************************************************
-*
-* @section Copyright
-*
-* This file is free software and is provided for example purposes. You may
-* use, copy, and modify within the terms and conditions of the license
-* agreement.
-*
-* This is licensed software, any use must strictly comply with the signed
-* license agreement and associated Terms & Conditions.
-*
-* Standard Terms & Conditions can be seen on www.touchgfx.com
-*
-* @section Disclaimer
-*
-* DISCLAIMER OF WARRANTY/LIMITATION OF REMEDIES: Draupner Graphics A/S has
-* no obligation to support this software. Draupner Graphics A/S is providing
-* the software "AS IS", with no express or implied warranties of any kind,
-* including, but not limited to, any implied warranties of merchantability
-* or fitness for any particular purpose or warranties against infringement
-* of any proprietary rights of a third party.
-*
-* Draupner Graphics A/S can not be held liable for any consequential,
-* incidental, or special damages, or any other relief, or for any claim by
-* any third party, arising from your use of this software.
-*
-*****************************************************************************/
-#ifndef _TIMEPICKER_HPP_
-#define _TIMEPICKER_HPP_
+
+#ifndef _SLEEPSCHEDULE_HPP_
+#define _SLEEPSCHEDULE_HPP_
 
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/Button.hpp>
@@ -44,7 +11,10 @@
 #include <touchgfx/widgets/RadioButtonGroup.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <gui/custom_controls_screen/WheelSelector.hpp>
-
+#include <touchgfx/widgets/ScalableImage.hpp>
+#include <touchgfx/widgets/TextArea.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <gui/common/FrontendApplication.hpp>
 using namespace touchgfx;
 // Global color definitions
 #define TEXT_BLACK_ON_WHITE_R  (0x29)
@@ -84,39 +54,27 @@ protected:
 
 	static const uint16_t WHEELS_TOP_Y = 0;
 
-	Image background;
-	TextArea textTimeTitle;
+	//Image background;
+    ScalableImage background;
 	TextArea textDurationTitle;
+    TextArea scheduleText;
+    //TextAreaWithOneWildcard scheduleText;
+    //Unicode::UnicodeChar scheduleTextBuffer[5];
 
-	Image imageGradiantBGHour;
-	Image imageGradiantBGMinute;
 	Image imageGradiantBGDuration;
-	Image imageShadowTopHour;
-	Image imageShadowTopMinute;
 	Image imageShadowTopDuration;
-	Image imageShadowBottomHour;
-	Image imageShadowBottomMinute;
 	Image imageShadowBottomDuration;
-	RadioButton			radioButton[2];
-	RadioButtonGroup<2> radioButtonGroup;
-	TextArea textAM;
-	TextArea textPM;
-	Image glassOverlayHour;
-	Image glassOverlayMinute;
 	Image glassOverlayDuration;
-	TextArea textMinutes;
-
-	WheelSelector wheelHoures;
-	WheelSelector wheelMinutes;
 	WheelSelector wheelDuration;
 
 	Button buttonOK;
-	TouchArea touchClose;
 
 	Callback<SleepSchedule, const AbstractButton&> buttonClickedCallback;
 	void buttonClicked(const AbstractButton& source);
 
 	void SetDefaultTimes();
 
+    Callback<SleepSchedule, const WheelSelector&, const int&> onSelectedElementChanged;
+    void selectedElementChangedHandler(const WheelSelector& wheel, const int& index);
 };
-#endif //_TIMEPICKER_HPP_
+#endif //_SLEEPSCHEDULE_HPP_

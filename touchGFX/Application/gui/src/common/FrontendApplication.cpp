@@ -17,6 +17,8 @@
 #include <touchgfx/transitions/SlideTransition.hpp>
 #include <gui/screensaverclock_screen/ScreenSaverClockView.hpp>
 #include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
+#include <gui/setting_screen/SettingView.hpp>
+#include <gui/setting_screen/SettingPresenter.hpp>
 using namespace touchgfx;
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
@@ -39,7 +41,7 @@ void FrontendApplication::handleTickEvent()
     tickCounter++;
     if ((tickCounter % 100 == 0) && (tickCounter > 10000))
     {
-        if ((model.getCurrentTime() - lastClickTimeUtils) >= SCREEN_SAVER_TIMEOUT)
+        if ((model.getCurrentTime() - lastClickTimeUtils) >= sleepScheduleArr[mControlData.getSleepSchedule()] * 1000)
         {
             gotoScreenSaverClockTransition();
             lastClickTimeUtils = model.getCurrentTime();
@@ -61,6 +63,10 @@ void FrontendApplication::resetScreenSaver()
     lastClickTimeUtils = model.getCurrentTime();
 }
 
+ControlData FrontendApplication::getControlData()
+{
+    return mControlData;
+}
 
 void FrontendApplication::gotoCustomControlsScreen()
 {
@@ -129,4 +135,15 @@ void FrontendApplication::gotoWifiControlScreen()
 void FrontendApplication::gotoWifiControlScreenImpl()
 {
     makeTransition<WifiControlView, WifiControlPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplication::gotoSettingScreen()
+{
+    transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoSettingScreenImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+}
+
+void FrontendApplication::gotoSettingScreenImpl()
+{
+    makeTransition<SettingView, SettingPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

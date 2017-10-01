@@ -45,6 +45,7 @@
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <gui/common/TimeUtils.hpp>
+#include <touchgfx/widgets/TiledImage.hpp>
 using namespace touchgfx;
 
 /**
@@ -69,7 +70,8 @@ virtual ~TimeFormatSet();
 protected:
     ///static const int START_YEAR = 2012;
 
-    Image background;
+    /*Image background;*/
+    TiledImage background;
     TextArea timeFormat;
     TextAreaWithOneWildcard timeFomatExample;
     TextArea clockStyleText;

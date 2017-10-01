@@ -1,37 +1,4 @@
-/******************************************************************************
-*
-* @brief     This file is part of the Sprinklers Demo distribution.
-*
-* @author    Embedded Partners <http://www.embeddedpartners.co.il> in
-*            cooperation with Draupner Graphics A/S <http://www.touchgfx.com>
-*
-******************************************************************************
-*
-* @section Copyright
-*
-* This file is free software and is provided for example purposes. You may
-* use, copy, and modify within the terms and conditions of the license
-* agreement.
-*
-* This is licensed software, any use must strictly comply with the signed
-* license agreement and associated Terms & Conditions.
-*
-* Standard Terms & Conditions can be seen on www.touchgfx.com
-*
-* @section Disclaimer
-*
-* DISCLAIMER OF WARRANTY/LIMITATION OF REMEDIES: Draupner Graphics A/S has
-* no obligation to support this software. Draupner Graphics A/S is providing
-* the software "AS IS", with no express or implied warranties of any kind,
-* including, but not limited to, any implied warranties of merchantability
-* or fitness for any particular purpose or warranties against infringement
-* of any proprietary rights of a third party.
-*
-* Draupner Graphics A/S can not be held liable for any consequential,
-* incidental, or special damages, or any other relief, or for any claim by
-* any third party, arising from your use of this software.
-*
-*****************************************************************************/
+
 #include <gui/custom_controls_screen/SleepSchedule.hpp>
 #include <BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
@@ -39,16 +6,22 @@
 #include <stddef.h>
 
 SleepSchedule::SleepSchedule() :
+onSelectedElementChanged(this, &SleepSchedule::selectedElementChangedHandler),
 buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 {
 
 	//setBackground(BITMAP_SET_TIME_BACKGROUND_ID);
-	background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
+	/*background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
 	background.setXY(0, 0);
-	add(background);
+	add(background);*/
+
+    background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
+    background.setPosition(0, 0, 240, 105);
+    background.setScalingAlgorithm(ScalableImage::NEAREST_NEIGHBOR);
+    add(background);
 
 	imageGradiantBGDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_WHEEL_GRADIENT_ID));
-	imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth())/2, WHEELS_TOP_Y);
+    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 3, background.getHeight() - imageGradiantBGDuration.getHeight());
 	add(imageGradiantBGDuration);
 
 	add(wheelDuration);
@@ -69,28 +42,41 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 	uint16_t selectedBackgroundColor = Color::getColorFrom24BitRGB(246, 246, 246);
 
 	wheelDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY());
-	wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 15, imageGradiantBGDuration.getY(), T_TIME_PICKER_DURATION);
-	wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getY() - imageGradiantBGDuration.getY(), glassOverlayDuration.getHeight());
+	wheelDuration.setup(imageGradiantBGDuration.getWidth() - 2, imageGradiantBGDuration.getHeight() - 5, 5, 42/*imageGradiantBGDuration.getY()*/, T_TIME_PICKER_DURATION);
+	wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getY() - imageGradiantBGDuration.getY() + 2, glassOverlayDuration.getHeight() - 5);
+    wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
+
+    textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
+    textDurationTitle.setXY(background.getX() + 5, glassOverlayDuration.getY() - (glassOverlayDuration.getHeight() - textDurationTitle.getHeight()/2));
+    textDurationTitle.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
+    add(textDurationTitle);
+
+    //Unicode::snprintf(scheduleTextBuffer, 5, "%d", 1);
+    //scheduleText.setWildcard(scheduleTextBuffer);
+    scheduleText.setTypedText(TypedText(T_SLEEPWHEEL_READOUT));
+    scheduleText.setPosition(imageGradiantBGDuration.getX() + imageGradiantBGDuration.getWidth(), glassOverlayDuration.getY() + 5, 100, 20);
+    scheduleText.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));// (0xFF, 0xFF, 0xFF)
+    add(scheduleText);
 
 	SetDefaultTimes();
 	setWidth(background.getWidth());
-	setHeight(105);
+    setHeight(background.getHeight());
 }
 
 
 void SleepSchedule::buttonClicked(const AbstractButton& source) {
-	if (&source == &touchClose) {
-
-	}
-	else if (&source == &buttonOK) {
+    if (&source == &buttonOK) {
 		SetDefaultTimes();
 	}
 }
 
 
 void SleepSchedule::SetDefaultTimes() {
-	wheelHoures.setSelectedIndex(5, 10);
-	wheelMinutes.setSelectedIndex(30, 10);
-	wheelDuration.setSelectedIndex(1, 10);
-	radioButtonGroup.setSelected(radioButton[0]);
+    int index = static_cast<FrontendApplication*>(Application::getInstance())->getControlData().getSleepSchedule();
+    wheelDuration.setSelectedIndex(index, 20);
+}
+
+void SleepSchedule::selectedElementChangedHandler(const WheelSelector& wheel, const int& index)
+{
+    static_cast<FrontendApplication*>(Application::getInstance())->getControlData().setSleepSchedule(index);
 }

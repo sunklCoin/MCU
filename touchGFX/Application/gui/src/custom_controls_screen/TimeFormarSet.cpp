@@ -40,8 +40,9 @@
 TimeFormatSet::TimeFormatSet():
 buttonCallback(this,&TimeFormatSet::buttonCallbackHandler)
 {
-    background.setBitmap(Bitmap(BITMAP_CONTROLS_BACKGROUND_ID));
-    background.setXY(0, 0);
+    background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID)); // timeStyle_main_background
+    background.setPosition(0, 0, 240, 120);
+    background.setOffset(0, 0);
     add(background);
 
     setWidth(background.getWidth());
@@ -54,28 +55,28 @@ buttonCallback(this,&TimeFormatSet::buttonCallbackHandler)
     timeFomatExample.setWildcard(timepickerSelectShowBuffer);
     timeFomatExample.setTypedText(TypedText(T_TIMEFOMATEXAMPLE));
     //timeFomatExample.setXY(6, 65);
-    timeFomatExample.setPosition(6, 65, 90, 20);
+    timeFomatExample.setPosition(6, 27, 90, 20);
     timeFomatExample.setColor(touchgfx::Color::getColorFrom24BitRGB(208, 208, 208));
     add(timeFomatExample);
 
-    timeFormat.setXY(6, 45);
+    timeFormat.setXY(6, 7);
     timeFormat.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     timeFormat.setLinespacing(0);
     timeFormat.setTypedText(TypedText(T_TIMEFORMAT));
     add(timeFormat);
 
-    clockStyleText.setXY(9, 115);
+    clockStyleText.setXY(9, 77);
     clockStyleText.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     clockStyleText.setLinespacing(0);
     clockStyleText.setTypedText(TypedText(T_CLOCKSTYLETEXT));
     add(clockStyleText);
 
-    timeFormattoggleBtn.setPosition(192, 45, 43, 30);
+    timeFormattoggleBtn.setPosition(192, 7, 43, 30);
     timeFormattoggleBtn.setBitmaps(Bitmap(BITMAP_ON_43X30_ID), Bitmap(BITMAP_OFF_43X30_ID));
     timeFormattoggleBtn.setAction(buttonCallback);
     add(timeFormattoggleBtn);
 
-    clockStyletoggleBtn.setPosition(192, 115, 43, 30);
+    clockStyletoggleBtn.setPosition(192, 77, 43, 30);
     clockStyletoggleBtn.setBitmaps(Bitmap(BITMAP_ON_43X30_ID), Bitmap(BITMAP_OFF_43X30_ID));
     clockStyletoggleBtn.setAction(buttonCallback);
     add(clockStyletoggleBtn);

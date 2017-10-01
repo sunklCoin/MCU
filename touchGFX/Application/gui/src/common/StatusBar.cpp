@@ -74,10 +74,28 @@ animation(BITMAP_BATTRY00_ID, BITMAP_BATTRY04_ID, 10)
     StatusBluetooth.setVisible(mControlData.isBTEnable());
 	add(StatusBluetooth);
 
+
+    gaugeImg.setBitmap(Bitmap(BITMAP_TANK_CONTENT_ID));
+    gaugeContainer.setWidth(gaugeImg.getWidth());
+    gaugeContainer.setHeight(gaugeImg.getHeight());
+    //Set reference point: adjust gauge relative to background container (100% filled)
+    gaugeContainer.setXY(101, 13);
+    gaugeContainer.add(gaugeImg);
+    gaugeImg.moveTo(-(gaugeContainer.getWidth()*(100-mControlData.getBatteryLevel())/100),0);
+    gaugeContainer.setVisible(mControlData.isCharging() == false);
+    add(gaugeContainer);
+
+
     StatusBattery.setXY(100, 12);
-    StatusBattery.setBitmap(Bitmap(Bitmap(BITMAP_BATTRY00_ID + (mControlData.getBatteryLevel() / 25))));
+    if (mControlData.getBatteryLevel() <= 2){
+        StatusBattery.setBitmap(Bitmap(BITMAP_BATTRYLOW_ID));
+    }
+    else{
+        StatusBattery.setBitmap(Bitmap(BITMAP_BATTRY00_ID));
+    }
     StatusBattery.setVisible(mControlData.isCharging() == false);
     add(StatusBattery);
+
     if (StatusBattery.isVisible()){
         if (isAnimationRunning()){
             stopAnimation();
@@ -111,8 +129,16 @@ void StatusBar::updateStatusBar(UpdateType updateType)
     }
 
     if (updateType == utAll || updateType == utBattery) {
-        StatusBattery.setBitmap(Bitmap(BITMAP_BATTRY00_ID + (mControlData.getBatteryLevel()/25)));
+        if (mControlData.getBatteryLevel() <= 2){
+            StatusBattery.setBitmap(Bitmap(BITMAP_BATTRYLOW_ID ));
+        }
+        else{
+            gaugeImg.moveTo(-(gaugeContainer.getWidth()*(100 - mControlData.getBatteryLevel()) / 100), 0);
+        }
+
         StatusBattery.setVisible(mControlData.isCharging() == false);
+        gaugeContainer.setVisible(mControlData.isCharging() == false);
+        gaugeContainer.invalidate();
         StatusBattery.invalidate();
 
         if (mControlData.isCharging() == true){
@@ -174,7 +200,7 @@ void StatusBar::hide()
 void StatusBar::handleTickEvent()
 {
 
-	uint8_t duration = 7;
+	uint8_t duration = 12;
 
 	if (animationCounter > duration)
 	{
@@ -196,10 +222,13 @@ void StatusBar::handleTickEvent()
         StatusBluetooth.setXY(55, background.getY() + 4);
         StatusBluetooth.invalidate();
 
+        gaugeContainer.setXY(101, background.getY() + 13);
+        gaugeContainer.invalidate();
+
         StatusBattery.setXY(100, background.getY() + 12);
         StatusBattery.invalidate();
 
-        animation.setXY(100, background.getY() + 4);
+        animation.setXY(100, background.getY() + 12);
         animation.invalidate();
 		animationCounter++;
 	}

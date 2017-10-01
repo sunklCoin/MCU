@@ -32,6 +32,8 @@ public:
     void gotoClockScreenNoTransition();
     void gotoScreenSaverClockTransition();
     void gotoWifiControlScreen();
+    void gotoSettingScreen();
+    ControlData getControlData();
 private:
 	touchgfx::Callback<FrontendApplication> transitionCallback;
     static const int SCREEN_SAVER_TIMEOUT = 180000; // Milliseconds
@@ -41,9 +43,11 @@ private:
     void gotoClockScreenNoTransitionImpl();
     void gotoScreenSaverClockTransitionImpl();
     void gotoWifiControlScreenImpl();
+    void gotoSettingScreenImpl();
     int tickCounter;
     Time lastClickTime;
     TimeUtils lastClickTimeUtils;
+    ControlData mControlData;
 };
 
 #endif // FRONTENDAPPLICATION_HPP
