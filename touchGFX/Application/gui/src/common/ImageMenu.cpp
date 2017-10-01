@@ -218,7 +218,7 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
             menuItems[selectedIndex].selectedImage.invalidate();
 #endif
             scrollablemenuItemContainer.setTouchable(false);
-            backButton.setTouchable(false);
+            //backButton.setTouchable(false);
             setState(ANIMATE_TO_SINGLE_ELEMENT);
 
 			if (menuItemSelectedCallback)
@@ -231,12 +231,12 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
 
 void ImageMenu::descriptionFieldPressedhandler(const AbstractButton& button)
 {
-    if (&button == &backButton)
-    {
-        backButton.setTouchable(false);
-        setState(ANIMATE_TO_ALL_ELEMENTS);
-    }
-    else if (&button == &descriptionFieldSelectButton)
+    //if (&button == &backButton)
+    //{
+    //    //backButton.setTouchable(false);
+    //    setState(ANIMATE_TO_ALL_ELEMENTS);
+    //}
+    //else if (&button == &descriptionFieldSelectButton)
     {
         if (menuItemSelectedCallback)
         {
@@ -275,7 +275,7 @@ void ImageMenu::animateToSingleElement()
     {
         // First step: Move the selected item to the left part of the screen
         menuItemContainer.moveTo(horizontalScrollStartingPosition - EasingEquations::quadEaseInOut(animationCounter, 0, horizontalScrollAdjustmentTotalDistance, horizontalSlideDuration), menuItemContainer.getY());
-        backButton.moveTo(backButton.getWidth() - EasingEquations::quadEaseOut(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
+        //backButton.moveTo(backButton.getWidth() - EasingEquations::quadEaseOut(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
         scrollablemenuItemContainer.invalidate();
     }
     else if (animationCounter <= horizontalSlideDuration + descriptionFieldSlideDuration)
@@ -288,7 +288,7 @@ void ImageMenu::animateToSingleElement()
     {
         // Final step: stop the animation
         scrollablemenuItemContainer.setTouchable(false);
-        backButton.setTouchable(true);
+        //backButton.setTouchable(true);
         setState(SINGLE_ELEMENT_SHOWING);
         animationCounter = 0;
     }
@@ -318,7 +318,7 @@ void ImageMenu::animateToAllElements()
     {
         // Second step: move list back to the position before the animation to single element
         menuItemContainer.moveTo(horizontalScrollStartingPosition - horizontalScrollAdjustmentTotalDistance + EasingEquations::quadEaseInOut(animationCounter - descriptionFieldSlideDuration, 0, horizontalScrollAdjustmentTotalDistance, horizontalSlideDuration), menuItemContainer.getY());
-        backButton.moveTo(- EasingEquations::quadEaseIn(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
+        //backButton.moveTo(- EasingEquations::quadEaseIn(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
         scrollablemenuItemContainer.invalidate();
     }
     else
@@ -332,7 +332,7 @@ void ImageMenu::animateToAllElements()
         menuItems[selectedIndex].selectedImage.invalidate();
 
         scrollablemenuItemContainer.setTouchable(true);
-        backButton.setTouchable(false);
+        //backButton.setTouchable(false);
         viewPortDescriptionField.setVisible(false);
         setState(ALL_ELEMENTS_SHOWING);
         animationCounter = 0;
@@ -341,3 +341,41 @@ void ImageMenu::animateToAllElements()
 
 }
 
+//Handles when a key is pressed
+uint8_t current_select_for_key = 0;
+void ImageMenu::dispachKeyEvent(uint8_t key)
+{
+	uint8_t i = 0;
+	//int centerY = scrollablemenuItemContainer.getY() + ((scrollablemenuItemContainer.getHeight() - elementHeight)/2);
+	/*for (i = 0; i < elementsInList; ++i){
+		if (menuItems[elementsInList].button.getY() >= centerY)
+		{
+			break;
+		}
+	}*/
+	menuItems[current_select_for_key].selectedImage.setVisible(false);
+	menuItems[current_select_for_key].selectedImage.invalidate();
+	if (1 == key)
+	{
+		//static_cast<FrontendApplication*>(Application::getInstance())->gotoBtControlScreen();
+		//DragEvent evt = DragEvent(DragEvent::DRAGGED,0,0,0,50);
+		if (current_select_for_key < elementsInList){
+			current_select_for_key++;
+		}
+		else{
+			current_select_for_key = elementsInList;
+		}
+		scrollablemenuItemContainer.doScroll(0, elementHeight);
+
+	}else if (2 == key){
+		if (current_select_for_key > 0){
+			current_select_for_key--;
+		}
+		else{
+			current_select_for_key = 0;
+		}
+		scrollablemenuItemContainer.doScroll(0, -elementHeight);
+	}
+	menuItems[current_select_for_key].selectedImage.setVisible(true);
+	menuItems[current_select_for_key].selectedImage.invalidate();
+}
