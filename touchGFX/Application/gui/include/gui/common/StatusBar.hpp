@@ -41,7 +41,7 @@
 #include <touchgfx/containers/Container.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
 #include <gui/common/ControlData.hpp>
-
+#include <touchgfx/mixins/MoveAnimator.hpp>
 using namespace touchgfx;
 
 typedef enum {
@@ -99,6 +99,8 @@ protected:
 	Image StatusWifi;
 	Image StatusBluetooth;
 	Image StatusBattery;
+    Image gaugeImg;
+    Container gaugeContainer;
 	static const uint16_t STATUSTIME_SIZE = 11;
 	Unicode::UnicodeChar StatusTimeBuffer[STATUSTIME_SIZE];
 private:

@@ -8,8 +8,6 @@
 TimeAndDateView::TimeAndDateView() :
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
 DemoView(),
-#else
-DemoView(BITMAP_CONTROLS_BACKGROUND_ID),
 #endif
 onButtonPressed(this, &TimeAndDateView::buttonPressedHandler),
 slideMenuElementSelectedCallback(this, &TimeAndDateView::slideMenuElementSelectedHandler),
@@ -20,7 +18,7 @@ tickCounter(0)
 	//background.setBitmap(Bitmap(BITMAP_CONTROLS_BACKGROUND_ID));
 	//background.setXY(0, 41);
 	//add(background);
-
+    setDemoVieBackground(BITMAP_CONTROLS_BACKGROUND_ID);
 	menuBackground.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
     menuBackground.setXY(0, 41);
 	add(menuBackground);
@@ -40,11 +38,10 @@ tickCounter(0)
 	add(menuDown);
 
 	slideMenu.setPosition(0, 41, 240, Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID).getHeight());
-	slideMenu.setup(4, 0, Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID), Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID));
+	slideMenu.setup(3, 0, Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID), Bitmap(BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID));
 	slideMenu.setBitmapsForElement(0, BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID, BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID);
 	slideMenu.setBitmapsForElement(1, BITMAP_CONTROL_MENU_ICON_GAUGE_SMALL_ID, BITMAP_CONTROL_MENU_ICON_GAUGE_LARGE_ID);
 	slideMenu.setBitmapsForElement(2, BITMAP_CONTROL_MENU_ICON_PERCENTAGE_SMALL_ID, BITMAP_CONTROL_MENU_ICON_PERCENTAGE_LARGE_ID);
-	slideMenu.setBitmapsForElement(3, BITMAP_CONTROL_MENU_ICON_DATEPICKER_SMALL_ID, BITMAP_CONTROL_MENU_ICON_DATEPICKER_LARGE_ID);
 	slideMenu.setAnimationDuration(8);
 	slideMenu.setElementSelectedCallback(slideMenuElementSelectedCallback);
 	add(slideMenu);
@@ -62,7 +59,7 @@ tickCounter(0)
     gotoMenuButton.setAction(onButtonPressed);
 	add(gotoMenuButton);
 
-    timeFormatStyle.setXY(0, 100);
+    timeFormatStyle.setXY(0, 133);
     timeFormatStyle.setVisible(false);
     add(timeFormatStyle);
 
@@ -74,10 +71,6 @@ tickCounter(0)
     timePicker.setVisible(false);
     add(timePicker);
 
-	sleepSchedule.setXY(0, 133);
-	sleepSchedule.setVisible(false);
-	add(sleepSchedule);
-	
 	for (int i = 0; i < NUMBER_OF_BARS; i++)
 	{
 		barAnimationState[i] = NO_ANIMATION;
@@ -104,58 +97,6 @@ void TimeAndDateView::tearDownScreen()
 void TimeAndDateView::handleTickEvent()
 {
 	tickCounter++;
-
-	/*if (getAnimationState() == ANIMATION_THREE_WAY_RUNNING)
-	{
-		for (int i = 0; i < NUMBER_OF_BARS; i++)
-		{
-			if (animationCounter < animationDuration[i])
-			{
-				int percentage = animationEquation[i](animationCounter, 0, 103, animationDuration[i]);
-
-				threeWayProgressBar.setBarPercentage(i, percentage);
-			}
-			else
-			{
-				barAnimationState[i] = NO_ANIMATION;
-			}
-
-			if (getAnimationState() != ANIMATION_THREE_WAY_RUNNING)
-			{
-				stopThreeWayProgressBarAnimation();
-			}
-		}
-		animationCounter++;
-	}
-	else if (getAnimationState() == ANIMATION_GAUGE)
-	{
-		if (tickCounter % 60 == 0)
-		{
-			if (gauge.getValue() > 50)
-			{
-				gauge.setEasingEquation(EasingEquations::backEaseOut);
-				gauge.setAnimationDuration(20);
-				gauge.setValue(0);
-			}
-			else
-			{
-				int value = gauge.getValue();
-				int newValue = value + Utils::randomNumberBetween(-6, 18);
-				if (newValue < value)
-				{
-					gauge.setEasingEquation(EasingEquations::backEaseOut);
-					gauge.setAnimationDuration((newValue - value) * 2);
-				}
-				else
-				{
-					gauge.setEasingEquation(EasingEquations::quadEaseOut);
-					gauge.setAnimationDuration(newValue - value);
-				}
-				gauge.setValue(newValue);
-			}
-		}
-
-	}*/
 }
 
 void TimeAndDateView::startThreeWayProgressBarAnimation()
@@ -265,11 +206,11 @@ void TimeAndDateView::slideMenuElementSelectedHandler(const HorizontalSlideMenu&
 	datePicker.setVisible(selectedElement == 0);
     timePicker.setVisible(selectedElement == 1);
     timeFormatStyle.setVisible(selectedElement == 2);
-	sleepSchedule.setVisible(selectedElement == 3);
+
 	datePicker.invalidate();
     timePicker.invalidate();
     timeFormatStyle.invalidate();
-	sleepSchedule.invalidate();
+
 
 	currentAnimationState = NO_ANIMATION;
 

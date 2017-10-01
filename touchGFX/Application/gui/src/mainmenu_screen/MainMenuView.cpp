@@ -58,9 +58,8 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 		break;
 	case DEMO_MENU_SETTING_SCREEN_ID:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 0
-        static_cast<FrontendApplication*>(Application::getInstance())->gotoScreenSaverClockTransition();
+        static_cast<FrontendApplication*>(Application::getInstance())->gotoSettingScreen();
 #endif
-        //static_cast<FrontendApplication*>(Application::getInstance())->gotoClockScreenNoTransition();
 		break;
 	case DEMO_MENU_TIME_SCREEN_ID:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 0
@@ -70,4 +69,19 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 	default:
 		break;
 	}
+}
+
+//Handles when a key is pressed
+void MainMenuView::handleKeyEvent(uint8_t key)
+{
+#ifdef SIMULATOR
+    key = key - '0';
+#endif
+    if(1 == key)
+    {
+        //Interaction1
+        //When hardware button 1 clicked change color of BackgroundBox
+        //Set RGB color R:230, G:8, B:8 on BackgroundBox
+		static_cast<FrontendApplication*>(Application::getInstance())->gotoBtControlScreen();
+    }
 }

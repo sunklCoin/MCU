@@ -9,6 +9,15 @@ enum eBatteryState {
     BATTERY_CHARGING = 1
 };
 
+const int sleepScheduleArr[] = {15,30,60,120,300,600,1800};
+
+extern "C"{
+#ifndef SIMULATOR
+    extern void Backlight_Adjust(uint8_t brightness);
+    extern uint8_t Backlight_Get(void);
+#endif
+}
+
 class ControlData {
 public:
     ControlData();
@@ -22,6 +31,10 @@ public:
     void setBatteryState(eBatteryState state);
     void setBatteryLevel(int);
     int getBatteryLevel();
+    int getBackLightLevel();
+    void setBackLightLevel(int);
+    void setSleepSchedule(int);
+    int getSleepSchedule();
 private:
 
 };

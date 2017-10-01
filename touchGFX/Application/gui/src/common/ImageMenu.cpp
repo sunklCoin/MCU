@@ -42,7 +42,6 @@
 ImageMenu::ImageMenu(uint16_t imageMenuWidth, uint16_t imageMenuHeight, uint16_t elementHeight_, BitmapId backButtonImage, BitmapId backButtonPressedImage, BitmapId backgroundItemsImage) :
 currentState(ALL_ELEMENTS_SHOWING),
 animationCounter(0),
-//elementWidth(elementHeight_),
 elementHeight(elementHeight_),
     elementsInList(0),
     selectedIndex(0),
@@ -50,14 +49,6 @@ elementHeight(elementHeight_),
     onDescriptionFieldPressed(this, &ImageMenu::descriptionFieldPressedhandler)
 {
     Application::getInstance()->registerTimerWidget(this);
-
-    //logo.setBitmap(Bitmap(logoImage));
-    //logo.setXY(0, 0);
-    //logo.setTouchable(true);
-
-    /*backButton.setBitmaps(Bitmap(backButtonImage), Bitmap(backButtonPressedImage));
-    backButton.setXY(-backButton.getWidth(), 0);
-    backButton.setAction(onDescriptionFieldPressed);*/
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
 #if USE_BPP==1
 	myColorPainter.setColor(1);
@@ -73,11 +64,7 @@ elementHeight(elementHeight_),
     scrollablemenuItemContainer.setScrollThreshold(10);
 
     menuItemContainer.setPosition(0, 0, 0, 0);
-    //menuItemContainer.setHeight(imageMenuHeight);
 	menuItemContainer.setWidth(imageMenuWidth);
-
-    //backgroundItems.setBitmap(Bitmap(backgroundItemsImage));
-
 
     uint16_t descriptionFieldX = logo.getWidth() + elementWidth;
 
@@ -110,8 +97,6 @@ elementHeight(elementHeight_),
     descriptionField.add(descriptionFieldHeadline);
     descriptionField.add(descriptionFieldText);
 
-    //add(logo);
-    //add(backButton);
     add(scrollablemenuItemContainer);
     add(viewPortDescriptionField);
 
@@ -219,7 +204,7 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
             horizontalScrollStartingPosition = menuItemContainer.getX();
 
             descriptionFieldSelectButton.setVisible(menuItems[i].showDemoButton);
-            descriptionField.setXY(-descriptionFieldBackground.getWidth(), 0);
+            descriptionField.setXY(descriptionFieldBackground.getWidth(), 0);
             descriptionFieldHeadline.setTypedText(TypedText(menuItems[i].headline));
             descriptionFieldText.setTypedText(TypedText(menuItems[i].text));
             viewPortDescriptionField.setVisible(true);
@@ -290,14 +275,14 @@ void ImageMenu::animateToSingleElement()
     {
         // First step: Move the selected item to the left part of the screen
         menuItemContainer.moveTo(horizontalScrollStartingPosition - EasingEquations::quadEaseInOut(animationCounter, 0, horizontalScrollAdjustmentTotalDistance, horizontalSlideDuration), menuItemContainer.getY());
-        backButton.moveTo(-backButton.getWidth() + EasingEquations::quadEaseOut(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
+        backButton.moveTo(backButton.getWidth() - EasingEquations::quadEaseOut(animationCounter, 0, backButton.getWidth(), horizontalSlideDuration), 0);
         scrollablemenuItemContainer.invalidate();
     }
     else if (animationCounter <= horizontalSlideDuration + descriptionFieldSlideDuration)
     {
         // Second step: Show the description field
         int16_t delta = EasingEquations::quadEaseOut(animationCounter - horizontalSlideDuration, 0, descriptionFieldBackground.getWidth(), descriptionFieldSlideDuration);
-        descriptionField.moveTo(-descriptionFieldBackground.getWidth() + delta, 0);
+        descriptionField.moveTo(descriptionFieldBackground.getWidth() - delta, 0);
     }
     else
     {

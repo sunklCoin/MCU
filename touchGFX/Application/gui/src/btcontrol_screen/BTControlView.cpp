@@ -63,9 +63,10 @@ numberOfListElements(0)
     animation.setVisible(false);
     add(animation);
 
-    keyboard.setPosition(0, 320 - 186, 240, 186);
-    keyboard.setVisible(false);
-    add(keyboard);
+    //InputPassword.setPosition(0, 320 - 186, 240, 186);
+    //InputPassword.setVisible(false);
+    add(InputPassword);
+    InputPassword.hide();
     // Position and set the size of the scrollable container.
     // The width is the area is the list element width plus some extra
     // for space between element and scrollbar
@@ -127,8 +128,8 @@ void BTControlView::listElementClicked(CustomListElement& element)
     // so it is removed from the list
     //list.remove(element);
     //scrollCnt.invalidate();
-    keyboard.setVisible(true);
-    keyboard.invalidate();
+    InputPassword.show();
+    mStatusBar.setVisible(false);
     scrollCnt.setVisible(false);
 }
 
