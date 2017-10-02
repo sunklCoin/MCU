@@ -49,15 +49,3 @@ void SettingView::buttonPressedHandler(const AbstractButton& button)
 }
 //Called when the screen is done with transition/load
 
-//Handles when a key is pressed
-void SettingView::handleKeyEvent(uint8_t key)
-{
-    if (1 == key)
-    {
-        //Interaction1
-        //When hardware button 1 clicked change color of BackgroundBox
-        //Set RGB color R:230, G:8, B:8 on BackgroundBox
-        backlightSlider.setXY(0, 80);
-        backlightSlider.invalidate();
-    }
-}

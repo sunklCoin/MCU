@@ -126,10 +126,10 @@ class TimeUtils {
     {
         return getValueInSeconds() * 1000 + milliseconds;
     }
-#ifndef SIMULATOR
+//#ifndef SIMULATOR
     void updateTime();
     uint8_t getSecond();
-#endif
+//#endif
 
     // get day of week
     eDaysOfWeek GetDayOfWeek(uint8_t month, uint8_t dayOfMonth);
@@ -143,10 +143,10 @@ class TimeUtils {
     uint8_t minutes;
     uint8_t seconds;
     uint16_t milliseconds;
-#ifndef SIMULATOR
+//#ifndef SIMULATOR
     void secondElapsed();
     uint8_t m_prev_msecs;
-#endif
+//#endif
 };
 
 #endif // _TIMEUTILS_HPP_

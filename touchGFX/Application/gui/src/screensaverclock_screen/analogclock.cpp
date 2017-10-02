@@ -31,7 +31,7 @@ transitionDone(false)
     clockBackground.invalidate();
     add(clockBackground);
 #else
-    clockBackground.setXY(0, 0);
+    clockBackground.setXY(9, 49);
     clockBackground.setBitmap(Bitmap(BITMAP_WATCH5BACKGROUND_ID));
     add(clockBackground);
 #endif

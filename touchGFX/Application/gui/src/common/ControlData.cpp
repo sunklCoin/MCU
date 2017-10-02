@@ -4,7 +4,7 @@ bool glb_BtState = false;
 bool glb_Wifistate = false;
 int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
-int glb_BatteryLevel = 33;
+int glb_BatteryLevel = 5;
 int glb_currBacklight = 0;
 int glb_currSleepSchedule = 1;
 
@@ -88,7 +88,7 @@ void ControlData::setSleepSchedule(int value)
 {
     glb_currSleepSchedule = value;
 #ifndef SIMULATOR
-    Backlight_Adjust(value);
+
 #endif
 }
 

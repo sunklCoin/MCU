@@ -20,7 +20,6 @@ public:
     virtual ~SettingView();
     virtual void setupScreen();
     virtual void tearDownScreen();
-    void handleKeyEvent(uint8_t key);
 protected:
     /*
     * Member Declarations

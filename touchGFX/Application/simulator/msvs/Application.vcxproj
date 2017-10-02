@@ -34,12 +34,14 @@
     <ClCompile Include="..\..\gui\src\common\McuLoadSlider.cpp" />
     <ClCompile Include="..\..\gui\src\common\StatusBar.cpp" />
     <ClCompile Include="..\..\gui\src\common\TimeUtils.cpp" />
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\BacklightSlider.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\CircularProgress.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\CustomControlsPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\CustomControlsView.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\DatePicker.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\Gauge.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalSlideMenu.cpp" />
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\ScrollableContainerEx.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\SleepSchedule.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBar.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBarCircle.cpp" />
@@ -50,6 +52,7 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\WheelSelectorExtra.cpp" />
     <ClCompile Include="..\..\gui\src\framework\DevicePort.cpp" />
     <ClCompile Include="..\..\gui\src\keyboard\CustomKeyboard.cpp" />
+    <ClCompile Include="..\..\gui\src\keyboard\InputModal.cpp" />
     <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\mainmenu_screen\MainMenuView.cpp" />
     <ClCompile Include="..\..\gui\src\model\Model.cpp" />
@@ -58,6 +61,8 @@
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\DigitalClock.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockView.cpp" />
+    <ClCompile Include="..\..\gui\src\setting_screen\SettingPresenter.cpp" />
+    <ClCompile Include="..\..\gui\src\setting_screen\SettingView.cpp" />
     <ClCompile Include="..\..\gui\src\timeanddate_screen\TimeAndDatePresenter.cpp" />
     <ClCompile Include="..\..\gui\src\timeanddate_screen\TimeAndDateView.cpp" />
     <ClCompile Include="..\..\gui\src\wificontrol_screen\WifiControlPresenter.cpp" />
@@ -329,12 +334,14 @@
     <ClInclude Include="..\..\gui\include\gui\common\StatusBar.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\TimeUtils.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\Utils.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\BacklightSlider.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CircularProgress.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CustomControlsPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\CustomControlsView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\DatePicker.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\Gauge.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalSlideMenu.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\SleepSchedule.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBar.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBarCircle.hpp" />
@@ -345,6 +352,7 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelector.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelectorExtra.hpp" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\CustomKeyboard.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\keyboard\InputModal.hpp" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardKeyMapping.hpp" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardLayout.hpp" />
     <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\MainMenuPresenter.hpp" />
@@ -356,6 +364,8 @@
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\DigitalClock.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockView.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\setting_screen\SettingPresenter.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\setting_screen\SettingView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\timeanddate_screen\TimeAndDatePresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\timeanddate_screen\TimeAndDateView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\wificontrol_screen\WifiControlPresenter.hpp" />

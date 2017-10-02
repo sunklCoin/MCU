@@ -49,11 +49,11 @@ sliderValueStartedChangeCallback(this, &BacklightSlider::sliderValueStartedChang
     add(BackgroundBox);
 
     slider.setBitmaps(Bitmap(BITMAP_SLIDER_HORIZONTAL_MEDIUM_SLIDER_ROUND_BACK_ID), Bitmap(BITMAP_SLIDER_HORIZONTAL_MEDIUM_SLIDER_ROUND_FILL_ID), Bitmap(BITMAP_SLIDER_HORIZONTAL_MEDIUM_INDICATORS_SLIDER2_ROUND_NOB_ID));
-    slider.setStartValueCallback(sliderValueStartedChangeCallback);
-    slider.setNewValueCallback(sliderValueChangedCallback);
     slider.setupHorizontalSlider(10, 8, 2, 0, 186);
     slider.setValueRange(0, 128);
     slider.setValue(level);
+    slider.setStartValueCallback(sliderValueStartedChangeCallback);
+    slider.setNewValueCallback(sliderValueChangedCallback);
     slider.setXY(0, BackgroundBox.getHeight() - slider.getHeight());
     add(slider);
 

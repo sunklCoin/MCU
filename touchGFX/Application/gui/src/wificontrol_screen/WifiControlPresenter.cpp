@@ -47,4 +47,5 @@ void WifiControlPresenter::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strN
 
 void WifiControlPresenter::onWifiScanCompleted(int num) {
     view.stopAnimation();
+    setWifiState(true);
 }

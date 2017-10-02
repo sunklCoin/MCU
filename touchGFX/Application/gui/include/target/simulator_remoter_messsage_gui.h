@@ -50,6 +50,9 @@ typedef enum {
     MSG_ID_GUI_PM_BEGIN,
     MSG_ID_GUI_PM_REFRESH_IND,
     MSG_ID_GUI_PM_END,
+    MSG_ID_GUI_KEYPAD_BEGIN,
+    MSG_ID_GUI_KEYPAD_INPUT_IND,
+    MSG_ID_GUI_KEYPAD_END,
 } remote_msg_id;
 
 

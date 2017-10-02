@@ -48,6 +48,7 @@ private:
     Time lastClickTime;
     TimeUtils lastClickTimeUtils;
     ControlData mControlData;
+    Screen* mScreen;
 };
 
 #endif // FRONTENDAPPLICATION_HPP

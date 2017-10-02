@@ -211,7 +211,58 @@ uint8_t TimeUtils::getSecond()
 {
     return glb_second;
 }
+#else
+void TimeUtils::secondElapsed()
+{
+    glb_second++;
+    if (glb_second == 60) {
+        glb_second = 0;
+        glb_minute++;
+        if (glb_minute == 60) {
+            glb_minute = 0;
+            glb_hour++;
+            if (glb_hour == 24) {
+                glb_day++;
+                if (glb_day_of_week == eDayOfWeek_Sunday)
+                    glb_day_of_week = eDayOfWeek_Monday;
+                else
+                    glb_day_of_week = (eDaysOfWeek)((uint8_t)(glb_day_of_week)+1);
+                if ((((glb_month == 11) || (glb_month == 4) || (glb_month == 6) || (glb_month == 9)) && (glb_day == 30)) ||
+                    (((glb_month == 12) || (glb_month == 1) || (glb_month == 3) || (glb_month == 5) || (glb_month == 7) || (glb_month == 8) || (glb_month == 10)) && (glb_day == 31)) ||
+                    ((glb_month == 2) && (glb_day == 28))){
+                    glb_day = 1;
+                    glb_month++;
+                    if (glb_month == 13) {
+                        glb_month = 1;
+                        glb_year++;
+                    }
+                }
+            }
+        }
 
+    }
+}
+
+void TimeUtils::updateTime()
+{
+    time_t rawtime;
+    struct tm timenow;
+    time(&rawtime);
+    localtime_s(&timenow, &rawtime);
+
+    uint32_t mSecs = 0;//timenow.tm_sec;// / portTICK_PERIOD_MS;
+    glb_prev_msecs = 0;
+    secondElapsed();
+    hours = timenow.tm_hour;//  glb_hour;
+    minutes = timenow.tm_min;// glb_minute;
+    seconds = timenow.tm_sec;// glb_second;
+    milliseconds = glb_prev_msecs;
+}
+
+uint8_t TimeUtils::getSecond()
+{
+    return glb_second;
+}
 #endif
 
 

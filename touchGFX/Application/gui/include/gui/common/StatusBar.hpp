@@ -52,6 +52,8 @@ typedef enum {
     sbutBattery
 } StatusBarUpdateType;
 
+#define LOW_BATTERY_LEVEL 5 //define low battery level
+
 class StatusBar : public Container
 {
 public:
