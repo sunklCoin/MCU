@@ -77,11 +77,5 @@ void MainMenuView::handleKeyEvent(uint8_t key)
 #ifdef SIMULATOR
     key = key - '0';
 #endif
-    if(1 == key)
-    {
-        //Interaction1
-        //When hardware button 1 clicked change color of BackgroundBox
-        //Set RGB color R:230, G:8, B:8 on BackgroundBox
-		static_cast<FrontendApplication*>(Application::getInstance())->gotoBtControlScreen();
-    }
+	imageMenu.dispachKeyEvent(key);
 }

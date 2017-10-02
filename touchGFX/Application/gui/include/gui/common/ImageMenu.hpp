@@ -62,6 +62,7 @@
 #else
 #error Unknown USE_BPP
 #endif
+#include <gui/custom_controls_screen/ScrollableContainerEx.hpp>
 using namespace touchgfx;
 
 class ImageMenu : public Container
@@ -75,6 +76,8 @@ public:
     void setMenuItemSelectedCallback(GenericCallback< const uint8_t >& callback);
 
     void addMenuItem(BitmapId buttonId, BitmapId selectedImageId, uint8_t callbackId, TEXTS headline, TEXTS text, bool showDemoButton, bool active = true);
+	
+	void dispachKeyEvent(uint8_t key);
 
 private:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
@@ -138,7 +141,7 @@ private:
     Image backgroundItems;
 
     Image logo;
-    Button backButton;
+    //Button backButton;
 
     Container viewPortDescriptionField;
     Container descriptionField;
@@ -152,7 +155,7 @@ private:
     TextArea descriptionFieldText;
 
     Container menuItemContainer;
-    ScrollableContainer scrollablemenuItemContainer;
+	ScrollableContainerEx scrollablemenuItemContainer;
 
     GenericCallback< const uint8_t >* menuItemSelectedCallback;
     Callback<ImageMenu, const AbstractButton&> onMenuItemSelected;
