@@ -6,7 +6,7 @@
 #include <gui/common/FrontendApplication.hpp>
 
 MainMenuView::MainMenuView():
-imageMenu(HAL::DISPLAY_WIDTH, HAL::DISPLAY_HEIGHT - 40, Bitmap(BITMAP_MAINMENU_BTN_BT_ID).getHeight(), BITMAP_DEMO_BACK_BUTTON_ID, BITMAP_DEMO_BACK_BUTTON_PRESSED_ID, BITMAP_MENU_DEMO_IN_PROGRESS_ID),
+imageMenu(HAL::DISPLAY_WIDTH, HAL::DISPLAY_HEIGHT - 40, Bitmap(BITMAP_MAINMENU_BTN_BT_ID).getHeight(), BITMAP_INVALID, BITMAP_INVALID, BITMAP_INVALID),
 onImageMenuItemSelected(this, &MainMenuView::imageMenuItemSelected)
 {
 
@@ -77,5 +77,5 @@ void MainMenuView::handleKeyEvent(uint8_t key)
 #ifdef SIMULATOR
     key = key - '0';
 #endif
-	imageMenu.dispachKeyEvent(key);
+	imageMenu.dispatchKeyEvent(key);
 }

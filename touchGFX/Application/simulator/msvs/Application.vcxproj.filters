@@ -167,10 +167,16 @@
       <UniqueIdentifier>{612d1e97-52e2-4e61-b204-93fe1bf309eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\keyboard">
-      <UniqueIdentifier>{08bdde20-54b4-404f-a338-20c56abf3f4a}</UniqueIdentifier>
+      <UniqueIdentifier>{c7943cef-6f21-47fa-8ad1-1cdd15fc900c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\keyboard">
-      <UniqueIdentifier>{06cc2e69-8c76-4b23-b182-614a554fdad8}</UniqueIdentifier>
+      <UniqueIdentifier>{b141ccc1-d3f9-45d0-81b3-80493456074b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\setting_screen">
+      <UniqueIdentifier>{87702419-189a-487c-93ee-816f291190e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\setting_screen">
+      <UniqueIdentifier>{3b2123b9-48ad-43ef-ab3b-d256a49f1262}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -327,7 +333,22 @@
     <ClCompile Include="..\..\gui\src\keyboard\CustomKeyboard.cpp">
       <Filter>Source Files\gui\keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\setting_screen\SettingPresenter.cpp">
+      <Filter>Source Files\gui\setting_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\setting_screen\SettingView.cpp">
+      <Filter>Source Files\gui\setting_screen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\gui\src\custom_controls_screen\SleepSchedule.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\keyboard\InputModal.cpp">
+      <Filter>Source Files\gui\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\ScrollableContainerEx.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\BacklightSlider.cpp">
       <Filter>Source Files\gui\custom_controls_screen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1213,7 +1234,22 @@
     <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardLayout.hpp">
       <Filter>Header Files\gui\keyboard</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\setting_screen\SettingPresenter.hpp">
+      <Filter>Header Files\gui\setting_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\setting_screen\SettingView.hpp">
+      <Filter>Header Files\gui\setting_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\BacklightSlider.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\SleepSchedule.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\keyboard\InputModal.hpp">
+      <Filter>Header Files\gui\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp">
       <Filter>Header Files\gui\custom_controls_screen</Filter>
     </ClInclude>
   </ItemGroup>

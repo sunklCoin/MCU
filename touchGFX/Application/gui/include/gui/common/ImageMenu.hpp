@@ -77,7 +77,7 @@ public:
 
     void addMenuItem(BitmapId buttonId, BitmapId selectedImageId, uint8_t callbackId, TEXTS headline, TEXTS text, bool showDemoButton, bool active = true);
 	
-	void dispachKeyEvent(uint8_t key);
+	void dispatchKeyEvent(uint8_t key);
 
 private:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
@@ -109,17 +109,19 @@ private:
         ANIMATE_TO_SINGLE_ELEMENT,
         ANIMATE_TO_ALL_ELEMENTS,
         SINGLE_ELEMENT_SHOWING,
+        ANIMATE_TO_KEY_MOVE_ELEMENTS,
         ALL_ELEMENTS_SHOWING
     } currentState;
 
     uint8_t animationCounter;
     int16_t horizontalScrollAdjustmentTotalDistance;
     int16_t horizontalScrollStartingPosition;
-
+    int moveCoefficient;
     uint16_t elementWidth;
 	uint16_t elementHeight;
     uint8_t elementsInList;
     uint8_t selectedIndex;
+    int8_t current_select_for_key;
 
     static const uint8_t SIZE = 15;
 
@@ -145,11 +147,9 @@ private:
 
     Container viewPortDescriptionField;
     Container descriptionField;
-#if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
     Box descriptionFieldBackground;
-#else
-    Image descriptionFieldBackground;
-#endif
+    //Image descriptionFieldBackground;
+
     Button descriptionFieldSelectButton;
     TextArea descriptionFieldHeadline;
     TextArea descriptionFieldText;
@@ -168,6 +168,7 @@ private:
     void animateToSingleElement();
     void animateToAllElements();
     void animateToNewSelected();
+    void animateToKeyMoveElement();
 };
 
 

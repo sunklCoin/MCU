@@ -70,6 +70,7 @@ void WifiControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //Execute C++ code
         if (switchBtn.getState() == true){
             switchBtn.setVisible(false);
+            ListMenuMap.clear();
             presenter->enableWifi();
         }
         else{
@@ -181,8 +182,9 @@ void WifiControlView::handleTickEvent()
     if (tickCount % 200 == 0) {
         if (switchBtn.getState() == true) {
             list.removeAll();
-            startAnimation();
+            ListMenuMap.clear();
             Wifi_Scan();
+            startAnimation();
         }
         tickCount = 0;
     }

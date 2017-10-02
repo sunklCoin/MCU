@@ -76,11 +76,7 @@ public:
     touchgfx::Unicode::UnicodeChar ListMenuEleBuffer[LISTMENUELE_SIZE];
 private:
     Image smallIcon;
-#if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
     Box buttonImg;
-#else
-    Image buttonImg;
-#endif
 	Button btn;
     TextAreaWithOneWildcard ListMenuEle;
 

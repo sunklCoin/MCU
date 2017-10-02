@@ -43,6 +43,7 @@ ImageMenu::ImageMenu(uint16_t imageMenuWidth, uint16_t imageMenuHeight, uint16_t
 currentState(ALL_ELEMENTS_SHOWING),
 animationCounter(0),
 elementHeight(elementHeight_),
+current_select_for_key(-1),
     elementsInList(0),
     selectedIndex(0),
     onMenuItemSelected(this, &ImageMenu::menuItemSelectedhandler),
@@ -71,20 +72,19 @@ elementHeight(elementHeight_),
     viewPortDescriptionField.setPosition(descriptionFieldX, 0, imageMenuWidth - descriptionFieldX, imageMenuHeight);
     viewPortDescriptionField.setVisible(false);
     viewPortDescriptionField.add(descriptionField);
-#if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
     descriptionFieldBackground.setPosition(0, 0,240,320);
     descriptionFieldBackground.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
 
     descriptionFieldSelectButton.setPosition(0,40,240,320);
     descriptionFieldSelectButton.setAction(onDescriptionFieldPressed);
-#else
-    descriptionFieldBackground.setXY(0, 0);
+
+    /*descriptionFieldBackground.setXY(0, 0);
     descriptionFieldBackground.setBitmap(Bitmap(BITMAP_MENU_DESCRIPTION_FIELD_BACKGROUND_ID));
 
     descriptionFieldSelectButton.setXY(viewPortDescriptionField.getWidth() - Bitmap(BITMAP_MENU_DEMO_BUTTON_ID).getWidth(), viewPortDescriptionField.getHeight() - Bitmap(BITMAP_MENU_DEMO_BUTTON_ID).getHeight());
     descriptionFieldSelectButton.setBitmaps(Bitmap(BITMAP_MENU_DEMO_BUTTON_ID), Bitmap(BITMAP_MENU_DEMO_BUTTON_PRESSED_ID));
-    descriptionFieldSelectButton.setAction(onDescriptionFieldPressed);
-#endif
+    descriptionFieldSelectButton.setAction(onDescriptionFieldPressed);*/
+
     descriptionFieldHeadline.setPosition(18, 26, 240, 36);
     descriptionFieldHeadline.setColor(Color::getColorFrom24BitRGB(0x00, 0x00, 0x00));
 
@@ -139,6 +139,9 @@ void ImageMenu::handleTickEvent()
     {
         animateToAllElements();
     }
+    else if (currentState == ANIMATE_TO_KEY_MOVE_ELEMENTS){
+        animateToKeyMoveElement();
+    }
 }
 
 void ImageMenu::addMenuItem(BitmapId buttonId, BitmapId selectedImageId, uint8_t callbackId, TEXTS headline, TEXTS text, bool showDemoButton, bool active)
@@ -182,7 +185,6 @@ void ImageMenu::addMenuItem(BitmapId buttonId, BitmapId selectedImageId, uint8_t
 	menuItems[elementsInList].menuText.setVisible(true);
 	menuItems[elementsInList].menuText.invalidate();
     elementsInList++;
-
     // All elements must be of equal width
     menuItemContainer.setHeight(elementsInList * elementHeight);
 	backgroundItems.setXY(0, menuItemContainer.getHeight());
@@ -341,41 +343,49 @@ void ImageMenu::animateToAllElements()
 
 }
 
-//Handles when a key is pressed
-uint8_t current_select_for_key = 0;
-void ImageMenu::dispachKeyEvent(uint8_t key)
+void ImageMenu::animateToKeyMoveElement()
 {
-	uint8_t i = 0;
-	//int centerY = scrollablemenuItemContainer.getY() + ((scrollablemenuItemContainer.getHeight() - elementHeight)/2);
-	/*for (i = 0; i < elementsInList; ++i){
-		if (menuItems[elementsInList].button.getY() >= centerY)
-		{
-			break;
-		}
-	}*/
-	menuItems[current_select_for_key].selectedImage.setVisible(false);
-	menuItems[current_select_for_key].selectedImage.invalidate();
-	if (1 == key)
-	{
-		//static_cast<FrontendApplication*>(Application::getInstance())->gotoBtControlScreen();
-		//DragEvent evt = DragEvent(DragEvent::DRAGGED,0,0,0,50);
-		if (current_select_for_key < elementsInList){
-			current_select_for_key++;
-		}
-		else{
-			current_select_for_key = elementsInList;
-		}
-		scrollablemenuItemContainer.doScroll(0, elementHeight);
+    uint8_t horizontalSlideDuration;
+    horizontalSlideDuration = 8;
 
-	}else if (2 == key){
-		if (current_select_for_key > 0){
-			current_select_for_key--;
-		}
-		else{
-			current_select_for_key = 0;
-		}
-		scrollablemenuItemContainer.doScroll(0, -elementHeight);
+    if (animationCounter <= horizontalSlideDuration)
+    {
+        scrollablemenuItemContainer.doScroll(0, (horizontalScrollAdjustmentTotalDistance / horizontalSlideDuration) * moveCoefficient);
+        // First step: Move the selected item to the left part of the screen
+        scrollablemenuItemContainer.invalidate();
+    }
+    else
+    {
+        scrollablemenuItemContainer.setTouchable(true);
+        setState(ALL_ELEMENTS_SHOWING);
+        animationCounter = 0;
+    }
+    animationCounter++;
+}
+
+//Handles when a key is pressed
+void ImageMenu::dispatchKeyEvent(uint8_t key)
+{
+    Rect rect = scrollablemenuItemContainer.getContainedArea();
+    if (current_select_for_key >= 0 && current_select_for_key < elementsInList){
+        menuItems[current_select_for_key].selectedImage.setVisible(false);
+        menuItems[current_select_for_key].selectedImage.invalidate();
+    }
+	if (1 == key)//down
+	{
+        current_select_for_key = (++current_select_for_key < elementsInList ? current_select_for_key : 0);
+        moveCoefficient = -1;
 	}
-	menuItems[current_select_for_key].selectedImage.setVisible(true);
+    else if (2 == key)//up
+    {
+        current_select_for_key = (current_select_for_key-- > 0 ? current_select_for_key : elementsInList - 1);
+        moveCoefficient = -1;
+	}
+
+    int contentHeight = menuItems[current_select_for_key].button.getY() + menuItems[current_select_for_key].button.getHeight();
+    horizontalScrollAdjustmentTotalDistance = contentHeight - scrollablemenuItemContainer.getHeight() + rect.y;
+
+    setState(ANIMATE_TO_KEY_MOVE_ELEMENTS);
+    menuItems[current_select_for_key].selectedImage.setVisible(true);
 	menuItems[current_select_for_key].selectedImage.invalidate();
 }

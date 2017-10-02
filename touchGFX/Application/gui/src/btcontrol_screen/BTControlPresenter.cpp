@@ -22,7 +22,7 @@ void BTControlPresenter::activate()
 
 void BTControlPresenter::deactivate()
 {
-    Bluetooth_Scan_Stop();
+    ///Bluetooth_Scan_Stop();
 }
 
 
@@ -62,7 +62,7 @@ void BTControlPresenter::onBluetoothStateChange(bool state) {
     if (state) {
         Bluetooth_Scan_Start();
     } else {
-        Bluetooth_Scan_Stop();
+        ///Bluetooth_Scan_Stop();
     }
 }
 

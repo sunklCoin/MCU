@@ -78,6 +78,8 @@ public:
     virtual void updateListMenuElements() {}
 */
     void dispatchMessage(message_gui_rsp &message);
+    /* keyevent */
+    virtual void handleKeyEvent(uint8_t key);
     /* bluetooth */
     virtual void onBluetoothStateChange(bool state);
     virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress);

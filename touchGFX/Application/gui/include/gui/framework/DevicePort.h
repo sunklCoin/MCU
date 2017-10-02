@@ -5,8 +5,8 @@
  *      Author: yuhang
  */
 
-#ifndef DEVICEPORT_C
-#define DEVICEPORT_C
+#ifndef DEVICEPORT_H
+#define DEVICEPORT_H
 
 /* bluetooth */
 void Bluetooth_Open();
@@ -21,4 +21,4 @@ void Wifi_Scan();
 void Wifi_Connect();
 void Wifi_Disconnect();
 
- #endif /* DEVICEPORT_C */
+ #endif /* DEVICEPORT_H */

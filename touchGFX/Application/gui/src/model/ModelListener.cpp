@@ -17,6 +17,9 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
     memset(strParam1, 0, sizeof(strParam1));
     memset(strParam2, 0, sizeof(strParam2));
 
+#ifndef SIMULATOR
+    PRINTF("%s | msgid=%0x\n", __func__, message.msgid);
+#endif // !SIMULATOR
     switch (message.msgid) {
         case MSG_ID_GUI_BT_OPEN_RSP:
             onBluetoothStateChange(true);
@@ -52,15 +55,25 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             }
             onWifiScanCompleted(message.data.wifi.scan_num);
             break;
+        case MSG_ID_GUI_KEYPAD_INPUT_IND:
+            handleKeyEvent(message.data.key.key_code);
+            break;
     }
+}
+
+void ModelListener::handleKeyEvent(uint8_t key) {
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
 }
 
 void ModelListener::onBluetoothStateChange(bool state)
 {
 #ifndef SIMULATOR
     PRINTF("%s | \n", __func__); 
-#endif // 
+#endif // !SIMULATOR
 }
+
 void ModelListener::onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress)
 {
 #ifndef SIMULATOR

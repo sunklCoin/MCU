@@ -40,7 +40,7 @@
 
 StatusBar::StatusBar() 
 :animationCounter(0),
-animation(BITMAP_BATTRY00_ID, BITMAP_BATTRY04_ID, 10)
+animation(BITMAP_BATTRY00_ID, BITMAP_BATTRY04_ID, 24)
 {
 	//background.setBitmap(Bitmap(BITMAP_DEMO_MCU_LOAD_BACKGROUND_ID));
 	//setWidth(background.getWidth());
@@ -87,7 +87,7 @@ animation(BITMAP_BATTRY00_ID, BITMAP_BATTRY04_ID, 10)
 
 
     StatusBattery.setXY(100, 12);
-    if (mControlData.getBatteryLevel() <= 2){
+    if (mControlData.getBatteryLevel() <= LOW_BATTERY_LEVEL){
         StatusBattery.setBitmap(Bitmap(BITMAP_BATTRYLOW_ID));
     }
     else{
@@ -129,13 +129,13 @@ void StatusBar::updateStatusBar(UpdateType updateType)
     }
 
     if (updateType == utAll || updateType == utBattery) {
-        if (mControlData.getBatteryLevel() <= 2){
+        if (mControlData.getBatteryLevel() <= LOW_BATTERY_LEVEL){
             StatusBattery.setBitmap(Bitmap(BITMAP_BATTRYLOW_ID ));
         }
         else{
-            gaugeImg.moveTo(-(gaugeContainer.getWidth()*(100 - mControlData.getBatteryLevel()) / 100), 0);
+            StatusBattery.setBitmap(Bitmap(BITMAP_BATTRY00_ID));
         }
-
+        gaugeImg.moveTo(-(gaugeContainer.getWidth()*(100 - mControlData.getBatteryLevel()) / 100), 0);
         StatusBattery.setVisible(mControlData.isCharging() == false);
         gaugeContainer.setVisible(mControlData.isCharging() == false);
         gaugeContainer.invalidate();

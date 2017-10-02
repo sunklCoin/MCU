@@ -39,12 +39,16 @@ void FrontendApplication::handleTickEvent()
     // no action has been registered for a screenSaverTimeout (time in milliseconds)
     // (Only do the time check sometimes and not in the start)
     tickCounter++;
-    if ((tickCounter % 100 == 0) && (tickCounter > 10000))
+    if ((tickCounter % 100 == 0) && (tickCounter > 1000))//10000
     {
         if ((model.getCurrentTime() - lastClickTimeUtils) >= sleepScheduleArr[mControlData.getSleepSchedule()] * 1000)
         {
-            gotoScreenSaverClockTransition();
-            lastClickTimeUtils = model.getCurrentTime();
+            Screen* applicationScreen = static_cast<FrontendApplication*>(Application::getInstance())->getCurrentScreen();
+            if (mScreen != applicationScreen){
+                gotoScreenSaverClockTransition();
+                lastClickTimeUtils = model.getCurrentTime();
+            }
+            mScreen = applicationScreen;
         }
     }
 

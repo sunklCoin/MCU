@@ -136,13 +136,16 @@ void Bluetooth_Scan_Stop() {
 }
 
 /* wifi */
+void Wifi_Scan();
+
 void Wifi_Open() {
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_OPEN_REQ);
 #else
-    SM_InitMessage();
-    sm_message.msgid = MSG_ID_GUI_WIFI_SCAN_RSP;
-    SM_SendMessage();
+    /*SM_InitMessage();
+    sm_message.msgid = MSG_ID_GUI_WIFI_OPEN_RSP;
+    SM_SendMessage();*/
+    Wifi_Scan();
 #endif
 }
 
@@ -160,8 +163,16 @@ void Wifi_Scan() {
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_SCAN_REQ);
 #else
+    static struct_wifi_scan_list gWifi_Scan_List[3] = {
+        {0, 5, 40, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}},
+        {0, 5, 90, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}},
+        {0, 6, 60, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}}
+    };
+
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_WIFI_SCAN_RSP;
+    sm_message.data.wifi.scan_num = 3;
+    sm_message.data.wifi.scan_list = &gWifi_Scan_List[0];
     SM_SendMessage();
 #endif
 }

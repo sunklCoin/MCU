@@ -62,17 +62,13 @@ numberOfListElements(0)
     //animation.setDoneAction(animationEndedCallback);
     animation.setVisible(false);
     add(animation);
-
-    //InputPassword.setPosition(0, 320 - 186, 240, 186);
-    //InputPassword.setVisible(false);
-    add(InputPassword);
-    InputPassword.hide();
     // Position and set the size of the scrollable container.
     // The width is the area is the list element width plus some extra
     // for space between element and scrollbar
     scrollCnt.setPosition(0, 90, 240, 230);
     scrollCnt.add(list);
     add(scrollCnt);
+
     count = 0;
 }
 
@@ -126,11 +122,8 @@ void BTControlView::listElementClicked(CustomListElement& element)
 {
     // The button of the list element has been pressed
     // so it is removed from the list
-    //list.remove(element);
-    //scrollCnt.invalidate();
-    InputPassword.show();
-    mStatusBar.setVisible(false);
-    scrollCnt.setVisible(false);
+    list.remove(element);
+    scrollCnt.invalidate();
 }
 
 void BTControlView::setBluetoothState(bool state)
