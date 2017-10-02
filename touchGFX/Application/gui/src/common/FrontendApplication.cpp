@@ -43,15 +43,12 @@ void FrontendApplication::handleTickEvent()
     {
         if ((model.getCurrentTime() - lastClickTimeUtils) >= sleepScheduleArr[mControlData.getSleepSchedule()] * 1000)
         {
-            Screen* applicationScreen = static_cast<FrontendApplication*>(Application::getInstance())->getCurrentScreen();
-            if (mScreen != applicationScreen){
-                gotoScreenSaverClockTransition();
-                lastClickTimeUtils = model.getCurrentTime();
-            }
-            mScreen = applicationScreen;
+			if (entryScreenId != eScreenId::FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID){
+				gotoScreenSaverClockTransition();
+				lastClickTimeUtils = model.getCurrentTime();
+			}
         }
     }
-
 }
 
 void FrontendApplication::handleClickEvent(const ClickEvent& evt)
@@ -76,6 +73,7 @@ void FrontendApplication::gotoCustomControlsScreen()
 {
 	transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoCustomControlsScreenImpl);
 	pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_CUSTOMCONTROLS_SCREEN_ID;
 }
 
 void FrontendApplication::gotoCustomControlsScreenImpl()
@@ -90,6 +88,7 @@ void FrontendApplication::gotoBtControlScreen()
 {
     transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoBtControlScreenImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_BTCONTROL_SCREEN_ID;
 }
 
 void FrontendApplication::gotoBtControlScreenImpl()
@@ -101,6 +100,7 @@ void FrontendApplication::gotoClockScreenNoTransition()
 {
     transitionCallback = Callback<FrontendApplication>(this, &FrontendApplication::gotoClockScreenNoTransitionImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_CLOCK_SCREEN_ID;
 }
 
 void FrontendApplication::gotoClockScreenNoTransitionImpl()
@@ -112,6 +112,7 @@ void FrontendApplication::gotoMainMenuScreenTransition()
 {
     transitionCallback = touchgfx::Callback<FrontendApplication>(this, &FrontendApplication::gotoMainMenuScreenTransitionImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_MAINMENU_SCREEN_ID;
 }
 
 void FrontendApplication::gotoMainMenuScreenTransitionImpl()
@@ -123,6 +124,7 @@ void FrontendApplication::gotoScreenSaverClockTransition()
 {
     transitionCallback = touchgfx::Callback<FrontendApplication>(this, &FrontendApplication::gotoScreenSaverClockTransitionImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID;
 }
 
 void FrontendApplication::gotoScreenSaverClockTransitionImpl()
@@ -134,6 +136,7 @@ void FrontendApplication::gotoWifiControlScreen()
 {
     transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoWifiControlScreenImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_WIFICONTROLS_SCREEN_ID;
 }
 
 void FrontendApplication::gotoWifiControlScreenImpl()
@@ -145,6 +148,7 @@ void FrontendApplication::gotoSettingScreen()
 {
     transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoSettingScreenImpl);
     pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_SETTING_SCREEN_ID;
 }
 
 void FrontendApplication::gotoSettingScreenImpl()

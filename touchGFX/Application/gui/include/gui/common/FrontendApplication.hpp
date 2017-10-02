@@ -9,6 +9,18 @@ class FrontendHeap;
 
 using namespace touchgfx;
 
+enum eScreenId {
+	FRONTENDAPPLICATION_BEGIN_SCREEN_ID = 0,
+	FRONTENDAPPLICATION_MAINMENU_SCREEN_ID,
+	FRONTENDAPPLICATION_CUSTOMCONTROLS_SCREEN_ID,
+	FRONTENDAPPLICATION_BTCONTROL_SCREEN_ID,
+	FRONTENDAPPLICATION_CLOCK_SCREEN_ID,
+	FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID,
+	FRONTENDAPPLICATION_WIFICONTROLS_SCREEN_ID,
+	FRONTENDAPPLICATION_SETTING_SCREEN_ID,
+	FRONTENDAPPLICATION_END_SCREEN_ID
+};
+
 class FrontendApplication : public FrontendApplicationBase
 {
 public:
@@ -48,7 +60,7 @@ private:
     Time lastClickTime;
     TimeUtils lastClickTimeUtils;
     ControlData mControlData;
-    Screen* mScreen;
+	int entryScreenId;
 };
 
 #endif // FRONTENDAPPLICATION_HPP
