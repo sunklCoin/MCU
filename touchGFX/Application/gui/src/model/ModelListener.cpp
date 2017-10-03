@@ -56,7 +56,7 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             onWifiScanCompleted(message.data.wifi.scan_num);
             break;
         case MSG_ID_GUI_KEYPAD_INPUT_IND:
-            handleKeyEvent(message.data.key.key_code);
+            //handleKeyEvent(message.data.key.key_code);
             break;
     }
 }

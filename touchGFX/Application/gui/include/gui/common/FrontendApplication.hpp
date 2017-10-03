@@ -18,6 +18,7 @@ enum eScreenId {
 	FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID,
 	FRONTENDAPPLICATION_WIFICONTROLS_SCREEN_ID,
 	FRONTENDAPPLICATION_SETTING_SCREEN_ID,
+	FRONTENDAPPLICATION_MIC_SCREEN_ID,
 	FRONTENDAPPLICATION_END_SCREEN_ID
 };
 
@@ -45,6 +46,7 @@ public:
     void gotoScreenSaverClockTransition();
     void gotoWifiControlScreen();
     void gotoSettingScreen();
+	void gotoMicScreen();
     ControlData getControlData();
 private:
 	touchgfx::Callback<FrontendApplication> transitionCallback;
@@ -56,6 +58,7 @@ private:
     void gotoScreenSaverClockTransitionImpl();
     void gotoWifiControlScreenImpl();
     void gotoSettingScreenImpl();
+	void gotoMicScreenImpl();
     int tickCounter;
     Time lastClickTime;
     TimeUtils lastClickTimeUtils;

@@ -21,4 +21,8 @@ void Wifi_Scan();
 void Wifi_Connect();
 void Wifi_Disconnect();
 
+/* Mic */
+void Mic_StartRecord();
+void Mic_finishRecord();
+void Mic_cancelRecord();
  #endif /* DEVICEPORT_H */

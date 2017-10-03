@@ -19,6 +19,8 @@
 #include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
 #include <gui/setting_screen/SettingView.hpp>
 #include <gui/setting_screen/SettingPresenter.hpp>
+#include <gui/mic_screen/MicScreenView.hpp>
+#include <gui/mic_screen/MicScreenPresenter.hpp>
 using namespace touchgfx;
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
@@ -154,4 +156,16 @@ void FrontendApplication::gotoSettingScreen()
 void FrontendApplication::gotoSettingScreenImpl()
 {
     makeTransition<SettingView, SettingPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+void FrontendApplication::gotoMicScreen()
+{
+	transitionCallback = Callback< FrontendApplication >(this, &FrontendApplication::gotoMicScreenImpl);
+	pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = eScreenId::FRONTENDAPPLICATION_MIC_SCREEN_ID;
+}
+
+void FrontendApplication::gotoMicScreenImpl()
+{
+	makeTransition<MicScreenView, MicScreenPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

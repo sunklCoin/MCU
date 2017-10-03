@@ -54,7 +54,7 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 		//static_cast<FrontendApplication*>(Application::getInstance())->gotoAnimatedGraphicsScreen();
 		break;
 	case DEMO_MENU_MIC_SCREEN_ID:
-		//static_cast<FrontendApplication*>(Application::getInstance())->gotoHomeAutomationScreen();
+		static_cast<FrontendApplication*>(Application::getInstance())->gotoMicScreen();
 		break;
 	case DEMO_MENU_SETTING_SCREEN_ID:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 0

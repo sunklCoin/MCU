@@ -178,6 +178,12 @@
     <Filter Include="Header Files\gui\setting_screen">
       <UniqueIdentifier>{3b2123b9-48ad-43ef-ab3b-d256a49f1262}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\mic_screen">
+      <UniqueIdentifier>{c416530e-8a04-4ece-a6cd-bafaa3be8941}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\mic_screen">
+      <UniqueIdentifier>{949a8961-0491-49e0-877e-a3eb1751e07e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -350,6 +356,12 @@
     </ClCompile>
     <ClCompile Include="..\..\gui\src\custom_controls_screen\BacklightSlider.cpp">
       <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mic_screen\MicScreenView.cpp">
+      <Filter>Source Files\gui\mic_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mic_screen\MicScreenPresenter.cpp">
+      <Filter>Source Files\gui\mic_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1251,6 +1263,12 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp">
       <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\mic_screen\MicScreenView.hpp">
+      <Filter>Header Files\gui\mic_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\mic_screen\MicScreenPresenter.hpp">
+      <Filter>Header Files\gui\mic_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
