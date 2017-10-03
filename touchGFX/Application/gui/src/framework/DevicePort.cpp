@@ -196,3 +196,32 @@ void Wifi_Disconnect() {
     SM_SendMessage();
 #endif
 }
+
+/* Mic */
+void Mic_StartRecord() {
+#ifndef SIMULATOR
+	SendMessageEmpty(MSG_ID_GUI_BT_OPEN_REQ);
+#else
+	SM_InitMessage();
+	sm_message.msgid = MSG_ID_GUI_BT_OPEN_RSP;
+	SM_SendMessage();
+#endif
+}
+
+void Mic_finishRecord()
+{
+#ifndef SIMULATOR
+
+#else
+
+#endif
+}
+
+void Mic_cancelRecord()
+{
+#ifndef SIMULATOR
+
+#else
+
+#endif
+}
