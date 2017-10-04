@@ -366,6 +366,9 @@
     <ClCompile Include="..\..\gui\src\mic_screen\MicScreenPresenter.cpp">
       <Filter>Source Files\gui\mic_screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalWheelSelector.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\assets\fonts\SIMYOU.TTF">
@@ -1278,6 +1281,9 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\mic_screen\MicScreenPresenter.hpp">
       <Filter>Header Files\gui\mic_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalWheelSelector.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
