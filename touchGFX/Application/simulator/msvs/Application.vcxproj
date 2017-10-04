@@ -42,6 +42,7 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\DatePicker.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\Gauge.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalSlideMenu.cpp" />
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalWheelSelector.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ScrollableContainerEx.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\SleepSchedule.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBar.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\DatePicker.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\Gauge.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalSlideMenu.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalWheelSelector.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\SleepSchedule.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBar.hpp" />
@@ -355,6 +357,7 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\VerticalSlideMenu.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelector.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\WheelSelectorExtra.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\framework\KeyEvent.h" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\CustomKeyboard.hpp" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\InputModal.hpp" />
     <ClInclude Include="..\..\gui\include\gui\keyboard\KeyboardKeyMapping.hpp" />
