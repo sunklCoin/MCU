@@ -12,6 +12,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <gui/common/DemoView.hpp>
 #include <gui/common/CustomListElement.hpp>
+#include <gui/common/CustomList.hpp>
 #include <touchgfx/containers/ScrollableContainer.hpp>
 #include <touchgfx/containers/ListLayout.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
@@ -31,7 +32,10 @@ public:
     void stopAnimation();
     bool isAnimationRunning();
     /*void updateListMenuElements();*/
+    void clearListMenuElements();
     void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
+    void updateListMenuLayout();
+    void stopListAnimation() { mList.stopAnimation(); }
 protected:
     /*
     * Member Declarations
@@ -45,33 +49,30 @@ protected:
     CustomListElement MenuContainer;
     AnimatedImage animation;
     int tickCount;
-    int numberOfListElements;
-
+    /*int numberOfListElements;
+    CustomListElement listElements;*/
     ScrollableContainer scrollCnt;
     ListLayout list;
-
-    CustomListElement listElements;
-
+    CustomList mList;
     Callback<WifiControlView, const uint8_t> onImageMenuItemSelected;
 
-    void getWifiState(bool);
-
-    map<int, CustomListElement> ListMenuMap;
-
+	void getWifiState(bool);
+    //map<int, CustomListElement> ListMenuMap;
     void handleTickEvent();
-private:
 
+private:
     /*
     * Callback Handler Declarations
     */
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void animationEnded(const AnimatedImage& source);
     void listElementClicked(CustomListElement& element);
+    void onListMenuClick(CustomListElement element, const AbstractButton &button);
+
     /*
     * Callback Declarations
     */
     Callback<WifiControlView, const touchgfx::AbstractButton&> buttonCallback;
-
     Callback<WifiControlView, const AnimatedImage&> animationEndedCallback;
     Callback<WifiControlView, CustomListElement&> listElementClickedCallback;
 };

@@ -37,6 +37,8 @@ public:
 
     virtual void handleClickEvent(const ClickEvent& evt);
     virtual void handleTickEvent();
+	//add by sunkelong 2017/10/03,for sleep to wakeup
+    virtual void handleKeyEvent(uint8_t keyValue);
     void resetScreenSaver();
 
     void gotoMainMenuScreenTransition();

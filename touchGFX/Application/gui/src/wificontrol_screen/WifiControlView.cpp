@@ -6,8 +6,8 @@ WifiControlView::WifiControlView()
 buttonCallback(this, &WifiControlView::buttonCallbackHandler),
 animationEndedCallback(this, &WifiControlView::animationEnded),
 listElementClickedCallback(this, &WifiControlView::listElementClicked),
-tickCount(0),
-numberOfListElements(0)
+tickCount(0)/*,
+numberOfListElements(0)*/
 {
     //menuBg.setXY(0, 0);
     //menuBg.setBitmap(Bitmap(BITMAP_MAIN_BG_240X320PX_ID));
@@ -47,6 +47,7 @@ numberOfListElements(0)
     scrollCnt.add(list);
     add(scrollCnt);
 
+    mList.setAction(&listElementClickedCallback);
     count = 0;
 }
 
@@ -65,17 +66,16 @@ void WifiControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
     if (&src == &switchBtn)
     {
+        clearListMenuElements();
         //Interaction1
         //When switchBTBtn clicked execute C++ code
         //Execute C++ code
         if (switchBtn.getState() == true){
             switchBtn.setVisible(false);
-            ListMenuMap.clear();
             presenter->enableWifi();
         }
         else{
             presenter->disableWifi();
-            list.removeAll();
             scrollCnt.invalidate();
         }
     }
@@ -89,8 +89,10 @@ void WifiControlView::listElementClicked(CustomListElement& element)
 {
     // The button of the list element has been pressed
     // so it is removed from the list
-    list.remove(element);
-    scrollCnt.invalidate();
+    /*list.remove(element);
+    scrollCnt.invalidate();*/
+    Wifi_Connect();
+    mList.startAnimation(element);
 }
 
 void WifiControlView::setWifiState(bool state)
@@ -153,9 +155,15 @@ bool WifiControlView::isAnimationRunning()
     scrollCnt.invalidate();
 }*/
 
+void WifiControlView::clearListMenuElements() {
+    list.removeAll();
+    mList.clear();
+}
+
 void WifiControlView::updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi) {
-    memset(ListMenuMap[numberOfListElements].ListMenuEleBuffer, 0, sizeof(ListMenuMap[numberOfListElements].ListMenuEleBuffer));
-    Unicode::strncpy(ListMenuMap[numberOfListElements].ListMenuEleBuffer, strName, 32);
+#if 0
+    memset(ListMenuMap[numberOfListElements].mListMenuEleBuffer, 0, sizeof(ListMenuMap[numberOfListElements].mListMenuEleBuffer));
+    Unicode::strncpy(ListMenuMap[numberOfListElements].mListMenuEleBuffer, strName, 32);
 
     if (rssi <= 25)
         ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID));
@@ -166,10 +174,23 @@ void WifiControlView::updateListMenuElements(touchgfx::Unicode::UnicodeChar* str
     else
         ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID));
 
-    ListMenuMap[numberOfListElements].setAction(listElementClickedCallback);
+    ///ListMenuMap[numberOfListElements].setAction(listElementClickedCallback);
     list.add(ListMenuMap[numberOfListElements]);
     numberOfListElements++;
     scrollCnt.invalidate();
+#endif
+
+    uint16_t bmp_id;
+    if (rssi <= 25)
+        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID;
+    else if (rssi <= 50)
+        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_2_DARK_ID;
+    else if (rssi <= 75)
+        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_3_DARK_ID;
+    else
+        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID;
+
+    mList.addElement(address, Bitmap(bmp_id), strName, rssi);
 }
 
 void WifiControlView::handleTickEvent()
@@ -181,11 +202,17 @@ void WifiControlView::handleTickEvent()
     tickCount++;
     if (tickCount % 200 == 0) {
         if (switchBtn.getState() == true) {
-            list.removeAll();
-            ListMenuMap.clear();
+            clearListMenuElements();
             Wifi_Scan();
             startAnimation();
         }
         tickCount = 0;
     }
+}
+
+void WifiControlView::updateListMenuLayout() {
+    mList.sort();
+    mList.genListLayout(list);
+    mList.addAnimation(list);
+    scrollCnt.invalidate();
 }

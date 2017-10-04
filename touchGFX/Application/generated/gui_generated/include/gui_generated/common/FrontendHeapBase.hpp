@@ -25,6 +25,8 @@
 #include <gui/wificontrol_screen/WifiControlPresenter.hpp>
 #include <gui/setting_screen/SettingView.hpp>
 #include <gui/setting_screen/SettingPresenter.hpp>
+#include <gui/mic_screen/MicScreenView.hpp>
+#include <gui/mic_screen/MicScreenPresenter.hpp>
 
 /**
  * This class provides the memory that shall be used for memory allocations
@@ -53,7 +55,8 @@ public:
             meta::TypeList< ScreenSaverClockView,
             meta::TypeList< WifiControlView,
             meta::TypeList< SettingView,
-            meta::Nil > > > > > >
+			meta::TypeList< MicScreenView,
+            meta::Nil > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -72,7 +75,8 @@ public:
             meta::TypeList< ScreenSaverClockPresenter,
             meta::TypeList< WifiControlPresenter,
             meta::TypeList< SettingPresenter,
-            meta::Nil > > > > > >
+            meta::TypeList< MicScreenPresenter,
+            meta::Nil > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

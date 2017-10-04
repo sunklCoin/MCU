@@ -63,6 +63,8 @@
 #error Unknown USE_BPP
 #endif
 #include <gui/custom_controls_screen/ScrollableContainerEx.hpp>
+#include <gui/framework/KeyEvent.h>
+
 using namespace touchgfx;
 
 class ImageMenu : public Container
@@ -83,21 +85,12 @@ private:
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
 #if !defined(USE_BPP) || USE_BPP==16
 	PainterRGB565 myColorPainter;
-	PainterRGB565 myPressColorPainter;
-	PainterRGB565Bitmap myBitmapPainter;
-	PainterRGB565Bitmap myBitmapPainter2;
 #elif USE_BPP==24
 	PainterRGB888 myColorPainter;
-	PainterRGB888Bitmap myBitmapPainter;
-	PainterRGB888Bitmap myBitmapPainter2;
 #elif USE_BPP==4
 	PainterGRAY4 myColorPainter;
-	PainterGRAY4Bitmap myBitmapPainter;
-	PainterGRAY4Bitmap myBitmapPainter2;
 #elif USE_BPP==2
 	PainterGRAY2 myColorPainter;
-	PainterGRAY2Bitmap myBitmapPainter;
-	PainterGRAY2Bitmap myBitmapPainter2;
 #elif USE_BPP==1
 	PainterBW myColorPainter;
 #else

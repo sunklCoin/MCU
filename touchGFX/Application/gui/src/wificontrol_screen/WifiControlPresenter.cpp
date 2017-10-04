@@ -36,16 +36,20 @@ void WifiControlPresenter::setWifiState(bool state)
     view.setWifiState(state);
 }
 
-/*void WifiControlPresenter::updateListMenuElements()
-{
-    view.updateListMenuElements();
-}*/
-
 void WifiControlPresenter::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi) {
     view.updateListMenuElements(strName, address, rssi);
 }
 
 void WifiControlPresenter::onWifiScanCompleted(int num) {
+    view.updateListMenuLayout();
     view.stopAnimation();
     setWifiState(true);
+}
+
+void WifiControlPresenter::onWifiConnected(bool status) {
+    view.stopListAnimation();
+}
+
+void WifiControlPresenter::onWifiDisonnected(int reason) {
+    view.stopListAnimation();
 }

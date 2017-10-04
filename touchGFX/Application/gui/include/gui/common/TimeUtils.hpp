@@ -95,8 +95,8 @@ class TimeUtils {
     {
         int diff = (hours - other.hours) * 60 * 60 * 1000 +
             (minutes - other.minutes) * 60 * 1000 +
-            (seconds - other.seconds) * 1000 +
-            (milliseconds - other.milliseconds);
+            (seconds - other.seconds) * 1000 /*+
+            (milliseconds - other.milliseconds)*/;
         if (diff < 0)
         {
             diff += 24 * 60 * 60 * 1000;

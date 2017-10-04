@@ -4,7 +4,7 @@ bool glb_BtState = false;
 bool glb_Wifistate = false;
 int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
-int glb_BatteryLevel = 5;
+int glb_BatteryLevel = 0;
 int glb_currBacklight = 0;
 int glb_currSleepSchedule = 1;
 
@@ -95,4 +95,26 @@ void ControlData::setSleepSchedule(int value)
 int ControlData::getSleepSchedule()
 {
     return glb_currSleepSchedule;
+}
+
+
+void ControlData::gotoSleep()
+{
+#ifndef SIMULATOR
+    LCD_Sleep();
+#endif
+    isSleep = true;
+}
+
+void ControlData::wakeupLcd()
+{
+#ifndef SIMULATOR
+    LCD_Awake();
+#endif
+    isSleep = false;
+}
+
+bool ControlData::isSleepState()
+{
+    return isSleep;
 }

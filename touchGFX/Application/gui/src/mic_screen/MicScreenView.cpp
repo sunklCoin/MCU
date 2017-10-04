@@ -6,14 +6,14 @@
 #include "BitmapDatabase.hpp"
 #include <texts/TextKeysAndLanguages.hpp>
 #include <touchgfx/Color.hpp>
-
+#include <stdlib.h>
 MicScreenView::MicScreenView() :
 DemoView(),
 animationState(NO_ANIMATION),
 recordState(STOPPED),
 animationCounter(0),
 tickCounter(0),
-slideDistance(0),
+dragY(0),
 onButtonPressed(this, &MicScreenView::buttonPressedhandler)
 {
 	//background.setXY(0, 0);
@@ -24,7 +24,7 @@ onButtonPressed(this, &MicScreenView::buttonPressedhandler)
 
 void MicScreenView::setupScreen()
 {
-	soundRecAnim.setPosition(0, 128, HAL::DISPLAY_WIDTH, 80);
+	soundRecAnim.setPosition(0, 90, HAL::DISPLAY_WIDTH, 64);
 
 	for (uint8_t i = 0; i < NUMBER_OF_SOUND_LEVEL_INDICATORS; i++)
 	{
@@ -42,12 +42,20 @@ void MicScreenView::setupScreen()
 	}
 	add(soundRecAnim);
 
+    undoTxt.setTypedText(TypedText(T_CANCELRECORD));
+    undoTxt.setPosition(0, soundRecAnim.getY() + soundRecAnim.getHeight() + (32 - undoTxt.getHeight()) / 2, HAL::DISPLAY_WIDTH, 32);
+    undoTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    add(undoTxt);
+
 	recordBtn.setPosition(35, 217, 170, 60);
-	recordBtn.setBitmaps(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
-	recordBtn.setLabelText(TypedText(T_STARTRECORD));
-	recordBtn.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-	recordBtn.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-	recordBtn.setAction(onButtonPressed);
+    recordBtnImg.setXY(0, 0);
+    recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID));
+    recordBtn.add(recordBtnImg);
+	//recordBtn.setBitmaps(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+    recordTxt.setTypedText(TypedText(T_STARTRECORD));
+    recordTxt.setPosition(0, (recordBtn.getHeight() - recordTxt.getHeight())/2, recordBtn.getWidth(), recordBtn.getHeight());
+    recordTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    recordBtn.add(recordTxt);
 	add(recordBtn);
 
 
@@ -113,69 +121,97 @@ void MicScreenView::animateSoundLevelIndicators()
 	}
 }
 
+bool MicScreenView::checkPositionToSend(int16_t y)
+{
+    if (dragY - y > 20){
+        return false;
+    }
+    return true;
+}
+
 void MicScreenView::handleClickEvent(const ClickEvent& evt)
 {
-	int Y = evt.getY();
+    int x = evt.getX();
+	int y = evt.getY();
 	if (evt.getType() == ClickEvent::PRESSED){
 		if (evt.getX() < recordBtn.getX()
 			|| evt.getX() > (recordBtn.getX() + recordBtn.getWidth())
 			|| evt.getY() < recordBtn.getY()
 			|| evt.getY() > (recordBtn.getY() + recordBtn.getHeight()))
 		{
+            DemoView<MicScreenPresenter>::handleClickEvent(evt);
 			return;
 		}
+        dragY = recordBtn.getY();
 		recordState = RECORDING;
-		slideDistance = evt.getY();
-		recordBtn.setLabelText(TypedText(T_ENDRECORD));
-		recordBtn.invalidate();
+        recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
+		recordTxt.setTypedText(TypedText(T_ENDRECORD));
+        recordBtnImg.invalidate();
+        recordTxt.invalidate();
 		presenter->startRecord();
 	}
 	else if (evt.getType() == ClickEvent::RELEASED)
 	{
-		if (evt.getX() >= recordBtn.getX()
-			&& evt.getX() <= (recordBtn.getX() + recordBtn.getWidth())
-			&& evt.getY() >= recordBtn.getY()
-			&& evt.getY() <= (recordBtn.getY() + recordBtn.getHeight()))
-		{
-			slideDistance = 0;// evt.getY();
-			recordState = STOPPED;
-			recordBtn.setLabelText(TypedText(T_STARTRECORD));
-			recordBtn.invalidate();
-			presenter->finishRecord();
-		}
-		else{
-			slideDistance = 0;// evt.getY();
-			recordState = STOPPED;
-			recordBtn.setLabelText(TypedText(T_STARTRECORD));
-			recordBtn.invalidate();
-			presenter->cancelRecord();
-		}
+        recordState = STOPPED;
+        recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID));
+        recordBtnImg.invalidate();
+        recordTxt.setTypedText(TypedText(T_STARTRECORD));
+        recordTxt.invalidate();
+        undoTxt.setTypedText(TypedText(T_CANCELRECORD));
+        undoTxt.invalidate();
+
+        if (!checkPositionToSend(evt.getY()))
+        {
+            presenter->cancelRecord();
+        }
+        else
+        {
+            presenter->finishRecord();
+        }
+            DemoView<MicScreenPresenter>::handleClickEvent(evt);
 	}
-	DemoView<MicScreenPresenter>::handleClickEvent(evt);
 }
 
-void MicScreenView::handleGestureEvent(const GestureEvent& evt)
+//void MicScreenView::handleGestureEvent(const GestureEvent& evt)
+//{
+//	// Do not accept gestures while animating
+//	int Y = evt.getY();
+//	if (evt.getType() == evt.SWIPE_VERTICAL)
+//	{
+//        if (/*evt.getVelocity() > 0 &&*/ (dragY - Y) > 100){
+//			recordState = STOPPED;
+//            dragY = 0;
+//			presenter->cancelRecord();
+//		}
+//	}
+//}
+
+void MicScreenView::handleDragEvent(const DragEvent& evt)
 {
-	// Do not accept gestures while animating
-	int Y = evt.getY();
-	if (evt.getType() == evt.SWIPE_VERTICAL)
-	{
-		if (/*evt.getVelocity() > 0 &&*/ (slideDistance - Y) > 100){
-			recordState = STOPPED;
-			slideDistance = 0;
-			presenter->cancelRecord();
-		}
-	}
+    // Do not accept gestures while animating
+    //dragY += evt.getDeltaY();
+    if (!checkPositionToSend(evt.getNewY()))
+    {
+        if (recordState == RECORDING){
+            undoTxt.setTypedText(TypedText(T_RELEASECANCEL));
+            undoTxt.invalidate();
+        }
+    }
+    else{
+        undoTxt.setTypedText(TypedText(T_CANCELRECORD));
+        undoTxt.invalidate();
+    }
 }
+
 
 void MicScreenView::buttonPressedhandler(const AbstractButton& button)
 {
-	if (&button == &recordBtn)
-	{
-//		recordState = RECORDING;
-//		presenter->startRecord();
-	}
-	else if (&button == &gotoMenuButton)
+//	if (&button == &recordBtn)
+//	{
+////		recordState = RECORDING;
+////		presenter->startRecord();
+//	}
+//	else if (&button == &gotoMenuButton)
 	{
 		presenter->backOptionSelected();
 	}

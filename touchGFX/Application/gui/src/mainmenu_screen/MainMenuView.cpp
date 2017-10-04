@@ -74,8 +74,5 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 //Handles when a key is pressed
 void MainMenuView::handleKeyEvent(uint8_t key)
 {
-#ifdef SIMULATOR
-    key = key - '0';
-#endif
 	imageMenu.dispatchKeyEvent(key);
 }

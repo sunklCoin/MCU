@@ -198,11 +198,7 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
         if (&menuItems[i].button == &button && menuItems[i].active)
         {
             selectedIndex = i;
-#if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
-            horizontalScrollAdjustmentTotalDistance = menuItemContainer.getWidth();// menuItems[i].circle.getX() + menuItemContainer.getX();
-#else
-            horizontalScrollAdjustmentTotalDistance = menuItems[i].button.getX() + menuItemContainer.getX();
-#endif
+            horizontalScrollAdjustmentTotalDistance = menuItemContainer.getWidth();
             horizontalScrollStartingPosition = menuItemContainer.getX();
 
             descriptionFieldSelectButton.setVisible(menuItems[i].showDemoButton);
@@ -371,21 +367,34 @@ void ImageMenu::dispatchKeyEvent(uint8_t key)
         menuItems[current_select_for_key].selectedImage.setVisible(false);
         menuItems[current_select_for_key].selectedImage.invalidate();
     }
-	if (1 == key)//down
+    if (KEYCODE_DOWN == key)//down
 	{
         current_select_for_key = (++current_select_for_key < elementsInList ? current_select_for_key : 0);
         moveCoefficient = -1;
 	}
-    else if (2 == key)//up
+    else if (KEYCODE_UP == key)//up
     {
         current_select_for_key = (current_select_for_key-- > 0 ? current_select_for_key : elementsInList - 1);
         moveCoefficient = -1;
-	}
+    }
+    else if (KEYCODE_OK == key) //ok,enter screen
+    {
+        if (current_select_for_key >= 0 && current_select_for_key < elementsInList){
 
-    int contentHeight = menuItems[current_select_for_key].button.getY() + menuItems[current_select_for_key].button.getHeight();
-    horizontalScrollAdjustmentTotalDistance = contentHeight - scrollablemenuItemContainer.getHeight() + rect.y;
+            if (menuItemSelectedCallback)
+            {
+                menuItemSelectedCallback->execute(menuItems[current_select_for_key].callbackId);
+                return;
+            }
+        }
+    }
 
-    setState(ANIMATE_TO_KEY_MOVE_ELEMENTS);
-    menuItems[current_select_for_key].selectedImage.setVisible(true);
-	menuItems[current_select_for_key].selectedImage.invalidate();
+    if (current_select_for_key >= 0 && current_select_for_key < elementsInList){
+        int contentHeight = menuItems[current_select_for_key].button.getY() + menuItems[current_select_for_key].button.getHeight();
+        horizontalScrollAdjustmentTotalDistance = contentHeight - scrollablemenuItemContainer.getHeight() + rect.y;
+
+        setState(ANIMATE_TO_KEY_MOVE_ELEMENTS);
+        menuItems[current_select_for_key].selectedImage.setVisible(true);
+        menuItems[current_select_for_key].selectedImage.invalidate();
+    }
 }

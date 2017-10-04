@@ -16,12 +16,12 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 	add(background);*/
 
     background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
-    background.setPosition(0, 0, 240, 105);
+    background.setPosition(0, 0, 240, 80);
     background.setScalingAlgorithm(ScalableImage::NEAREST_NEIGHBOR);
     add(background);
 
 	imageGradiantBGDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_WHEEL_GRADIENT_ID));
-    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 3, background.getHeight() - imageGradiantBGDuration.getHeight());
+    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 3, (background.getHeight() - imageGradiantBGDuration.getHeight())/2);
 	add(imageGradiantBGDuration);
 
 	add(wheelDuration);
@@ -30,20 +30,20 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 	imageShadowTopDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY());
 	add(imageShadowTopDuration);
 	imageShadowBottomDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_BOTTOM_GRADIENT_ID));
-	imageShadowBottomDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY() + imageGradiantBGDuration.getHeight() - imageShadowBottomDuration.getHeight());
+    imageShadowBottomDuration.setXY(imageGradiantBGDuration.getX() + imageGradiantBGDuration.getWidth() - imageShadowBottomDuration.getWidth(), imageGradiantBGDuration.getY());
 	add(imageShadowBottomDuration);
 	glassOverlayDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_GLASS_OVERLAY_ID));
 	glassOverlayDuration.setXY(imageGradiantBGDuration.getX() + imageGradiantBGDuration.getWidth() / 2 - glassOverlayDuration.getWidth() / 2,
 		imageGradiantBGDuration.getY() + imageGradiantBGDuration.getHeight() / 2 - glassOverlayDuration.getHeight() / 2);
 	add(glassOverlayDuration);
 
-	uint16_t normalTextColor = Color::getColorFrom24BitRGB(TEXT_BLACK_ON_WHITE_R, TEXT_BLACK_ON_WHITE_G, TEXT_BLACK_ON_WHITE_B);
-	uint16_t selectedTextColor = Color::getColorFrom24BitRGB(PROGRESS_BAR_COLOR_R, PROGRESS_BAR_COLOR_G, PROGRESS_BAR_COLOR_B);
-	uint16_t selectedBackgroundColor = Color::getColorFrom24BitRGB(246, 246, 246);
+    uint16_t normalTextColor = Color::getColorFrom24BitRGB(80, 80, 80);// Color::getColorFrom24BitRGB(TEXT_BLACK_ON_WHITE_R, TEXT_BLACK_ON_WHITE_G, TEXT_BLACK_ON_WHITE_B);
+    uint16_t selectedTextColor = Color::getColorFrom24BitRGB(TEXT_WHITE_ON_BLACK_R, TEXT_WHITE_ON_BLACK_G, TEXT_WHITE_ON_BLACK_B);
+    uint16_t selectedBackgroundColor = Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51);
 
 	wheelDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY());
-	wheelDuration.setup(imageGradiantBGDuration.getWidth() - 2, imageGradiantBGDuration.getHeight() - 5, 5, 42/*imageGradiantBGDuration.getY()*/, T_TIME_PICKER_DURATION);
-	wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getY() - imageGradiantBGDuration.getY() + 2, glassOverlayDuration.getHeight() - 5);
+    wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 42, background.getY(), T_TIME_PICKER_DURATION);
+    wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX() + 2, glassOverlayDuration.getWidth() - 5);
     wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
 
     textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
@@ -61,6 +61,7 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 	SetDefaultTimes();
 	setWidth(background.getWidth());
     setHeight(background.getHeight());
+
 }
 
 
@@ -76,7 +77,7 @@ void SleepSchedule::SetDefaultTimes() {
     wheelDuration.setSelectedIndex(index, 20);
 }
 
-void SleepSchedule::selectedElementChangedHandler(const WheelSelector& wheel, const int& index)
+void SleepSchedule::selectedElementChangedHandler(const HorizontalWheelSelector& wheel, const int& index)
 {
     static_cast<FrontendApplication*>(Application::getInstance())->getControlData().setSleepSchedule(index);
 }
