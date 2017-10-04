@@ -62,6 +62,7 @@ typedef enum {
 /* bluetooth */
 typedef struct gui_data_bt_req {
     char deviceName[BT_DEVICENAME_LEN];
+    uint8_t address[BT_MACADDRESS_LEN];
 } struct_gui_data_bt_req;
 
 typedef struct gui_data_bt_rsp {
@@ -80,18 +81,41 @@ typedef struct gui_data_pm_rsp {
 	uint8_t charging_status;
 } struct_gui_data_pm_rsp;
 
+typedef struct gui_data_key_rsp {
+	uint8_t key_type;
+	uint8_t key_code;
+} struct_gui_data_key_rsp;
+
 /* wifi */
+#if 0
 typedef struct wifi_scan_list {
     uint8_t channel;	/* wifi ap channel */
     uint8_t ssid_len;
     uint8_t rssi;		/* wifi ap indicator */
     uint8_t bssid[6];	/* wifi ap mac address */
     uint8_t ssid[32];	/* wifi ap name */
-} struct_wifi_scan_list;
+} struct_wifi_scan;
+#else
+typedef struct wifi_scan_list {
+	uint8_t channel;
+	uint8_t ssid_len;
+	uint8_t rssi;
+	uint8_t security_enabled;
+	uint16_t beacon_period;
+	uint8_t preamble;
+	uint8_t bss_type;
+	uint8_t bssid[6];
+	uint8_t ssid[32];
+	uint8_t rsn_cipher;
+	uint8_t rsn_auth;
+	uint8_t wpa_cipher;
+	uint8_t wpa_auth;
+} struct_wifi_scan;
+#endif
 
 typedef struct gui_data_wifi_rsp {
     uint8_t scan_num;
-    struct_wifi_scan_list * scan_list;
+    struct_wifi_scan * scan_list;
 } struct_gui_data_wifi_rsp;
 
 typedef struct message_gui_req {
@@ -108,6 +132,7 @@ typedef struct message_gui_rsp {
         struct_gui_data_bt_rsp bt;
         struct_gui_data_pm_rsp pm;
         struct_gui_data_wifi_rsp wifi;
+        struct_gui_data_key_rsp key;
     } data;
 } struct_message_gui_rsp;
 

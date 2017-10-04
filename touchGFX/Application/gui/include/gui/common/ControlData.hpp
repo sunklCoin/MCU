@@ -15,6 +15,8 @@ extern "C"{
 #ifndef SIMULATOR
     extern void Backlight_Adjust(uint8_t brightness);
     extern uint8_t Backlight_Get(void);
+    extern void LCD_Sleep();
+    extern void LCD_Awake();
 #endif
 }
 
@@ -35,8 +37,11 @@ public:
     void setBackLightLevel(int);
     void setSleepSchedule(int);
     int getSleepSchedule();
+    void gotoSleep();
+    bool isSleepState();
+    void wakeupLcd();
 private:
-
+    bool isSleep;
 };
 
 #endif // _CONTROL_DATA_HPP_

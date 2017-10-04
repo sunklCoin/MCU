@@ -13,6 +13,9 @@ extern "C" {
 #include "remoter_message.h"
 }
 #endif
+#include <gui/framework/DevicePort.h>
+#include <string.h>
+
 
 #ifdef SIMULATOR
 #define SM_MESSAGE_QUEUE        50
@@ -63,21 +66,62 @@ void SM_DispatchMessage() {
         }
     }
 }
-#endif
+#else
+void InitMessage(struct_remote_message& msg_send, uint32_t msg_id) {
+    memset(&msg_send, 0, sizeof(msg_send));
+    msg_send.task_src = TASK_GUI;
+    msg_send.task_dst = TASK_GUI_SVC;
+    msg_send.msg.msg_gui_req.msgid = msg_id;
+}
 
 void SendMessageEmpty(uint32_t msg_id) {
-#ifndef SIMULATOR
     struct_remote_message msg_send;
     memset(&msg_send, 0, sizeof(msg_send));
     msg_send.task_src = TASK_GUI;
     msg_send.task_dst = TASK_GUI_SVC;
     msg_send.msg.msg_gui_req.msgid = msg_id;
     Message_Send(&msg_send);
-#endif
 }
+#endif
 
 /* bluetooth */
+enum_bluetooth_state bluetooth_state = bt_state_idle;
+enum_bluetooth_action bluetooth_action = bt_action_none;
+
+void Bluetooth_Open();
+void Bluetooth_Close();
+
+void Bluetooth_SetState(enum_bluetooth_state state) {
+    bluetooth_state = state;
+}
+
+void Bluetooth_SetAction(enum_bluetooth_action action) {
+    bluetooth_action = action;
+}
+
+void Bluetooth_RedoAction(enum_bluetooth_action action) {
+    if (bluetooth_action != action) {
+        switch (bluetooth_action) {
+            case bt_action_open:
+                Bluetooth_Open();
+                break;
+            case bt_action_scan:
+                ///Bluetooth_Scan_Start();
+                break;
+            case bt_action_close:
+                Bluetooth_Close();
+                break;
+        }
+    }
+    bluetooth_action = bt_action_none;
+}
+
 void Bluetooth_Open() {
+    if (bluetooth_state != bt_state_idle) {
+        Bluetooth_SetAction(bt_action_open);
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_BT_OPEN_REQ);
 #else
@@ -85,9 +129,16 @@ void Bluetooth_Open() {
     sm_message.msgid = MSG_ID_GUI_BT_OPEN_RSP;
     SM_SendMessage();
 #endif
+
+    Bluetooth_SetState(bt_state_advertising);
 }
 
 void Bluetooth_Close() {
+    if (bluetooth_state != bt_state_advertised) {
+        Bluetooth_SetAction(bt_action_close);
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_BT_CLOSE_REQ);
 #else
@@ -95,9 +146,16 @@ void Bluetooth_Close() {
     sm_message.msgid = MSG_ID_GUI_BT_CLOSE_RSP;
     SM_SendMessage();
 #endif
+
+    Bluetooth_SetState(bt_state_closeadvertising);
 }
 
 void Bluetooth_Scan_Start() {
+    if (bluetooth_state != bt_state_advertised) {
+        Bluetooth_SetAction(bt_action_scan);
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_BT_SCAN_START_REQ);
 #else
@@ -120,17 +178,69 @@ void Bluetooth_Scan_Start() {
     sm_message.msgid = MSG_ID_GUI_BT_SCAN_COMPLETE_IND;
     sm_message.data.bt.num = 0;
     SM_SendMessage();
-
 #endif
+
+    Bluetooth_SetState(bt_state_scaning);
 }
 
 void Bluetooth_Scan_Stop() {
+#if 0
+    if (bluetooth_state != bt_state_scaning) return;
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_BT_SCAN_STOP_REQ);
 #else
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_BT_SCAN_COMPLETE_IND;
     sm_message.data.bt.num = 0;
+    SM_SendMessage();
+#endif
+
+    Bluetooth_SetState(bt_state_stopscaning);
+#endif
+}
+
+void Bluetooth_Connect(uint8_t address[]) {
+    if (bluetooth_state != bt_state_advertised) return;
+
+#ifndef SIMULATOR
+    struct_remote_message msg_send;
+    InitMessage(msg_send, MSG_ID_GUI_BT_CONNECT_REQ);
+    memcpy(msg_send.msg.msg_gui_req.para.bt.address, address, BT_MACADDRESS_LEN);
+    Message_Send(&msg_send);
+#else
+    SM_InitMessage();
+    sm_message.msgid = MSG_ID_GUI_BT_CONNECT_RSP;
+    SM_SendMessage();
+#endif
+}
+
+void Bluetooth_Disconnect(uint8_t address[]) {
+    if (bluetooth_state != bt_state_advertised) return;
+
+#ifndef SIMULATOR
+    struct_remote_message msg_send;
+    InitMessage(msg_send, MSG_ID_GUI_BT_DISCONNECT_RSP);
+    memcpy(msg_send.msg.msg_gui_req.para.bt.address, address, BT_MACADDRESS_LEN);
+    Message_Send(&msg_send);
+#else
+    SM_InitMessage();
+    sm_message.msgid = MSG_ID_GUI_BT_DISCONNECT_REQ;
+    SM_SendMessage();
+#endif
+}
+
+void Bluetooth_Bond(uint8_t address[]) {
+    if (bluetooth_state != bt_state_advertised) return;
+
+#ifndef SIMULATOR
+    struct_remote_message msg_send;
+    InitMessage(msg_send, MSG_ID_GUI_BT_BOND_REQ);
+    memcpy(msg_send.msg.msg_gui_req.para.bt.address, address, BT_MACADDRESS_LEN);
+    Message_Send(&msg_send);
+#else
+    SM_InitMessage();
+    sm_message.msgid = MSG_ID_GUI_BT_BOND_RSP;
     SM_SendMessage();
 #endif
 }
@@ -163,10 +273,10 @@ void Wifi_Scan() {
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_SCAN_REQ);
 #else
-    static struct_wifi_scan_list gWifi_Scan_List[3] = {
-        {0, 5, 40, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}},
-        {0, 5, 90, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}},
-        {0, 6, 60, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}}
+    static struct_wifi_scan gWifi_Scan_List[3] = {
+        {0, 5, 40, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
+        {0, 5, 90, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
+        {0, 6, 60, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}, 0, 0, 0, 0}
     };
 
     SM_InitMessage();

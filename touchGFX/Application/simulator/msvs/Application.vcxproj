@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\gui\src\btcontrol_screen\BTControlPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\btcontrol_screen\BTControlView.cpp" />
     <ClCompile Include="..\..\gui\src\common\ControlData.cpp" />
+    <ClCompile Include="..\..\gui\src\common\CustomList.cpp" />
     <ClCompile Include="..\..\gui\src\common\CustomListElement.cpp" />
     <ClCompile Include="..\..\gui\src\common\DemoPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="..\..\gui\include\gui\btcontrol_screen\BTControlPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\btcontrol_screen\BTControlView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\ControlData.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\common\CustomList.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\CustomListElement.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\DemoPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\common\DemoView.hpp" />

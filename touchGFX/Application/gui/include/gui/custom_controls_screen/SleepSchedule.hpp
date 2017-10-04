@@ -11,6 +11,7 @@
 #include <touchgfx/widgets/RadioButtonGroup.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <gui/custom_controls_screen/WheelSelector.hpp>
+#include <gui/custom_controls_screen/HorizontalWheelSelector.hpp>
 #include <touchgfx/widgets/ScalableImage.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
@@ -65,7 +66,7 @@ protected:
 	Image imageShadowTopDuration;
 	Image imageShadowBottomDuration;
 	Image glassOverlayDuration;
-	WheelSelector wheelDuration;
+    HorizontalWheelSelector wheelDuration;
 
 	Button buttonOK;
 
@@ -74,7 +75,7 @@ protected:
 
 	void SetDefaultTimes();
 
-    Callback<SleepSchedule, const WheelSelector&, const int&> onSelectedElementChanged;
-    void selectedElementChangedHandler(const WheelSelector& wheel, const int& index);
+    Callback<SleepSchedule, const HorizontalWheelSelector&, const int&> onSelectedElementChanged;
+    void selectedElementChangedHandler(const HorizontalWheelSelector& wheel, const int& index);
 };
 #endif //_SLEEPSCHEDULE_HPP_

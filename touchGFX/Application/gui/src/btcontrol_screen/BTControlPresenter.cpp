@@ -4,6 +4,7 @@
 #ifndef SIMULATOR
 #include <fsl_debug_console.h>
 #endif
+
 BTControlPresenter::BTControlPresenter(BTControlView& v):
 DemoPresenter(v),
 view(v)
@@ -66,11 +67,23 @@ void BTControlPresenter::onBluetoothStateChange(bool state) {
     }
 }
 
-void BTControlPresenter::onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress) {
-    view.updateListMenuElements(strDeviceName, strAddress);
+void BTControlPresenter::onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[]) {
+    view.updateListMenuElements(strName, address);
 }
-
 
 void BTControlPresenter::onBluetoothScanComplete(int num) {
-
+    view.updateListMenuLayout();
 }
+
+void BTControlPresenter::onBluetoothConnected(bool status, uint8_t address[]) {
+    view.stopListAnimation();
+}
+
+void BTControlPresenter::onBluetoothDisonnected(int reason, uint8_t address[]) {
+    view.stopListAnimation();
+}
+
+void BTControlPresenter::onBluetoothBonded(bool status, int bonded, uint8_t address[]) {
+    view.stopListAnimation();
+}
+

@@ -5,16 +5,17 @@
 #include "BitmapDatabase.hpp"
 #include <texts/TextKeysAndLanguages.hpp>
 #include <touchgfx/Color.hpp>
+#include <gui/framework/DevicePort.h>
 #ifndef SIMULATOR
 #include <remoter_messsage_gui.h>
 #endif
 
 BTControlView::BTControlView() :
-animation(BITMAP_BTN_ANI_01_ID, BITMAP_BTN_ANI_04_ID, 10),
-buttonCallback(this, &BTControlView::buttonCallbackHandler),
-animationEndedCallback(this, &BTControlView::animationEnded),
-listElementClickedCallback(this, &BTControlView::listElementClicked),
-numberOfListElements(0)
+    animation(BITMAP_BTN_ANI_01_ID, BITMAP_BTN_ANI_04_ID, 10),
+    //numberOfListElements(0),
+    buttonCallback(this, &BTControlView::buttonCallbackHandler),
+    animationEndedCallback(this, &BTControlView::animationEnded),
+    listElementClickedCallback(this, &BTControlView::listElementClicked)
 {
     //menuBg.setXY(0, 0);
     //menuBg.setBitmap(Bitmap(BITMAP_MAIN_BG_240X320PX_ID));
@@ -69,6 +70,7 @@ numberOfListElements(0)
     scrollCnt.add(list);
     add(scrollCnt);
 
+    mList.setAction(&listElementClickedCallback);
     count = 0;
 }
 
@@ -83,11 +85,11 @@ void BTControlView::tearDownScreen()
 
 }
 
-
 void BTControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
     if (&src == &switchBTBtn)
     {
+        clearListMenuElements();
         //Interaction1
         //When switchBTBtn clicked execute C++ code
         //Execute C++ code
@@ -99,7 +101,6 @@ void BTControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         else{
             presenter->disableBlueTooth();
             scrollCnt.setVisible(false);
-            list.removeAll();
             scrollCnt.invalidate();
         }
         BtControlDevicesTitle.setVisible(true == switchBTBtn.getState());
@@ -122,8 +123,10 @@ void BTControlView::listElementClicked(CustomListElement& element)
 {
     // The button of the list element has been pressed
     // so it is removed from the list
-    list.remove(element);
-    scrollCnt.invalidate();
+    /*list.remove(element);
+    scrollCnt.invalidate();*/
+    Bluetooth_Connect(element.getAddress());
+    mList.startAnimation(element);
 }
 
 void BTControlView::setBluetoothState(bool state)
@@ -140,7 +143,6 @@ void BTControlView::setBluetoothState(bool state)
     BtControlDevicesTitle.invalidate();
     BtTurnOnTips.invalidate();
 }
-
 
 /**
 * Start the animation in the same direction as it was stopped.
@@ -189,17 +191,25 @@ void BTControlView::handleTickEvent()
     }*/
 }
 
-void BTControlView::updateListMenuElements(Unicode::UnicodeChar* strDeviceName, Unicode::UnicodeChar* strAddress) {
-    memset(ListMenuMap[numberOfListElements].ListMenuEleBuffer, 0, sizeof(ListMenuMap[numberOfListElements].ListMenuEleBuffer));
-    if (Unicode::strlen(strDeviceName) > 0) {
-        Unicode::strncpy(ListMenuMap[numberOfListElements].ListMenuEleBuffer, strDeviceName, BT_DEVICENAME_LEN);
-    } else {
-        Unicode::strncpy(ListMenuMap[numberOfListElements].ListMenuEleBuffer, strAddress, Unicode::strlen(strAddress));
-    }
-    ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_BLUETOOTH_32X32_ID));
+void BTControlView::clearListMenuElements() {
+    list.removeAll();
+    mList.clear();
+}
 
-    ListMenuMap[numberOfListElements].setAction(listElementClickedCallback);
-    list.add(ListMenuMap[numberOfListElements]);
-    numberOfListElements++;
+void BTControlView::updateListMenuElements(Unicode::UnicodeChar* strDeviceName, uint8_t address[]) {
+    if (Unicode::strlen(strDeviceName) > 0) {
+        mList.addElement(address, Bitmap(BITMAP_BLUETOOTH_32X32_ID), strDeviceName);
+    }
+    else {
+        Unicode::UnicodeChar strAddress[19] = { 0 };
+        memset(strAddress, 0, sizeof(strAddress));
+        Unicode::snprintf(strAddress, 18, "%02X:%02X:%02X:%02X:%02X:%02X", address[0], address[1], address[2], address[3], address[4], address[5]);
+        mList.addElement(address, Bitmap(BITMAP_BLUETOOTH_32X32_ID), strAddress);
+    }
+}
+
+void BTControlView::updateListMenuLayout() {
+    mList.genListLayout(list);
+    mList.addAnimation(list);
     scrollCnt.invalidate();
 }

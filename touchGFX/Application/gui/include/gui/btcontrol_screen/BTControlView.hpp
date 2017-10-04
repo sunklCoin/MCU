@@ -1,7 +1,6 @@
 #ifndef BTCONTROL_VIEW_HPP
 #define BTCONTROL_VIEW_HPP
 #include <gui/btcontrol_screen/BTControlPresenter.hpp>
-
 #include <gui/common/FrontendApplication.hpp>
 #include <mvp/View.hpp>
 #include <gui/btcontrol_screen/BTControlPresenter.hpp>
@@ -12,10 +11,12 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <gui/common/DemoView.hpp>
 #include <gui/common/CustomListElement.hpp>
+#include <gui/common/CustomList.hpp>
 #include <touchgfx/containers/ScrollableContainer.hpp>
 #include <touchgfx/containers/ListLayout.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
-#include <map>
+///#include <map>
+
 using namespace touchgfx;
 using namespace std;
 
@@ -30,8 +31,11 @@ public:
     void startAnimation();
     void stopAnimation();
     bool isAnimationRunning();
+    void clearListMenuElements();
      /*void updateListMenuElements();*/
-    void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress);
+    void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strDeviceName, uint8_t address[]);
+    void updateListMenuLayout();
+    void stopListAnimation() { mList.stopAnimation(); }
 protected:
     /*
      * Member Declarations
@@ -45,19 +49,16 @@ protected:
     CustomListElement MenuContainer;
     AnimatedImage animation;
     TextArea BtTurnOnTips;
-    int numberOfListElements;
-
     ScrollableContainer scrollCnt;
     ListLayout list;
-
+    CustomList mList;
+/*
+    int numberOfListElements;
     CustomListElement listElements;
-
-    Callback<BTControlView, const uint8_t> onImageMenuItemSelected;
-
-    void getBluetoothState(bool);
-
     map<int, CustomListElement> ListMenuMap;
-
+*/
+    Callback<BTControlView, const uint8_t> onImageMenuItemSelected;
+    void getBluetoothState(bool);
     void handleTickEvent();
 private:
 
@@ -67,11 +68,11 @@ private:
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void animationEnded(const AnimatedImage& source);
     void listElementClicked(CustomListElement& element);
+
     /*
     * Callback Declarations
     */
     Callback<BTControlView, const touchgfx::AbstractButton&> buttonCallback;
-
     Callback<BTControlView, const AnimatedImage&> animationEndedCallback;
     Callback<BTControlView, CustomListElement&> listElementClickedCallback;
 };

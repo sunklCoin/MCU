@@ -42,6 +42,7 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/Box.hpp>
+
 using namespace touchgfx;
 
 class MainView;
@@ -52,43 +53,52 @@ class MainView;
 */
 class CustomListElement : public Container
 {
-public:
-	CustomListElement();
-
-	/**
-	* Initialize this containers widgets
-	*/
-    void setupListElement(const Bitmap& bmp, const Unicode::UnicodeChar* str);
-    void setupListElement(const Bitmap& bmp);
-	/**
-	* Setup the view callback
-	*/
-	void setAction(GenericCallback< CustomListElement& >& callback)
-	{
-		viewCallback = &callback;
-	}
-
-	/**
-	* Handler of button click events
-	*/
-	void buttonClicked(const AbstractButton& source);
-    static const uint16_t LISTMENUELE_SIZE = 60;
-    touchgfx::Unicode::UnicodeChar ListMenuEleBuffer[LISTMENUELE_SIZE];
 private:
     Image smallIcon;
     Box buttonImg;
-	Button btn;
+    Button btn;
     TextAreaWithOneWildcard ListMenuEle;
 
-	/**
-	* Callback that is called when the button is clicked
-	*/
-	Callback<CustomListElement, const AbstractButton&> buttonClickedCallback;
+    /**
+    * Callback that is called when the button is clicked
+    */
+    Callback<CustomListElement, const AbstractButton&> buttonClickedCallback;
+    /**
+    * Callback that that notifies the creator of the list element of an event
+    */
+    GenericCallback< CustomListElement& >* viewCallback;
+protected:
+    static const uint16_t LISTMENUELE_SIZE = 60;
+    static const uint16_t ADDRESS_SIZE = 6;
+    uint8_t mAddress[ADDRESS_SIZE];
+    int mRssi;
 
-	/**
-	* Callback that that notifies the creator of the list element of an event
-	*/
-	GenericCallback< CustomListElement& >* viewCallback;
+public:
+    touchgfx::Unicode::UnicodeChar mListMenuEleBuffer[LISTMENUELE_SIZE];
+
+    CustomListElement();
+    /**
+    * Initialize this containers widgets
+    */
+    void setupListElement(const Bitmap& bmp);
+    void setupListElement(const Bitmap& bmp, uint8_t address[], const Unicode::UnicodeChar* strName, int rssi = 0);
+    int getRssi() {return mRssi; }
+	uint8_t* getAddress() { return mAddress; }
+    int16_t getIconX() { return getX() + smallIcon.getX(); }
+    int16_t getIconY() { return getY() + smallIcon.getY(); }
+	void setIconVisible(bool visible) { smallIcon.setVisible(visible); }
+
+    /**
+    * Setup the view callback
+    */
+    void setAction(GenericCallback< CustomListElement& >* callback) {
+        viewCallback = callback;
+    }
+
+    /**
+    * Handler of button click events
+    */
+    void buttonClicked(const AbstractButton& source);
 };
 
 #endif /* CUSTOM_LIST_ELEMENT_HPP */

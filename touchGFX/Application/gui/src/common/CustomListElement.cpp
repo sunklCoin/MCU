@@ -36,52 +36,59 @@
 #include <BitmapDatabase.hpp>
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
+#include <string.h>
+#include <touchgfx/widgets/AbstractButton.hpp>
 
-CustomListElement::CustomListElement()
-: Container(),
-buttonClickedCallback(this, &CustomListElement::buttonClicked)
+CustomListElement::CustomListElement() : 
+    Container(), 
+    viewCallback(NULL),
+    buttonClickedCallback(this, &CustomListElement::buttonClicked)
 {
 
 }
 
 void CustomListElement::setupListElement(const Bitmap& bmp)
 {
-	// Setup background
+    // Setup background
     buttonImg.setColor(Color::getColorFrom24BitRGB(85, 88, 89));
     buttonImg.setPosition(0, 0, 240, 37);
     add(buttonImg);
-	// Setup 
+    // Setup 
     btn.setBitmaps(Bitmap(BITMAP_INVALID), Bitmap(BITMAP_ITEM_BUTTON_PRESSED_ID));
     btn.setXY(buttonImg.getWidth() - btn.getWidth(), 0);
-	btn.setAction(buttonClickedCallback);
+    btn.setAction(buttonClickedCallback);
     add(btn);
 
     smallIcon.setBitmap(bmp);
     smallIcon.setXY(0, 0);
     add(smallIcon);
 
-    ListMenuEle.setWildcard(ListMenuEleBuffer);
+    ListMenuEle.setWildcard(mListMenuEleBuffer);
     ListMenuEle.setTypedText(TypedText(T_LISTMENUELETXT));
     ListMenuEle.setPosition(smallIcon.getX() + smallIcon.getWidth() + 5, 10, buttonImg.getWidth() - smallIcon.getWidth(), 20);
     ListMenuEle.setColor(touchgfx::Color::getColorFrom24BitRGB(252, 248, 248));
     add(ListMenuEle);
 
-
-	// Setup CustomListElement dimensions
+    // Setup CustomListElement dimensions
     setHeight(buttonImg.getHeight() + 1);
     setWidth(buttonImg.getWidth());
-
 }
-void CustomListElement::setupListElement(const Bitmap& bmp, const Unicode::UnicodeChar* str)
-{
 
+void CustomListElement::setupListElement(const Bitmap& bmp, uint8_t address[], const Unicode::UnicodeChar* strName, int rssi)
+{
+    memcpy(mAddress, address, sizeof(mAddress));
+    memset(mListMenuEleBuffer, 0, sizeof(mListMenuEleBuffer));
+    Unicode::strncpy(mListMenuEleBuffer, strName, LISTMENUELE_SIZE-1);
+    mRssi = rssi;
+    setupListElement(bmp);
+    buttonClickedCallback = Callback<CustomListElement, const AbstractButton&> (this, &CustomListElement::buttonClicked);
 }
 
 void CustomListElement::buttonClicked(const AbstractButton& source)
 {
-	// Inform the view of the event
-	/*if (viewCallback->isValid())
-	{
-		viewCallback->execute(*this);
-	}*/
+    // Inform the view of the event
+    if (viewCallback != NULL && viewCallback->isValid()) {
+        viewCallback->execute(*this);
+    }
 }
+

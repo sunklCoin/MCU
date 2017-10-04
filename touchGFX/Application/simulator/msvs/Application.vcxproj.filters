@@ -357,6 +357,9 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\BacklightSlider.cpp">
       <Filter>Source Files\gui\custom_controls_screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\common\CustomList.cpp">
+      <Filter>Source Files\gui\common</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\gui\src\mic_screen\MicScreenView.cpp">
       <Filter>Source Files\gui\mic_screen</Filter>
     </ClCompile>
@@ -1263,6 +1266,12 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp">
       <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\common\CustomList.hpp">
+      <Filter>Header Files\gui\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\framework\KeyEvent.h">
+      <Filter>Header Files\gui\target</Filter>
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\mic_screen\MicScreenView.hpp">
       <Filter>Header Files\gui\mic_screen</Filter>

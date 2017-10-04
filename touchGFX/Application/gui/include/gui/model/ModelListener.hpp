@@ -82,11 +82,16 @@ public:
     virtual void handleKeyEvent(uint8_t key);
     /* bluetooth */
     virtual void onBluetoothStateChange(bool state);
-    virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress);
+    virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[]);
     virtual void onBluetoothScanComplete(int num);
+    virtual void onBluetoothConnected(bool status, uint8_t address[]);
+    virtual void onBluetoothDisonnected(int reason, uint8_t address[]);
+    virtual void onBluetoothBonded(bool status, int bonded, uint8_t address[]);
     /* wifi */
     virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
     virtual void onWifiScanCompleted(int num);
+    virtual void onWifiConnected(bool status);
+    virtual void onWifiDisonnected(int reason);
 protected:
     Model* model;
 };

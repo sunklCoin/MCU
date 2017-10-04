@@ -27,10 +27,11 @@ public:
     virtual void enableWifi();
     virtual void disableWifi();
     void setWifiState(bool);
-    /*void updateListMenuElements();*/
     virtual ~WifiControlPresenter() {};
     virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
     virtual void onWifiScanCompleted(int num);
+    virtual void onWifiConnected(bool status);
+    virtual void onWifiDisonnected(int reason);
 private:
     WifiControlPresenter();
 

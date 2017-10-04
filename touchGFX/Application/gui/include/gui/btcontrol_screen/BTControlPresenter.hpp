@@ -31,8 +31,11 @@ public:
     void updateListMenuElements();*/
     virtual ~BTControlPresenter() {};
     virtual void onBluetoothStateChange(bool state);
-    virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strDeviceName, touchgfx::Unicode::UnicodeChar* strAddress);
+    virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[]);
     virtual void onBluetoothScanComplete(int num);
+    virtual void onBluetoothConnected(bool status, uint8_t address[]);
+    virtual void onBluetoothDisonnected(int reason, uint8_t address[]);
+    virtual void onBluetoothBonded(bool status, int bonded, uint8_t address[]);
 
 private:
     BTControlPresenter();
