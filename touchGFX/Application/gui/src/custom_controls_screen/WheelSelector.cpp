@@ -64,6 +64,8 @@ void WheelSelector::setup(int width, int height, int textXPosition, int textYPos
     textContainer.add(text);
 
     spaceBetweenTextRows = text.getTypedText().getFont()->getMinimumTextHeight() * 2; // For blank lines between texts;
+	int h = text.getHeight();
+
 
     // Prepare textSelected (if colors are different)
     // Position of textSelectedContainer (y coordinate) updated later in setTextColor()

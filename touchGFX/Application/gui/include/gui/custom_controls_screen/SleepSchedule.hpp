@@ -58,9 +58,9 @@ protected:
 	//Image background;
     ScalableImage background;
 	TextArea textDurationTitle;
-    TextArea scheduleText;
-    //TextAreaWithOneWildcard scheduleText;
-    //Unicode::UnicodeChar scheduleTextBuffer[5];
+    //TextArea scheduleText;
+    TextAreaWithOneWildcard scheduleText;
+    Unicode::UnicodeChar scheduleTextBuffer[5];
 
 	Image imageGradiantBGDuration;
 	Image imageShadowTopDuration;
@@ -74,6 +74,7 @@ protected:
 	void buttonClicked(const AbstractButton& source);
 
 	void SetDefaultTimes();
+	void updateScheduleTimeText(const int& index);
 
     Callback<SleepSchedule, const HorizontalWheelSelector&, const int&> onSelectedElementChanged;
     void selectedElementChangedHandler(const HorizontalWheelSelector& wheel, const int& index);

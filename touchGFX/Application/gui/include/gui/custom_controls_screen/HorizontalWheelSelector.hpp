@@ -144,7 +144,7 @@ class HorizontalWheelSelector : public Container
     int selectedAreaXOffset;
 
     int selectedTextXPosition;
-    int spaceBetweenTextRows;
+    int spaceBetweenTextCols;
     int leftCutOff;
     int rightCutOff;
 
