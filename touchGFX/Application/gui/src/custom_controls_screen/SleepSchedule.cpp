@@ -42,7 +42,7 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     uint16_t selectedBackgroundColor = Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51);
 
 	wheelDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY());
-	wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 70, imageGradiantBGDuration.getHeight()/3, T_TIME_PICKER_DURATION);
+	wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 80, imageGradiantBGDuration.getHeight()/3, T_TIME_PICKER_DURATION);
     wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX(), glassOverlayDuration.getWidth() - 5);
     wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
 
