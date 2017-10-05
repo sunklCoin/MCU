@@ -33,9 +33,8 @@ void HorizontalWheelSelector::setup(int width, int height, int textXPosition, in
     text.setMoveAnimationEndedAction(textMoveEndedCallback);
     textContainer.add(text);
 
-    int charWidth = text.getTypedText().getFont()->getCharWidth(0x006D); //"m"
-    //int charsWidth = text.getTypedText().getFont()->getCharWidth(0x0073); //"s"
-    spaceBetweenTextRows = (text.getTextWidth() - charWidth * 5 * 7)/6; //  text.getTextWidth() / 8; // For blank lines between texts;
+    int charWidth = text.getTypedText().getFont()->getCharWidth(0x006D); //char width of "m" ,all of char is monospaced font
+	spaceBetweenTextCols = charWidth * 5 * 2;// For blank lines between texts;
 
     // Prepare textSelected (if colors are different)
     // Position of textSelectedContainer (y coordinate) updated later in setTextColor()
@@ -53,8 +52,8 @@ void HorizontalWheelSelector::setup(int width, int height, int textXPosition, in
     // Hide selected text, shown when normal/selected colors differ, see setTextColor()
     textSelectedContainer.setVisible(false);
 
-    leftCutOff = selectedTextXPosition + (spaceBetweenTextRows);
-    rightCutOff = leftCutOff - text.getTextWidth() - (spaceBetweenTextRows);
+	leftCutOff = selectedTextXPosition + (spaceBetweenTextCols / 2);
+	rightCutOff = leftCutOff - text.getTextWidth() - (spaceBetweenTextCols / 3);
 
     reset();
 }
@@ -113,26 +112,26 @@ void HorizontalWheelSelector::handleGestureEvent(const GestureEvent& evt)
         currentAnimationState = ANIMATING_GESTURE;
 
         int delta = evt.getVelocity() * 5;
-        int newYPosition = text.getX() + delta;
-        adjustForBoundries(newYPosition);
+        int newXPosition = text.getX() + delta;
+		adjustForBoundries(newXPosition);
 
-        int distanceToMove = newYPosition - text.getX();
+		int distanceToMove = newXPosition - text.getX();
         int distanceToMoveABS = (distanceToMove > 0) ? distanceToMove : -distanceToMove;
         int duration = distanceToMoveABS / 10;
         duration = (duration < 2) ? 2 : duration;
 
-        animateMoveText(newYPosition, duration, EasingEquations::cubicEaseOut);
+		animateMoveText(newXPosition, duration, EasingEquations::cubicEaseOut);
     }
 }
 
 void HorizontalWheelSelector::snap()
 {
-    int deltaUp = (spaceBetweenTextRows - (text.getX() - selectedTextXPosition)) % spaceBetweenTextRows;
+	int deltaUp = (spaceBetweenTextCols - (text.getX() - selectedTextXPosition)) % spaceBetweenTextCols;
 
     // Invert % value for negative values
-    deltaUp = (deltaUp > 0) ? deltaUp : spaceBetweenTextRows + deltaUp;
+	deltaUp = (deltaUp > 0) ? deltaUp : spaceBetweenTextCols + deltaUp;
 
-    int deltaDown = spaceBetweenTextRows - deltaUp;
+	int deltaDown = spaceBetweenTextCols - deltaUp;
 
     if (deltaUp < deltaDown)
     {
@@ -147,22 +146,22 @@ void HorizontalWheelSelector::snap()
 
 int HorizontalWheelSelector::getSelectedIndex()
 {
-    return (selectedTextXPosition - text.getX()) / spaceBetweenTextRows;
+	return (selectedTextXPosition - text.getX()) / spaceBetweenTextCols;
 }
 
 void HorizontalWheelSelector::setSelectedIndex(int index, int duration, EasingEquation equation)
 {
-    int newYPosition = selectedTextXPosition - (spaceBetweenTextRows * index);
-    adjustForBoundries(newYPosition);
+	int newXPosition = selectedTextXPosition - (spaceBetweenTextCols * index);
+	adjustForBoundries(newXPosition);
 
     if (duration == 0)
     {
-        moveText(newYPosition);
+		moveText(newXPosition);
     }
     else
     {
         currentAnimationState = ANIMATING_GESTURE;
-        animateMoveText(newYPosition, duration, equation);
+		animateMoveText(newXPosition, duration, equation);
     }
 
 }
@@ -192,7 +191,7 @@ void HorizontalWheelSelector::textMoveEndedHandler(const MoveAnimator<TextArea>&
 
 void HorizontalWheelSelector::adjustForBoundries(int& newYValue)
 {
-    if (newYValue > leftCutOff)
+     if (newYValue > leftCutOff)
     {
         newYValue = leftCutOff;
     }
@@ -202,23 +201,23 @@ void HorizontalWheelSelector::adjustForBoundries(int& newYValue)
     }
 }
 
-void HorizontalWheelSelector::moveText(int newYPosition)
+void HorizontalWheelSelector::moveText(int newXPosition)
 {
-    adjustForBoundries(newYPosition);
+	adjustForBoundries(newXPosition);
 
-    text.moveTo(newYPosition,text.getY());
+	text.moveTo(newXPosition, text.getY());
     if (textSelectedContainer.isVisible())
     {
-        textSelected.moveTo(newYPosition - selectedAreaXOffset, text.getY());
+		textSelected.moveTo(newXPosition - selectedAreaXOffset, text.getY());
     }
 }
 
-void HorizontalWheelSelector::animateMoveText(int newYPosition, int duration, EasingEquation equation)
+void HorizontalWheelSelector::animateMoveText(int newXPosition, int duration, EasingEquation equation)
 {
-    text.startMoveAnimation(newYPosition,text.getY(), duration, EasingEquations::linearEaseNone, equation);
+	text.startMoveAnimation(newXPosition, text.getY(), duration, EasingEquations::linearEaseNone, equation);
     if (textSelectedContainer.isVisible())
     {
-        textSelected.startMoveAnimation(newYPosition - selectedAreaXOffset, text.getY(), duration, EasingEquations::linearEaseNone, equation);
+		textSelected.startMoveAnimation(newXPosition - selectedAreaXOffset, text.getY(), duration, EasingEquations::linearEaseNone, equation);
     }
 }
 

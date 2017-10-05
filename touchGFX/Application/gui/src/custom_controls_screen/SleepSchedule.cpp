@@ -21,7 +21,7 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     add(background);
 
 	imageGradiantBGDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_WHEEL_GRADIENT_ID));
-    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 3, (background.getHeight() - imageGradiantBGDuration.getHeight())/2);
+    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 2, (background.getHeight() - imageGradiantBGDuration.getHeight())/4);
 	add(imageGradiantBGDuration);
 
 	add(wheelDuration);
@@ -37,13 +37,13 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 		imageGradiantBGDuration.getY() + imageGradiantBGDuration.getHeight() / 2 - glassOverlayDuration.getHeight() / 2);
 	add(glassOverlayDuration);
 
-    uint16_t normalTextColor = Color::getColorFrom24BitRGB(80, 80, 80);// Color::getColorFrom24BitRGB(TEXT_BLACK_ON_WHITE_R, TEXT_BLACK_ON_WHITE_G, TEXT_BLACK_ON_WHITE_B);
+	uint16_t normalTextColor = Color::getColorFrom24BitRGB(0x0a, 0x0a, 0x0a); //Color::getColorFrom24BitRGB(TEXT_BLACK_ON_WHITE_R, TEXT_BLACK_ON_WHITE_G, TEXT_BLACK_ON_WHITE_B);
     uint16_t selectedTextColor = Color::getColorFrom24BitRGB(TEXT_WHITE_ON_BLACK_R, TEXT_WHITE_ON_BLACK_G, TEXT_WHITE_ON_BLACK_B);
     uint16_t selectedBackgroundColor = Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51);
 
 	wheelDuration.setXY(imageGradiantBGDuration.getX(), imageGradiantBGDuration.getY());
-    wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 42, background.getY(), T_TIME_PICKER_DURATION);
-    wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX() + 2, glassOverlayDuration.getWidth() - 5);
+	wheelDuration.setup(imageGradiantBGDuration.getWidth(), imageGradiantBGDuration.getHeight(), 70, imageGradiantBGDuration.getHeight()/3, T_TIME_PICKER_DURATION);
+    wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX(), glassOverlayDuration.getWidth() - 5);
     wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
 
     textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
@@ -51,10 +51,10 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     textDurationTitle.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
     add(textDurationTitle);
 
-    //Unicode::snprintf(scheduleTextBuffer, 5, "%d", 1);
-    //scheduleText.setWildcard(scheduleTextBuffer);
+    Unicode::snprintf(scheduleTextBuffer, 5, "%ds", 30);
+    scheduleText.setWildcard(scheduleTextBuffer);
     scheduleText.setTypedText(TypedText(T_SLEEPWHEEL_READOUT));
-    scheduleText.setPosition(imageGradiantBGDuration.getX() + imageGradiantBGDuration.getWidth(), glassOverlayDuration.getY() + 5, 100, 20);
+	scheduleText.setPosition(0, imageGradiantBGDuration.getY() + imageGradiantBGDuration.getHeight() + 1, 240, 20);
     scheduleText.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));// (0xFF, 0xFF, 0xFF)
     add(scheduleText);
 
@@ -74,10 +74,24 @@ void SleepSchedule::buttonClicked(const AbstractButton& source) {
 
 void SleepSchedule::SetDefaultTimes() {
     int index = static_cast<FrontendApplication*>(Application::getInstance())->getControlData().getSleepSchedule();
+	updateScheduleTimeText(index);
     wheelDuration.setSelectedIndex(index, 20);
+}
+
+void SleepSchedule::updateScheduleTimeText(const int& index) {
+	int scheduleTime = sleepScheduleArr[index];
+	if (scheduleTime<60)
+	{
+		Unicode::snprintf(scheduleTextBuffer, 5, "%ds", scheduleTime);
+	}
+	else{
+		Unicode::snprintf(scheduleTextBuffer, 5, "%dm", scheduleTime/60);
+	}
+	scheduleText.invalidate();
 }
 
 void SleepSchedule::selectedElementChangedHandler(const HorizontalWheelSelector& wheel, const int& index)
 {
+	updateScheduleTimeText(index);
     static_cast<FrontendApplication*>(Application::getInstance())->getControlData().setSleepSchedule(index);
 }
