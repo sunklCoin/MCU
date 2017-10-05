@@ -46,10 +46,10 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX(), glassOverlayDuration.getWidth() - 5);
     wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
 
-    textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
+    /*textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
     textDurationTitle.setXY(background.getX() + 5, glassOverlayDuration.getY() - (glassOverlayDuration.getHeight() - textDurationTitle.getHeight()/2));
     textDurationTitle.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
-    add(textDurationTitle);
+    add(textDurationTitle);*/
 
     Unicode::snprintf(scheduleTextBuffer, 5, "%ds", 30);
     scheduleText.setWildcard(scheduleTextBuffer);

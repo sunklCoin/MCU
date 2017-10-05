@@ -57,7 +57,7 @@ protected:
 
 	//Image background;
     ScalableImage background;
-	TextArea textDurationTitle;
+	//TextArea textDurationTitle;
     //TextArea scheduleText;
     TextAreaWithOneWildcard scheduleText;
     Unicode::UnicodeChar scheduleTextBuffer[5];
