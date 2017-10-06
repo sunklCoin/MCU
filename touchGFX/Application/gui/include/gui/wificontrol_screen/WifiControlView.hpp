@@ -16,7 +16,9 @@
 #include <touchgfx/containers/ScrollableContainer.hpp>
 #include <touchgfx/containers/ListLayout.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
+#include <gui/keyboard/InputModal.hpp>
 #include <map>
+#include <gui/framework/DevicePort.h>
 using namespace touchgfx;
 using namespace std;
 
@@ -54,6 +56,7 @@ protected:
     ScrollableContainer scrollCnt;
     ListLayout list;
     CustomList mList;
+	InputModal mInputModal;
     Callback<WifiControlView, const uint8_t> onImageMenuItemSelected;
 
 	void getWifiState(bool);
@@ -75,6 +78,9 @@ private:
     Callback<WifiControlView, const touchgfx::AbstractButton&> buttonCallback;
     Callback<WifiControlView, const AnimatedImage&> animationEndedCallback;
     Callback<WifiControlView, CustomListElement&> listElementClickedCallback;
+
+	Callback<WifiControlView, strEditBox> onInputPasswordEvent;
+	void InputPasswordEvent(strEditBox txtInfo); // param by value!
 };
 
 #endif // WIFICONTROL_VIEW_HPP

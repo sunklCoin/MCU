@@ -25,6 +25,11 @@ typedef enum bluetooth_action {
     bt_action_close
 } enum_bluetooth_action;
 
+
+struct strEditBox {
+	char* inputTxt;
+};
+
 extern void Bluetooth_SetState(enum_bluetooth_state state);
 extern void Bluetooth_RedoAction(enum_bluetooth_action action);
 

@@ -16,12 +16,12 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
 	add(background);*/
 
     background.setBitmap(Bitmap(BITMAP_CONTROLS_MENU_BACKGROUND_ID));
-    background.setPosition(0, 0, 240, 80);
+    background.setPosition(0, 0, 240, 100);
     background.setScalingAlgorithm(ScalableImage::NEAREST_NEIGHBOR);
     add(background);
 
 	imageGradiantBGDuration.setBitmap(Bitmap(BITMAP_SCHEDULE_SET_TIME_DURATION_WHEEL_GRADIENT_ID));
-    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 2, (background.getHeight() - imageGradiantBGDuration.getHeight())/4);
+    imageGradiantBGDuration.setXY((background.getWidth() - imageGradiantBGDuration.getWidth()) / 2, (background.getHeight() - imageGradiantBGDuration.getHeight())/2);
 	add(imageGradiantBGDuration);
 
 	add(wheelDuration);
@@ -46,10 +46,10 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     wheelDuration.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, glassOverlayDuration.getX() - imageGradiantBGDuration.getX(), glassOverlayDuration.getWidth() - 5);
     wheelDuration.setElementSelectedCallback(onSelectedElementChanged);
 
-    /*textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
-    textDurationTitle.setXY(background.getX() + 5, glassOverlayDuration.getY() - (glassOverlayDuration.getHeight() - textDurationTitle.getHeight()/2));
+    textDurationTitle.setTypedText(TypedText(T_SLEEPWHEEL_HEADLINE));
+	textDurationTitle.setPosition(0, background.getY() + 1, 240, 20);
     textDurationTitle.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
-    add(textDurationTitle);*/
+    add(textDurationTitle);
 
     Unicode::snprintf(scheduleTextBuffer, 5, "%ds", 30);
     scheduleText.setWildcard(scheduleTextBuffer);

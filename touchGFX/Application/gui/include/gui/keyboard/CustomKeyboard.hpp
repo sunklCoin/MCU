@@ -63,14 +63,17 @@ public:
      * CustomKeyboard.
      */
     void setTouchable(bool touch);
-
+	void setupScreen(int keyboardX, int keyboardY, int width, int Height, int textAreaX, int textAreaY);
+	//void setTextAreaHandle(TextAreaWithOneWildcard* passwordEdit, Unicode::UnicodeChar* passwordEditBuffer);
+	void setKeyboardHandle(GenericCallback<Unicode::UnicodeChar*>& keyCallback);
 private:
     /*
      * The size of the buffer that is used by the keyboard.
      * The size determines how much text the keyboard can contain in its textfield.
      */
-    static const uint8_t BUFFER_SIZE = 18;
+    static const uint8_t BUFFER_SIZE = 16;
 
+	TextAreaWithOneWildcard* textEdit;
     /**
      * The keyboard which this CustomKeyboard wraps.
      */
@@ -81,6 +84,7 @@ private:
      */
     Unicode::UnicodeChar buffer[BUFFER_SIZE];
 
+	GenericCallback<Unicode::UnicodeChar*>* m_onKey_callback;
     /**
      * Used to display text on top of the button for changing keyboard mode.
      */
@@ -146,6 +150,8 @@ private:
      * @param keyChar The UnicodeChar for the key that was pressed.
      */
     void keyPressedhandler(Unicode::UnicodeChar keyChar);
+
+	void updateEditArea();
 };
 
 #endif /* TGFXKEYBOARD_HPP_ */

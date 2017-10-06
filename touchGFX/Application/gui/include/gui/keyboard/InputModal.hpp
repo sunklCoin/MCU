@@ -16,14 +16,15 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <gui/keyboard/CustomKeyboard.hpp>
+#include <gui/framework/DevicePort.h>
 using namespace touchgfx;
 class InputModal : public ModalWindow
 {
     public:
     InputModal();
     virtual ~InputModal() {}
-
-    protected:
+	void setAddParams(const Unicode::UnicodeChar* strHeadLine, GenericCallback<strEditBox>& okCallback);
+protected:
     FrontendApplication& application()
     {
         return *static_cast<FrontendApplication*>(Application::getInstance());
@@ -37,20 +38,24 @@ class InputModal : public ModalWindow
     TextAreaWithOneWildcard passwordEdit;
     TextArea passwordHeadline;
     TextAreaWithOneWildcard devicename;
-    ButtonWithLabel buttonWithLabel1;
-    ButtonWithLabel buttonWithLabel2;
+	ButtonWithLabel buttonOK;
+	ButtonWithLabel buttonCancel;
     Box boxLine;
 
     /*
     * Wildcard Buffers
     */
-    static const uint16_t PASSWORDEDIT_SIZE = 1;
+    static const uint16_t PASSWORDEDIT_SIZE = 16;
     touchgfx::Unicode::UnicodeChar passwordEditBuffer[PASSWORDEDIT_SIZE];
-    static const uint16_t DEVICENAME_SIZE = 1;
+	static const uint16_t DEVICENAME_SIZE = 60;
     touchgfx::Unicode::UnicodeChar devicenameBuffer[DEVICENAME_SIZE];
-
-    private:
-
+	char buffer[DEVICENAME_SIZE];
+private:
+	GenericCallback<strEditBox>* m_onOK_callback;
+	Callback<InputModal, const AbstractButton&> buttonClickedCallback;
+	void buttonClicked(const AbstractButton& source);
+	Callback<InputModal, Unicode::UnicodeChar*> onUpdateTextEditArea;
+	void updateTextEditArea(Unicode::UnicodeChar* buff);
 };
 
 #endif // INPUT_MODAL_HPP
