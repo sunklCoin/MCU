@@ -6,26 +6,17 @@
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-InputModal::InputModal()
+InputModal::InputModal():
+buttonClickedCallback(this, &InputModal::buttonClicked),
+onUpdateTextEditArea(this, &InputModal::updateTextEditArea),
+m_onOK_callback(NULL)
 {
     setBackground(BitmapId(BITMAP_CONTROLS_BACKGROUND_ID), 0, 0);
     setShadeColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
     //setShadeAlpha(125);
-
-    keypad.setPosition(0, 133, 240, 187);
-    add(keypad);
-
     boxInput.setPosition(0, 0, 240, 122);
     boxInput.setColor(touchgfx::Color::getColorFrom24BitRGB(247, 249, 250));
     add(boxInput);
-
-    passwordEdit.setXY(73, 42);
-    passwordEdit.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
-    passwordEdit.setLinespacing(0);
-    passwordEdit.setTypedText(TypedText(T_PASSWORDEDIT));
-    passwordEditBuffer[0] = 0;
-    passwordEdit.setWildcard(passwordEditBuffer);
-    add(passwordEdit);
 
     passwordHeadline.setXY(0, 22);
     passwordHeadline.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
@@ -33,29 +24,75 @@ InputModal::InputModal()
     passwordHeadline.setTypedText(TypedText(T_PASSWORDHEADLINE));
     add(passwordHeadline);
 
+	memset(devicenameBuffer,' ', sizeof(devicenameBuffer));
+	devicename.setWildcard(devicenameBuffer);
+	devicename.setTypedText(TypedText(T_CONNECTHEADLINE));
     devicename.setXY(0, 0);
     devicename.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
     devicename.setLinespacing(0);
-    devicename.setTypedText(TypedText(T_CONNECTHEADLINE));
-    devicenameBuffer[0] = 0;
-    devicename.setWildcard(devicenameBuffer);
     add(devicename);
 
-    buttonWithLabel1.setPosition(167, 78, 60, 44);
-    buttonWithLabel1.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
-    buttonWithLabel1.setLabelText(TypedText(T_BUTTONOK));
-    buttonWithLabel1.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    buttonWithLabel1.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    add(buttonWithLabel1);
+	memset(passwordEditBuffer, ' ', sizeof(passwordEditBuffer));
+	passwordEdit.setWildcard(passwordEditBuffer);
+	passwordEdit.setTypedText(TypedText(T_PASSWORDEDIT));
+	passwordEdit.setPosition(13, 42,210,20);
+	passwordEdit.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
+	passwordEdit.setLinespacing(0);
+	add(passwordEdit);
 
-    buttonWithLabel2.setPosition(13, 78, 60, 44);
-    buttonWithLabel2.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
-    buttonWithLabel2.setLabelText(TypedText(T_BUTTONCANCLE));
-    buttonWithLabel2.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    buttonWithLabel2.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    add(buttonWithLabel2);
+	buttonOK.setPosition(167, 78, 60, 44);
+	buttonOK.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
+	buttonOK.setLabelText(TypedText(T_BUTTONOK));
+	buttonOK.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+	buttonOK.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+	add(buttonOK);
+	buttonOK.setAction(buttonClickedCallback);
+
+	buttonCancel.setPosition(13, 78, 60, 44);
+	buttonCancel.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
+	buttonCancel.setLabelText(TypedText(T_BUTTONCANCLE));
+	buttonCancel.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+	buttonCancel.setLabelColorPressed(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+	add(buttonCancel);
+	buttonCancel.setAction(buttonClickedCallback);
 
     boxLine.setPosition(13, 67, 214, 2);
     boxLine.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 171, 245));
     add(boxLine);
+
+	keypad.setPosition(0, 0, 240, 320);
+	//setKeyboardHandle function must before setupScreen of keypad
+	keypad.setKeyboardHandle(onUpdateTextEditArea);
+	keypad.setupScreen(0, 133, 240, 186, 20,-45);
+	//keypad.setTextAreaHandle(&passwordEdit, passwordEditBuffer);
+	add(keypad);
+}
+
+void InputModal::setAddParams(const Unicode::UnicodeChar* strHeadLine, GenericCallback<strEditBox>& okCallback) {
+	memset(devicenameBuffer, 0, sizeof(devicenameBuffer));
+	Unicode::strncpy(devicenameBuffer, strHeadLine, DEVICENAME_SIZE - 1);
+	devicename.invalidate();
+	m_onOK_callback = &okCallback;
+}
+
+void InputModal::buttonClicked(const AbstractButton& source) {
+	strEditBox addInfo;
+	addInfo.inputTxt = "123456789";
+	if (&source == &buttonCancel) {
+		hide();
+	}
+	else if (&source == &buttonOK) {
+		if (m_onOK_callback && m_onOK_callback->isValid())
+		{
+			m_onOK_callback->execute(addInfo);
+		}
+		hide();
+	}
+}
+
+void InputModal::updateTextEditArea(Unicode::UnicodeChar* buff)
+{
+	memset(passwordEditBuffer, 0, sizeof(buff));
+	Unicode::strncpy(passwordEditBuffer, buff, PASSWORDEDIT_SIZE);
+	passwordEdit.invalidate();
 }

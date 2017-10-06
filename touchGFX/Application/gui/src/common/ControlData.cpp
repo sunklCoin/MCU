@@ -6,7 +6,7 @@ int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
 int glb_BatteryLevel = 0;
 int glb_currBacklight = 0;
-int glb_currSleepSchedule = 1;
+int glb_currSleepSchedule = 0;
 
 
 ControlData::ControlData()

@@ -48,9 +48,9 @@ CustomKeyboard::CustomKeyboard() : keyboard(),
     layout.callbackAreaArray[0].callback = &capslockPressed;
     layout.callbackAreaArray[1].callback = &backspacePressed;
     layout.callbackAreaArray[2].callback = &modePressed;
-    keyboard.setLayout(&layout);
     keyboard.setKeyListener(keyPressed);
-    keyboard.setPosition(0, 0, 240, 186);
+
+    //keyboard.setPosition(0, 133, 240, 186);
     keyboard.setTextIndentation();
     //Allocate the buffer associated with keyboard.
     memset(buffer, 0, sizeof(buffer));
@@ -59,13 +59,23 @@ CustomKeyboard::CustomKeyboard() : keyboard(),
     uppercaseKeys = true;
     firstCharacterEntry = true;
 
-    modeBtnTextArea.setPosition(5, 196, 56, 40);
+    //modeBtnTextArea.setPosition(5, 196, 56, 40);
     modeBtnTextArea.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
 
-    setKeyMappingList();
-
+	setKeyMappingList();
     add(keyboard);
     add(modeBtnTextArea);
+}
+
+
+void CustomKeyboard::setupScreen(int keyboardX, int keyboardY, int width, int Height, int textAreaX,int textAreaY)
+{
+	keyboard.setPosition(keyboardX, keyboardY, width, Height);
+	modeBtnTextArea.setPosition(1, keyboardY + KEYBOARD_KEY_OFFSET_Y + 145, 34, 41);
+	layout.textAreaPosition.x = textAreaX;
+	layout.textAreaPosition.y = textAreaY;
+	keyboard.setLayout(&layout);
+	updateEditArea();
 }
 
 void CustomKeyboard::setKeyMappingList()
@@ -147,10 +157,30 @@ void CustomKeyboard::keyPressedhandler(Unicode::UnicodeChar keyChar)
         uppercaseKeys = false;
         setKeyMappingList();
     }
+	//textEdit->invalidate();
+	updateEditArea();
 }
+//void CustomKeyboard::setTextAreaHandle(TextAreaWithOneWildcard* passwordEdit, Unicode::UnicodeChar* passwordEditBuffer){
+//	memset(passwordEditBuffer, 0, sizeof(passwordEditBuffer));
+//	keyboard.setBuffer(passwordEditBuffer, BUFFER_SIZE);
+//	textEdit = passwordEdit;
+//}
 
 void CustomKeyboard::setTouchable(bool touch)
 {
     Container::setTouchable(touch);
     keyboard.setTouchable(touch);
+}
+
+void CustomKeyboard::setKeyboardHandle(GenericCallback<Unicode::UnicodeChar*>& keyCallback)
+{
+	m_onKey_callback = &keyCallback;
+}
+
+void CustomKeyboard::updateEditArea() 
+{
+	if (m_onKey_callback && m_onKey_callback->isValid())
+	{
+		m_onKey_callback->execute(buffer);
+	}
 }

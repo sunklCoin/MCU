@@ -6,6 +6,7 @@ WifiControlView::WifiControlView()
 buttonCallback(this, &WifiControlView::buttonCallbackHandler),
 animationEndedCallback(this, &WifiControlView::animationEnded),
 listElementClickedCallback(this, &WifiControlView::listElementClicked),
+onInputPasswordEvent(this, &WifiControlView::InputPasswordEvent),
 tickCount(0)/*,
 numberOfListElements(0)*/
 {
@@ -53,7 +54,8 @@ numberOfListElements(0)*/
 
 void WifiControlView::setupScreen()
 {
-
+	add(mInputModal);
+	mInputModal.hide();
 }
 
 void WifiControlView::tearDownScreen()
@@ -93,6 +95,14 @@ void WifiControlView::listElementClicked(CustomListElement& element)
     scrollCnt.invalidate();*/
     Wifi_Connect();
     mList.startAnimation(element);
+	mInputModal.setAddParams(element.mListMenuEleBuffer,onInputPasswordEvent);
+	mInputModal.show();
+	mStatusBar.hide();
+	printf("Hello,world");
+}
+
+void WifiControlView::InputPasswordEvent(strEditBox txtInfo){
+	mStatusBar.show();
 }
 
 void WifiControlView::setWifiState(bool state)
