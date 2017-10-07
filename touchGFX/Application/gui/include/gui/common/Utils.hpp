@@ -39,6 +39,9 @@
 
 #ifdef SIMULATOR
 #include <stdlib.h>
+#define TOUCH_GFX_LOG printf
+#else
+#define TOUCH_GFX_LOG
 #endif
 
 class Utils
