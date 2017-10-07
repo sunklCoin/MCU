@@ -16,13 +16,25 @@ firstPresenterCall(true)
     ScreenSaverClockBg.setBitmap(Bitmap(BITMAP_BACKGROUND_ID));
     add(ScreenSaverClockBg);
 
-    mAnalogClock.setPosition(0, 0, 240, 320);
+    mAnalogClock.setPosition(0, 40, 240, 320);
     mAnalogClock.setVisible(false);
     add(mAnalogClock);
 
-    mDigitalClock.setPosition(0, 0, 240, 320);
+    mDigitalClock.setPosition(0, 40, 240, 320);
     mDigitalClock.setVisible(false);
     add(mDigitalClock);
+
+	dayOfWeekTxt.setTypedText(TypedText(T_SUNDAY));
+	dayOfWeekTxt.setPosition(10, 10, 110, 20);
+	dayOfWeekTxt.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
+	add(dayOfWeekTxt);
+
+	Unicode::snprintf(dateTextBuffer, 11, "%04d-%02d-%02d", 2017, 10, 7);
+	dateText.setWildcard(dateTextBuffer);
+	dateText.setTypedText(TypedText(T_DATETEXT));
+	dateText.setPosition(dayOfWeekTxt.getX() + dayOfWeekTxt.getWidth(), 10, 120, 20);
+	dateText.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));// (0xFF, 0xFF, 0xFF)
+	add(dateText);
 
     // Invisible button for navigating in the side menu
     gotoMainScreen.setWidth(240);
@@ -35,7 +47,16 @@ firstPresenterCall(true)
 
 void ScreenSaverClockView::setupScreen()
 {
+	uint16_t year = 2017;
+	uint8_t month = 10, day = 7;
+	eDaysOfWeek dayOfWeek = eDayOfWeek_Monday;
 
+	application().getModelTime().getCurrentDate(year, month, day, dayOfWeek);
+	Unicode::snprintf(dateTextBuffer, 11, "%04d-%02d-%02d", year, month, day);
+	dateText.invalidate();
+
+	dayOfWeekTxt.setTypedText(TypedText(T_MONDAY + (dayOfWeek - 1)));
+	dayOfWeekTxt.invalidate();
 }
 
 void ScreenSaverClockView::tearDownScreen()
@@ -69,7 +90,12 @@ void ScreenSaverClockView::handleTimeUpdated(uint8_t hours, uint8_t minutes, uin
     }
 
 #endif // 0
-
+	uint16_t year = 2017;
+	uint8_t month = 10, day = 7;
+	eDaysOfWeek dayOfWeek = eDayOfWeek_Monday;
+	application().getModelTime().getCurrentDate(year, month, day, dayOfWeek);
+	Unicode::snprintf(dateTextBuffer, 11, "%04d-%02d-%02d", year, month, day);
+	dateText.invalidate();
 }
 
 void ScreenSaverClockView::updateClock(uint8_t hourCounter, uint8_t minuteCounter, uint8_t secondCounter, bool is24Hour)

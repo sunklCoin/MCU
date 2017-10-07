@@ -31,24 +31,24 @@ transitionDone(false)
     clockBackground.invalidate();
     add(clockBackground);
 #else
-    clockBackground.setXY(9, 49);
+    clockBackground.setXY(9, 9);//(9, 49)
     clockBackground.setBitmap(Bitmap(BITMAP_WATCH5BACKGROUND_ID));
     add(clockBackground);
 #endif
     //clockBackground.setBitmap(Bitmap(BITMAP_MAIN_BG_240X320PX_ID));
     handColorRed.setColor(Color::getColorFrom24BitRGB(0xFF, 0x0, 0x0));
     handColorWhite.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
-    secondHand.setPosition(0, 40, 240, 240);
+    secondHand.setPosition(0, 0, 240, 240);
     secondHand.setOrigin(122, 122);
     secondHand.setPainter(handColorRed);
     add(secondHand);
 
-    minuteHand.setPosition(0, 40, 240, 240);
+    minuteHand.setPosition(0, 0, 240, 240);
     minuteHand.setOrigin(122, 122);
     minuteHand.setPainter(handColorWhite);
     add(minuteHand);
 
-    hourHand.setPosition(0, 40, 240, 240);
+    hourHand.setPosition(0, 0, 240, 240);
     hourHand.setOrigin(122, 122);
     hourHand.setPainter(handColorWhite);
     add(hourHand);
@@ -69,7 +69,7 @@ transitionDone(false)
     centerDot.invalidate();
     add(centerDot);
 #else
-    centerDot.setXY(114, 154);
+    centerDot.setXY(114, 114);
     centerDot.setBitmap(Bitmap(BITMAP_WATCH5FOREGROUND_ID));
     add(centerDot);
 #endif

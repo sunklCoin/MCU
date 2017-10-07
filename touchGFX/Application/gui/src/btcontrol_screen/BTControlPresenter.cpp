@@ -13,7 +13,7 @@ view(v)
 
 void BTControlPresenter::activate()
 {
-    if (mControlData.isBTEnable()) {
+    if (mControlData().isBTEnable()) {
         Bluetooth_Scan_Start();
         view.setBluetoothState(true);
     } else {

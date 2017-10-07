@@ -28,8 +28,13 @@ public:
     virtual void deactivate();
 	virtual void screenSaverMinorTick();
     virtual ~TimeAndDatePresenter() {};
+
+	FrontendApplication& application(){
+		return *static_cast<FrontendApplication*>(Application::getInstance());
+	}
+
     TimeUtils getTimeUtils(){
-        return currTimeUtils;
+		return application().getModelTime();
     }
 
 private:
@@ -37,7 +42,7 @@ private:
 
     TimeAndDateView& view;
 
-    TimeUtils currTimeUtils;
+    //TimeUtils currTimeUtils;
 };
 
 

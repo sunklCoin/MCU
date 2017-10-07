@@ -52,6 +52,7 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 		break;
 	case DEMO_MENU_REMOTER_SCREEN_ID:
 		//static_cast<FrontendApplication*>(Application::getInstance())->gotoAnimatedGraphicsScreen();
+		static_cast<FrontendApplication*>(Application::getInstance())->gotoScreenSaverClockTransition();
 		break;
 	case DEMO_MENU_MIC_SCREEN_ID:
 		static_cast<FrontendApplication*>(Application::getInstance())->gotoMicScreen();

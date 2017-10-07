@@ -130,12 +130,15 @@ void TimeUtils::setCurrentDateTime(uint16_t year, uint8_t month, uint8_t dayOfMo
 
 void TimeUtils::setCurrentDate(uint16_t year, uint8_t month, uint8_t dayOfMonth)
 {
-#ifdef SIMULATOR 
+#if 0//def SIMULATOR 
 #ifdef _MSC_VER
     time_t rawtime;
     struct tm timenow;
     time(&rawtime);
     localtime_s(&timenow, &rawtime);
+	glb_year = year;
+	glb_month = month;
+	glb_month = dayOfMonth;
 #endif
 #else
     glb_year = year;
@@ -317,7 +320,7 @@ void TimeUtils::getCurrentDate(uint16_t & year, uint8_t & month, uint8_t & dayOf
     dayOfMonth = 11;
     dayOfWeek = eDayOfWeek_Monday;
 
-#ifdef SIMULATOR 
+#if 0//def SIMULATOR 
 #ifdef _MSC_VER
     time_t rawtime;
     struct tm timenow;
@@ -342,9 +345,9 @@ void TimeUtils::getCurrentDate(uint16_t & year, uint8_t & month, uint8_t & dayOf
     month = glb_month;
     dayOfMonth = glb_day;
     dayOfWeek = glb_day_of_week;
+	uint8_t weekValue = calculatorCurrDayOfWeek(year, month, dayOfMonth);
+	dayOfWeek = (eDaysOfWeek)((weekValue == 0) ? 7 : weekValue);
 #endif
-    uint8_t weekValue = calculatorCurrDayOfWeek(year, month, dayOfMonth);
-    dayOfWeek = (eDaysOfWeek)((weekValue == 0) ? 7 : weekValue);
 }
 
 void TimeUtils::getCurrentDateBitmaps(uint16_t & month, uint16_t & dayOfWeek, uint8_t & dayOfMonth)

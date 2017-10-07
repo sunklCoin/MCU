@@ -47,6 +47,10 @@ protected:
     AnalogClock mAnalogClock;
     DigitalClock mDigitalClock;
 
+	TextAreaWithOneWildcard dateText;
+	Unicode::UnicodeChar dateTextBuffer[11];
+
+	TextArea dayOfWeekTxt;
     /*
     * Wildcard Buffers
     */

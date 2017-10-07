@@ -9,7 +9,7 @@ TimeAndDatePresenter::TimeAndDatePresenter(TimeAndDateView& v):
 
 void TimeAndDatePresenter::activate()
 {
-    currTimeUtils = model->getCurrentTime();
+//    currTimeUtils = model->getCurrentTime();
 }
 
 void TimeAndDatePresenter::deactivate()

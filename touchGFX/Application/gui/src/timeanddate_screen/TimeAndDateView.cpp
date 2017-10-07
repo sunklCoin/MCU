@@ -63,7 +63,7 @@ tickCounter(0)
     timeFormatStyle.setVisible(false);
     add(timeFormatStyle);
 
-	datePicker.setXY(0, 133); 
+	datePicker.setXY(0, slideMenu.getY() + slideMenu.getHeight()); //datePicker.setXY(0, 133);
 	datePicker.setVisible(false);
 	add(datePicker);
 
@@ -218,14 +218,18 @@ void TimeAndDateView::slideMenuElementSelectedHandler(const HorizontalSlideMenu&
 	{
 		datePicker.reset();
 		// Set start values before animation
+		uint16_t year = 2017;
+		uint8_t month = 10, day = 7;
+		eDaysOfWeek dayOfWeek = eDayOfWeek_Monday;
+		presenter->getTimeUtils().getCurrentDate(year, month, day, dayOfWeek);
 		datePicker.setday(14, 0, EasingEquations::backEaseInOut);
 		datePicker.setMonth(6, 0, EasingEquations::backEaseInOut);
 		datePicker.setYear(8, 0, EasingEquations::backEaseInOut);
 
 		// Start animation to a specific date
-		datePicker.setday(23, 40, EasingEquations::backEaseInOut);
-		datePicker.setMonth(1, 42, EasingEquations::backEaseInOut);
-		datePicker.setYear(3, 38, EasingEquations::backEaseInOut);
+		datePicker.setday(day - 1, 40, EasingEquations::backEaseInOut);
+		datePicker.setMonth(month - 1, 42, EasingEquations::backEaseInOut);
+		datePicker.setYear(year - DatePicker::START_YEAR, 38, EasingEquations::backEaseInOut);
     }
     else if (timePicker.isVisible())
     {
