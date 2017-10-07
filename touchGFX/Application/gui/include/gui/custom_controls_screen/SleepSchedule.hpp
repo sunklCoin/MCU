@@ -60,7 +60,7 @@ protected:
 	TextArea textDurationTitle;
     //TextArea scheduleText;
     TextAreaWithOneWildcard scheduleText;
-    Unicode::UnicodeChar scheduleTextBuffer[5];
+    Unicode::UnicodeChar scheduleTextBuffer[6];
 
 	Image imageGradiantBGDuration;
 	Image imageShadowTopDuration;

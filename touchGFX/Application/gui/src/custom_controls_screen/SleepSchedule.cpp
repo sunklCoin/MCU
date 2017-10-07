@@ -51,7 +51,7 @@ buttonClickedCallback(this, &SleepSchedule::buttonClicked)
     textDurationTitle.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
     add(textDurationTitle);
 
-    Unicode::snprintf(scheduleTextBuffer, 5, "%ds", 30);
+    Unicode::snprintf(scheduleTextBuffer, 6, "%dsec", 30);
     scheduleText.setWildcard(scheduleTextBuffer);
     scheduleText.setTypedText(TypedText(T_SLEEPWHEEL_READOUT));
 	scheduleText.setPosition(0, imageGradiantBGDuration.getY() + imageGradiantBGDuration.getHeight() + 1, 240, 20);
@@ -82,10 +82,10 @@ void SleepSchedule::updateScheduleTimeText(const int& index) {
 	int scheduleTime = sleepScheduleArr[index];
 	if (scheduleTime<60)
 	{
-		Unicode::snprintf(scheduleTextBuffer, 5, "%ds", scheduleTime);
+		Unicode::snprintf(scheduleTextBuffer, 6, "%dsec", scheduleTime);
 	}
 	else{
-		Unicode::snprintf(scheduleTextBuffer, 5, "%dm", scheduleTime/60);
+		Unicode::snprintf(scheduleTextBuffer, 6, "%dmin", scheduleTime/60);
 	}
 	scheduleText.invalidate();
 }
