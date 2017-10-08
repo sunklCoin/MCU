@@ -20,7 +20,8 @@ onImageMenuItemSelected(this, &MainMenuView::imageMenuItemSelected)
 
 void MainMenuView::setupScreen()
 {
-	imageMenu.setXY(0, 41);
+	infoScreens.setXY(0, 41);
+	//imageMenu.setXY(0, 41);
 
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
     imageMenu.addMenuItem(BITMAP_MAINMENU_BTN_BT_SMALL_ID, BITMAP_MAINMENU_BTN_PRESSED_ID, DEMO_MENU_BLUETOOTH_SCREEN_ID, T_IMAGE_MAINMENU_BT_HEADLINE, T_IMAGE_MAINMENU_BT_TEXT, true);
@@ -39,9 +40,8 @@ void MainMenuView::setupScreen()
 #endif	
 	imageMenu.setMenuItemSelectedCallback(onImageMenuItemSelected);
 
-	infoScreens.setXY(0, 41);
 	infoScreens.add(imageMenu);
-	shortcutContainer.setXY(0, 41);
+	//shortcutContainer.setXY(0, 41);
 	infoScreens.add(shortcutContainer);
 
 	infoScreensViewPort.setPosition(0, 0, HAL::DISPLAY_WIDTH, HAL::DISPLAY_HEIGHT);
@@ -71,7 +71,7 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 		break;
 	case DEMO_MENU_REMOTER_SCREEN_ID:
 		//static_cast<FrontendApplication*>(Application::getInstance())->gotoAnimatedGraphicsScreen();
-		static_cast<FrontendApplication*>(Application::getInstance())->gotoScreenSaverClockTransition();
+		//static_cast<FrontendApplication*>(Application::getInstance())->gotoScreenSaverClockTransition();
 		break;
 	case DEMO_MENU_MIC_SCREEN_ID:
 		static_cast<FrontendApplication*>(Application::getInstance())->gotoMicScreen();
