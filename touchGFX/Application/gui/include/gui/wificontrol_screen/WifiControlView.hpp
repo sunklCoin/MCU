@@ -19,6 +19,7 @@
 #include <gui/keyboard/InputModal.hpp>
 #include <map>
 #include <gui/framework/DevicePort.h>
+#include <gui/common/Utils.hpp>
 using namespace touchgfx;
 using namespace std;
 

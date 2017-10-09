@@ -40,45 +40,54 @@
 DatePicker::DatePicker() :
     onSelectedElementChanged(this, &DatePicker::selectedElementChangedHandler)
 {
-    background.setBitmap(Bitmap(BITMAP_DATEPICKER_MAIN_BACKGROUND_ID));
-    background.setXY(0, 0);
-    add(background);
+	background.setBitmap(Bitmap(BITMAP_DATEPICKER_MAIN_BACKGROUND_ID));
+	background.setXY(0, 20);
+	add(background);
 
+	Unicode::snprintf(dateTextBuffer, 15, "%04d-%02d-%02d", 2017, 10, 7);
+	dateText.setWildcard(dateTextBuffer);
+	dateText.setTypedText(TypedText(T_DATETEXT));
+	dateText.setPosition(0, 0, 240, 20);
+	dateText.setColor(Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));// (0xFF, 0xFF, 0xFF)
+	add(dateText);
+
+	
     colortype normalTextColor = Color::getColorFrom24BitRGB(0x31, 0x31, 0x31);
     colortype selectedTextColor = Color::getColorFrom24BitRGB(0x00, 0x8A, 0xFF);
     colortype selectedBackgroundColor = Color::getColorFrom24BitRGB(0xF5, 0xF5, 0xF5);//
 
-    days.setXY(6, 9);
+	days.setXY(6, 20 + 9);
     days.setupDatePickerWheelDay(34, 118, 10, 52, T_DATEPICKER_DAY_28, T_DATEPICKER_DAY_29, T_DATEPICKER_DAY_30, T_DATEPICKER_DAY_31);
     days.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, 47, 27);
+	days.setElementSelectedCallback(onSelectedElementChanged);
     add(days);
 
-    months.setXY(47, 9);
+	months.setXY(47, 20 + 9);
     months.setup(108, 118, 10, 52, T_DATEPICKER_MONTHS);
     months.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, 47, 27);
     months.setElementSelectedCallback(onSelectedElementChanged);
     add(months);
 
-    years.setXY(165, 9);
+	years.setXY(165, 20 + 9);
     years.setup(55, 118, 10, 52, T_DATEPICKER_YEARS);
     years.setTextColor(normalTextColor, selectedTextColor, selectedBackgroundColor, 47, 27);//83,42
     years.setElementSelectedCallback(onSelectedElementChanged);
     add(years);
 
     shadowTop.setBitmap(Bitmap(BITMAP_DATEPICKER_TOP_SHADOW_OVERLAY_ID));
-    shadowTop.setXY(0, 9);
+	shadowTop.setXY(0, 20 + 9);
     add(shadowTop);
 
     shadowBottom.setBitmap(Bitmap(BITMAP_DATEPICKER_BOTTOM_SHADOW_OVERLAY_ID));
-    shadowBottom.setXY(0, background.getHeight() - shadowBottom.getHeight() - 9);
+	shadowBottom.setXY(0, 20 + background.getHeight() - shadowBottom.getHeight() - 9);
     add(shadowBottom);
 
     glassOverlay.setBitmap(Bitmap(BITMAP_DATEPICKER_GLASS_OVERLAY_ID));
-    glassOverlay.setXY(0, (background.getHeight() - glassOverlay.getHeight()) / 2);
+	glassOverlay.setXY(0, 20 + (background.getHeight() - glassOverlay.getHeight()) / 2);
     add(glassOverlay);
 
-    setWidth(background.getWidth());
-    setHeight(background.getHeight());
+	setWidth(background.getWidth());
+	setHeight(background.getHeight() + 20);
 }
 
 DatePicker::~DatePicker()
@@ -149,6 +158,9 @@ void DatePicker::selectedElementChangedHandler(const WheelSelector& wheel, const
         days.fadeExtraText(1, 255, 16);
         days.fadeExtraText(2, 255, 16);
     }
+	Unicode::snprintf(dateTextBuffer, 15, "%04d-%02d-%02d", START_YEAR + years.getSelectedIndex(), 1 + months.getSelectedIndex(), 1 + days.getSelectedIndex());
+	dateText.invalidate();
+	application().getModelTime().setCurrentDate(START_YEAR + years.getSelectedIndex(), 1 + months.getSelectedIndex(), 1 + days.getSelectedIndex());
 }
 
 uint16_t DatePicker::getNumberOfDays(uint16_t month, uint16_t year)

@@ -42,7 +42,9 @@
 #include <BitmapDatabase.hpp>
 #include <gui/custom_controls_screen/WheelSelector.hpp>
 #include <gui/custom_controls_screen/WheelSelectorExtra.hpp>
-
+#include <touchgfx/widgets/ScalableImage.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
+#include <gui/common/FrontendApplication.hpp>
 using namespace touchgfx;
 
 /**
@@ -64,9 +66,13 @@ public:
     void setYear(int index, int duration, EasingEquation equation);
 
     void reset();
-
+	static const int START_YEAR = 2012;
 protected:
-    static const int START_YEAR = 2012;
+
+
+	//ScalableImage dateImage;
+	TextAreaWithOneWildcard dateText;
+	Unicode::UnicodeChar dateTextBuffer[15];
 
     Image background;
     Image shadowTop;
@@ -82,6 +88,9 @@ protected:
 
     uint16_t getNumberOfDays(uint16_t month, uint16_t year);
 
+	FrontendApplication& application(){
+		return *static_cast<FrontendApplication*>(Application::getInstance());
+	}
 };
 
 

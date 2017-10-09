@@ -88,7 +88,7 @@ current_select_for_key(-1),
     descriptionFieldHeadline.setPosition(18, 26, 240, 36);
     descriptionFieldHeadline.setColor(Color::getColorFrom24BitRGB(0x00, 0x00, 0x00));
 
-    descriptionFieldText.setPosition(18, 75, 240, 140);
+    descriptionFieldText.setPosition(0, 75, 240, 140);
     descriptionFieldText.setColor(Color::getColorFrom24BitRGB(0x00, 0x00, 0x00));
 
     descriptionField.setPosition(0, 0, descriptionFieldBackground.getWidth(), 320);
@@ -204,6 +204,7 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
             descriptionFieldSelectButton.setVisible(menuItems[i].showDemoButton);
             descriptionField.setXY(descriptionFieldBackground.getWidth(), 0);
             descriptionFieldHeadline.setTypedText(TypedText(menuItems[i].headline));
+			descriptionFieldText.setWideTextAction(WIDE_TEXT_WORDWRAP);
             descriptionFieldText.setTypedText(TypedText(menuItems[i].text));
             viewPortDescriptionField.setVisible(true);
 

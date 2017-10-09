@@ -33,7 +33,7 @@ protected:
     SleepSchedule sleepSchedule;
 
 #endif
-    ControlData mControlData;
+//    ControlData mControlData;
 private:
     Callback<SettingView, const AbstractButton&> onButtonPressed;
     void buttonPressedHandler(const AbstractButton& button);

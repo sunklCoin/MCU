@@ -47,7 +47,7 @@ void FrontendApplication::handleTickEvent()
         if ((model.getCurrentTime() - lastClickTimeUtils) >= (sleepScheduleArr[mControlData.getSleepSchedule()] * 1000 - 5*1000))
         {
             if (entryScreenId != FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID){
-                gotoScreenSaverClockTransition();
+            //    gotoScreenSaverClockTransition();
             }
         }
 
@@ -80,6 +80,11 @@ void FrontendApplication::handleClickEvent(const ClickEvent& evt)
 
     // A click event has been registered so reset last click time
     resetScreenSaver();
+}
+
+TimeUtils FrontendApplication::getModelTime()
+{
+	return model.getCurrentTime();
 }
 
 void FrontendApplication::resetScreenSaver()

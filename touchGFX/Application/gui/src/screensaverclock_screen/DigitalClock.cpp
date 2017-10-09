@@ -6,7 +6,7 @@
 
 DigitalClock::DigitalClock()
 {
-    DigitalClockBg.setXY(0, 121);
+    DigitalClockBg.setXY(0, 21);//(0, 121)
     DigitalClockBg.setBitmap(Bitmap(BITMAP_TIMEPICKER_MAIN_BACKGROUND_ID));
     add(DigitalClockBg);
 
@@ -23,26 +23,26 @@ DigitalClock::DigitalClock()
     Unicode::snprintf(timeHourTxtBuffer, 5, "%02d", 0);
     timeHourTxt.setWildcard(timeHourTxtBuffer);
     timeHourTxt.setTypedText(TypedText(T_TIMEHOUR));
-    timeHourTxt.setXY(20, 152);
+	timeHourTxt.setXY(20, 52); //(20, 152)
     timeHourTxt.setColor(Color::getColorFrom24BitRGB(0, 0, 0));
     add(timeHourTxt);
 
     Unicode::snprintf(timeMinTxtBuffer, 5, "%02d", 0);
     timeMinTxt.setWildcard(timeMinTxtBuffer);
     timeMinTxt.setTypedText(TypedText(T_TIMEMIN));
-    timeMinTxt.setXY(140, 152);
+    timeMinTxt.setXY(140, 52);//(140, 152)
     timeMinTxt.setColor(Color::getColorFrom24BitRGB(0, 0, 0));
     add(timeMinTxt);
 
     Unicode::strncpy(timeAPMTxtBuffer, "PM", 5);
     timeAPMTxt.setWildcard(timeAPMTxtBuffer);
     timeAPMTxt.setTypedText(TypedText(T_SCREENSAVERAPM));
-    timeAPMTxt.setPosition(152, 229,60,40);
+    timeAPMTxt.setPosition(152, 129,60,40);//(152, 229,60,40)
     timeAPMTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
     timeAPMTxt.setVisible(false);
     add(timeAPMTxt);
 
-    Timedot.setXY(106, 135);
+    Timedot.setXY(106, 35);//(106, 135)
     Timedot.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
     Timedot.setLinespacing(0);
     Timedot.setTypedText(TypedText(T_TIMEDOT));

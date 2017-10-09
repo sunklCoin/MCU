@@ -74,8 +74,11 @@ public:
     virtual void updateListMenuElements();
 */
 protected:
-    DemoViewInterface& viewInterface;
-    ControlData mControlData;
+	DemoViewInterface& viewInterface;
+
+	ControlData& mControlData(){
+	    return static_cast<FrontendApplication*>(Application::getInstance())->getControlData();
+	}
     void showProcessorLoad();
     void showProcessorLoadStatusBar();
 };

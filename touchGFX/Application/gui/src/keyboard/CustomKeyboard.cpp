@@ -33,7 +33,7 @@
  *
  *****************************************************************************/
 #include <gui/keyboard/CustomKeyboard.hpp>
-
+#include <gui/common/Utils.hpp>
 CustomKeyboard::CustomKeyboard() : keyboard(),
     modeBtnTextArea(),
     capslockPressed(this, &CustomKeyboard::capslockPressedHandler),

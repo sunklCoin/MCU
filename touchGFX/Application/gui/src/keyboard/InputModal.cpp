@@ -24,7 +24,7 @@ m_onOK_callback(NULL)
     passwordHeadline.setTypedText(TypedText(T_PASSWORDHEADLINE));
     add(passwordHeadline);
 
-	memset(devicenameBuffer,' ', sizeof(devicenameBuffer));
+	memset(devicenameBuffer,L' ', sizeof(devicenameBuffer));
 	devicename.setWildcard(devicenameBuffer);
 	devicename.setTypedText(TypedText(T_CONNECTHEADLINE));
     devicename.setXY(0, 0);
@@ -32,7 +32,7 @@ m_onOK_callback(NULL)
     devicename.setLinespacing(0);
     add(devicename);
 
-	memset(passwordEditBuffer, ' ', sizeof(passwordEditBuffer));
+	memset(passwordEditBuffer, L' ', PASSWORDEDIT_SIZE);
 	passwordEdit.setWildcard(passwordEditBuffer);
 	passwordEdit.setTypedText(TypedText(T_PASSWORDEDIT));
 	passwordEdit.setPosition(13, 42,210,20);
@@ -76,8 +76,18 @@ void InputModal::setAddParams(const Unicode::UnicodeChar* strHeadLine, GenericCa
 }
 
 void InputModal::buttonClicked(const AbstractButton& source) {
-	strEditBox addInfo;
-	addInfo.inputTxt = "123456789";
+	strEditBox addInfo = {0};
+	memset(&addInfo, 0, sizeof(strEditBox));
+	//addInfo.inputTxt = "123456789";
+	if (passwordEditBuffer != NULL){
+		int i = 0;
+		while (passwordEditBuffer[i] != '\0' && i < Unicode::strlen(passwordEditBuffer)){
+			addInfo.inputTxt[i] = (uint8_t)passwordEditBuffer[i];
+			TOUCH_GFX_LOG("inputTxt = %c\n", addInfo.inputTxt);
+			i++;
+		}
+	}
+
 	if (&source == &buttonCancel) {
 		hide();
 	}

@@ -17,6 +17,7 @@
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <gui/keyboard/CustomKeyboard.hpp>
 #include <gui/framework/DevicePort.h>
+#include <gui/common/Utils.hpp>
 using namespace touchgfx;
 class InputModal : public ModalWindow
 {

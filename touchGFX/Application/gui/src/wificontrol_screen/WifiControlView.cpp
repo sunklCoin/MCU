@@ -98,10 +98,12 @@ void WifiControlView::listElementClicked(CustomListElement& element)
 	mInputModal.setAddParams(element.mListMenuEleBuffer,onInputPasswordEvent);
 	mInputModal.show();
 	mStatusBar.hide();
-	printf("Hello,world");
 }
 
 void WifiControlView::InputPasswordEvent(strEditBox txtInfo){
+	if (txtInfo.inputTxt != NULL){
+		TOUCH_GFX_LOG("passwor = %s\n", txtInfo.inputTxt);
+	}
 	mStatusBar.show();
 }
 

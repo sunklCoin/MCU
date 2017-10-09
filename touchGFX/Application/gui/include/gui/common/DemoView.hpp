@@ -105,6 +105,7 @@ protected:
 	/*
 	* Member Declarations
 	*/
+
 	Button gotoMenuButton;
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
     Box box1;
@@ -128,7 +129,7 @@ protected:
     TouchArea mcuLoadArea;
     McuLoadSlider mcuLoadSlider;
     StatusBar  mStatusBar;
-    ControlData mControlData;
+//    ControlData mControlData;
 
     Callback<DemoView, const AbstractButton&> onBackButtonClicked;
     Callback<DemoView, const AbstractButton&> onMcuLoadClicked;
