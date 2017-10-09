@@ -40,7 +40,7 @@ public:
 	//add by sunkelong 2017/10/03,for sleep to wakeup
     virtual void handleKeyEvent(uint8_t keyValue);
     void resetScreenSaver();
-
+	void BootAnimationScreen();
     void gotoMainMenuScreenTransition();
 	void gotoCustomControlsScreen();
     void gotoBtControlScreen();
@@ -54,6 +54,7 @@ public:
 private:
 	touchgfx::Callback<FrontendApplication> transitionCallback;
     static const int SCREEN_SAVER_TIMEOUT = 180000; // Milliseconds
+	void BootAnimationScreenImpl();
     void gotoMainMenuScreenTransitionImpl();
 	void gotoCustomControlsScreenImpl();
     void gotoBtControlScreenImpl();

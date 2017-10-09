@@ -207,7 +207,7 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
 			descriptionFieldText.setWideTextAction(WIDE_TEXT_WORDWRAP);
             descriptionFieldText.setTypedText(TypedText(menuItems[i].text));
             viewPortDescriptionField.setVisible(true);
-
+			viewPortDescriptionField.setXY(viewPortDescriptionField.getX(), 0);
             // Make the background items visible (if the animation moves the elements in the list
             // beyond the scrollable ares)
             //menuItemContainer.setWidth(elementsInList * elementWidth + backgroundItems.getWidth());
@@ -224,25 +224,29 @@ void ImageMenu::menuItemSelectedhandler(const AbstractButton& button)
 			{
 				menuItemSelectedCallback->execute(menuItems[selectedIndex].callbackId);
 			}
-        }
+		}
+		else{
+			menuItems[i].selectedImage.setVisible(false);
+			menuItems[i].selectedImage.invalidate();
+		}
     }
 }
 
 void ImageMenu::descriptionFieldPressedhandler(const AbstractButton& button)
 {
     //if (&button == &backButton)
-    //{
-    //    //backButton.setTouchable(false);
-    //    setState(ANIMATE_TO_ALL_ELEMENTS);
-    //}
-    //else if (&button == &descriptionFieldSelectButton)
     {
+        //backButton.setTouchable(false);
+        setState(ANIMATE_TO_ALL_ELEMENTS);
+    }
+    //else if (&button == &descriptionFieldSelectButton)
+    /*{
         if (menuItemSelectedCallback)
         {
             menuItemSelectedCallback->execute(menuItems[selectedIndex].callbackId);
         }
         static_cast<FrontendApplication*>(Application::getInstance())->gotoMainMenuScreenTransition();
-    }
+    }*/
 }
 
 void ImageMenu::setState(States newState)
@@ -311,7 +315,7 @@ void ImageMenu::animateToAllElements()
     {
         // First step: Collaps the description field
         int16_t delta = EasingEquations::quadEaseOut(animationCounter, 0, descriptionFieldBackground.getWidth(), descriptionFieldSlideDuration);
-        descriptionField.moveTo(-delta, 0);
+        descriptionField.moveTo(delta, 0);
     }
     else if (animationCounter <= horizontalSlideDuration + descriptionFieldSlideDuration)
     {
@@ -325,13 +329,13 @@ void ImageMenu::animateToAllElements()
         // Final step: stop the animation
 
         // Make sure that you can not scroll beyond the elements in the list
-        menuItemContainer.setWidth(elementsInList * elementWidth);
+        //menuItemContainer.setWidth(elementsInList * elementWidth);
 
         menuItems[selectedIndex].selectedImage.setVisible(false);
         menuItems[selectedIndex].selectedImage.invalidate();
 
         scrollablemenuItemContainer.setTouchable(true);
-        //backButton.setTouchable(false);
+        ////backButton.setTouchable(false);
         viewPortDescriptionField.setVisible(false);
         setState(ALL_ELEMENTS_SHOWING);
         animationCounter = 0;
