@@ -41,7 +41,7 @@ public:
     bool isSleepState();
     void wakeupLcd();
 private:
-    bool isSleep;
+//    bool isSleep;
 };
 
 #endif // _CONTROL_DATA_HPP_

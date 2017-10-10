@@ -27,7 +27,8 @@
 #include <gui/setting_screen/SettingPresenter.hpp>
 #include <gui/mic_screen/MicScreenView.hpp>
 #include <gui/mic_screen/MicScreenPresenter.hpp>
-
+#include <gui/poweron_screen/BootAnimationView.hpp>
+#include <gui/poweron_screen/BootAnimationPresenter.hpp>
 /**
  * This class provides the memory that shall be used for memory allocations
  * in the frontend. A single instance of the FrontendHeap is allocated once (in heap
@@ -56,7 +57,8 @@ public:
             meta::TypeList< WifiControlView,
             meta::TypeList< SettingView,
 			meta::TypeList< MicScreenView,
-            meta::Nil > > > > > > >
+			meta::TypeList< BootAnimationView,
+            meta::Nil > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -76,7 +78,8 @@ public:
             meta::TypeList< WifiControlPresenter,
             meta::TypeList< SettingPresenter,
             meta::TypeList< MicScreenPresenter,
-            meta::Nil > > > > > > >
+			meta::TypeList< BootAnimationPresenter,
+            meta::Nil > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**
@@ -99,7 +102,8 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotoMainMenuScreenNoTransition();
+        //app.gotoMainMenuScreenNoTransition();
+		app.BootAnimationScreen();//first enter boot screen,show animation
     }
 protected:
     FrontendHeapBase(AbstractPartition& presenters, AbstractPartition& views, AbstractPartition& transitions, FrontendApplication& app)

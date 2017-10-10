@@ -76,8 +76,13 @@ void BootAnimationView::updateProgress(uint16_t tick)
 void BootAnimationView::handleTickEvent()
 {
     updateProgress(tickCounter++);
+#ifdef SIMULATOR
+    if ((tickCounter % 100 == 0) && (tickCounter > 50))//10000
+#else
 	if ((tickCounter % 100 == 0) && (tickCounter > 500))//10000
+#endif
 	{
-		static_cast<FrontendApplication*>(Application::getInstance())->gotoMainMenuScreenNoTransition();
+        static_cast<FrontendApplication*>(Application::getInstance())->resetScreenSaver();
+        static_cast<FrontendApplication*>(Application::getInstance())->gotoMainMenuScreenTransition();
 	}
 }

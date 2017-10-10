@@ -184,6 +184,12 @@
     <Filter Include="Header Files\gui\mic_screen">
       <UniqueIdentifier>{949a8961-0491-49e0-877e-a3eb1751e07e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\gui\poweron_screen">
+      <UniqueIdentifier>{2ce6a2db-fcc2-4c65-ae08-33a60188cdfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\poweron_screen">
+      <UniqueIdentifier>{86428691-2587-494b-ae72-093b0a2cd423}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDL2TouchController.cpp">
@@ -368,6 +374,21 @@
     </ClCompile>
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalWheelSelector.cpp">
       <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\driver\touch\SDLTouchController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\consolemain.cpp">
+      <Filter>Source Files\gui\simulator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\mainmenu_screen\ShortcutContainer.cpp">
+      <Filter>Source Files\gui\mainmenu_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\poweron_screen\BootAnimationPresenter.cpp">
+      <Filter>Source Files\gui\poweron_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\poweron_screen\BootAnimationView.cpp">
+      <Filter>Source Files\gui\poweron_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1284,6 +1305,15 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalWheelSelector.hpp">
       <Filter>Header Files\gui\custom_controls_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\mainmenu_screen\ShortcutContainer.hpp">
+      <Filter>Header Files\gui\mainmenu_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\poweron_screen\BootAnimationPresenter.hpp">
+      <Filter>Header Files\gui\poweron_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\poweron_screen\BootAnimationView.hpp">
+      <Filter>Header Files\gui\poweron_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

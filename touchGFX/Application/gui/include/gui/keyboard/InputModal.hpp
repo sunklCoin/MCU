@@ -4,9 +4,9 @@
 #ifndef INPUT_MODAL_HPP
 #define INPUT_MODAL_HPP
 
+#include <gui/common/Utils.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <mvp/View.hpp>
-#include <gui/setting_screen/SettingPresenter.hpp>
 #include <touchgfx/containers/ModalWindow.hpp>
 #include <touchgfx/Color.hpp>
 
@@ -16,18 +16,21 @@
 #include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
 #include <gui/keyboard/CustomKeyboard.hpp>
-#include <gui/framework/DevicePort.h>
-#include <gui/common/Utils.hpp>
+
+struct strEditBox {
+    char inputTxt[16];
+};
+
 using namespace touchgfx;
 class InputModal : public ModalWindow
 {
-    public:
+public:
     InputModal();
     virtual ~InputModal() {}
-	void setAddParams(const Unicode::UnicodeChar* strHeadLine, GenericCallback<strEditBox>& okCallback);
+    void setAddParams(const Unicode::UnicodeChar* strHeadLine, 
+        GenericCallback<strEditBox>& okCallback, GenericCallback<>& cancelCallback);
 protected:
-    FrontendApplication& application()
-    {
+    FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(Application::getInstance());
     }
 
@@ -39,8 +42,8 @@ protected:
     TextAreaWithOneWildcard passwordEdit;
     TextArea passwordHeadline;
     TextAreaWithOneWildcard devicename;
-	ButtonWithLabel buttonOK;
-	ButtonWithLabel buttonCancel;
+    ButtonWithLabel buttonOK;
+    ButtonWithLabel buttonCancel;
     Box boxLine;
 
     /*
@@ -48,15 +51,16 @@ protected:
     */
     static const uint16_t PASSWORDEDIT_SIZE = 16;
     touchgfx::Unicode::UnicodeChar passwordEditBuffer[PASSWORDEDIT_SIZE];
-	static const uint16_t DEVICENAME_SIZE = 60;
+    static const uint16_t DEVICENAME_SIZE = 60;
     touchgfx::Unicode::UnicodeChar devicenameBuffer[DEVICENAME_SIZE];
-	char buffer[DEVICENAME_SIZE];
+    char buffer[DEVICENAME_SIZE];
 private:
-	GenericCallback<strEditBox>* m_onOK_callback;
-	Callback<InputModal, const AbstractButton&> buttonClickedCallback;
-	void buttonClicked(const AbstractButton& source);
-	Callback<InputModal, Unicode::UnicodeChar*> onUpdateTextEditArea;
-	void updateTextEditArea(Unicode::UnicodeChar* buff);
+    GenericCallback<strEditBox>* m_onOK_callback;
+    GenericCallback<>* m_onCancel_callback;
+    Callback<InputModal, const AbstractButton&> buttonClickedCallback;
+    void buttonClicked(const AbstractButton& source);
+    Callback<InputModal, Unicode::UnicodeChar*> onUpdateTextEditArea;
+    void updateTextEditArea(Unicode::UnicodeChar* buff);
 };
 
 #endif // INPUT_MODAL_HPP

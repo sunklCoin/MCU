@@ -1,12 +1,18 @@
 #include <gui/common/ControlData.hpp>
-
+#ifndef SIMULATOR
+extern "C"{
+ static bool sleepFlag;
+}
+#else
+bool sleepFlag = false;
+#endif
 bool glb_BtState = false;
-bool glb_Wifistate = false;
+bool glb_Wifistate = true;
 int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
 int glb_BatteryLevel = 0;
 int glb_currBacklight = 0;
-int glb_currSleepSchedule = 0;
+int glb_currSleepSchedule = 1;
 
 
 ControlData::ControlData()
@@ -103,7 +109,7 @@ void ControlData::gotoSleep()
 #ifndef SIMULATOR
     LCD_Sleep();
 #endif
-    isSleep = true;
+    sleepFlag = true;
 }
 
 void ControlData::wakeupLcd()
@@ -111,10 +117,10 @@ void ControlData::wakeupLcd()
 #ifndef SIMULATOR
     LCD_Awake();
 #endif
-    isSleep = false;
+    sleepFlag = false;
 }
 
 bool ControlData::isSleepState()
 {
-    return isSleep;
+    return sleepFlag;
 }

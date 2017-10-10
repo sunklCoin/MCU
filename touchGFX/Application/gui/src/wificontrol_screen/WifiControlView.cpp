@@ -7,8 +7,9 @@ buttonCallback(this, &WifiControlView::buttonCallbackHandler),
 animationEndedCallback(this, &WifiControlView::animationEnded),
 listElementClickedCallback(this, &WifiControlView::listElementClicked),
 onInputPasswordEvent(this, &WifiControlView::InputPasswordEvent),
-tickCount(0)/*,
-numberOfListElements(0)*/
+onCancelPasswordEvent(this, &WifiControlView::CancelPasswordEvent),
+tickCount(0),
+curElement(NULL)
 {
     //menuBg.setXY(0, 0);
     //menuBg.setBitmap(Bitmap(BITMAP_MAIN_BG_240X320PX_ID));
@@ -30,6 +31,7 @@ numberOfListElements(0)*/
     WifiControlDevicesTitle.setColor(touchgfx::Color::getColorFrom24BitRGB(4, 148, 148));
     WifiControlDevicesTitle.setLinespacing(0);
     WifiControlDevicesTitle.setTypedText(TypedText(T_BTCONTROLDEVICESTITLETXT));
+    WifiControlDevicesTitle.setVisible(false);
     add(WifiControlDevicesTitle);
 
     WifiControlTitle.setPosition(40, 43,150,30);
@@ -37,6 +39,14 @@ numberOfListElements(0)*/
     WifiControlTitle.setLinespacing(0);
     WifiControlTitle.setTypedText(TypedText(T_WIFICONTROLTITLETXT));
     add(WifiControlTitle);
+
+    WifiTurnOnTips.setPosition(0, 140, 240, 230);
+    WifiTurnOnTips.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    WifiTurnOnTips.setLinespacing(0);
+    WifiTurnOnTips.setWideTextAction(WIDE_TEXT_WORDWRAP);
+    WifiTurnOnTips.setTypedText(TypedText(T_WIFITURNONTIPS));
+    WifiTurnOnTips.setVisible(false);
+    add(WifiTurnOnTips);
 
     animation.setXY(192, 41);
     animation.setVisible(false);
@@ -75,11 +85,17 @@ void WifiControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         if (switchBtn.getState() == true){
             switchBtn.setVisible(false);
             presenter->enableWifi();
+            scrollCnt.setVisible(true);
         }
         else{
             presenter->disableWifi();
+            scrollCnt.setVisible(false);
             scrollCnt.invalidate();
         }
+        WifiControlDevicesTitle.setVisible(true == switchBtn.getState());
+        WifiTurnOnTips.setVisible(false == switchBtn.getState());
+        WifiControlDevicesTitle.invalidate();
+        WifiTurnOnTips.invalidate();
     }
     else if (&src == &backBtn)
     {
@@ -93,18 +109,24 @@ void WifiControlView::listElementClicked(CustomListElement& element)
     // so it is removed from the list
     /*list.remove(element);
     scrollCnt.invalidate();*/
-    Wifi_Connect();
+    curElement = &element;
     mList.startAnimation(element);
-	mInputModal.setAddParams(element.mListMenuEleBuffer,onInputPasswordEvent);
-	mInputModal.show();
-	mStatusBar.hide();
+    mInputModal.setAddParams(element.mListMenuEleBuffer, onInputPasswordEvent, onCancelPasswordEvent);
+    mInputModal.show();
+    mStatusBar.hide();
 }
 
-void WifiControlView::InputPasswordEvent(strEditBox txtInfo){
-	if (txtInfo.inputTxt != NULL){
-		TOUCH_GFX_LOG("passwor = %s\n", txtInfo.inputTxt);
-	}
-	mStatusBar.show();
+void WifiControlView::InputPasswordEvent(strEditBox txtInfo) {
+    if (txtInfo.inputTxt != NULL) {
+        TOUCH_GFX_LOG("passwor = %s\n", txtInfo.inputTxt);
+    }
+    mStatusBar.show();
+    Wifi_Connect(curElement->getAddress(), txtInfo.inputTxt);
+}
+
+void WifiControlView::CancelPasswordEvent() {
+    mStatusBar.show();
+    stopListAnimation();
 }
 
 void WifiControlView::setWifiState(bool state)
@@ -113,6 +135,12 @@ void WifiControlView::setWifiState(bool state)
     //setBitmaps(Bitmap(BITMAP_OFF_43X30_ID), Bitmap(BITMAP_ON_43X30_ID));
     switchBtn.setVisible(true);
     switchBtn.invalidate();
+
+    WifiControlDevicesTitle.setVisible(true == state);
+    WifiTurnOnTips.setVisible(false == state);
+
+    WifiControlDevicesTitle.invalidate();
+    WifiTurnOnTips.invalidate();
 }
 
 void WifiControlView::animationEnded(const AnimatedImage& source)

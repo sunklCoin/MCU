@@ -384,6 +384,9 @@
     <ClCompile Include="..\..\gui\src\poweron_screen\BootAnimationView.cpp">
       <Filter>Source Files\gui\poweron_screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\PopModal.cpp">
+      <Filter>Source Files\gui\custom_controls_screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\assets\fonts\SIMYOU.TTF">
@@ -1308,6 +1311,9 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\poweron_screen\BootAnimationView.hpp">
       <Filter>Header Files\gui\poweron_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\PopModal.hpp">
+      <Filter>Header Files\gui\custom_controls_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
