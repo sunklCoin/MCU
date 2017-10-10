@@ -48,10 +48,11 @@
 #include <gui/custom_controls_screen/PopModal.hpp>
 #include <gui/framework/KeyEvent.h>
 using namespace touchgfx;
+#ifndef SIMULATOR
 extern "C"{
        void ShutDown();
 }
-
+#endif
 template <class T>
 class DemoView : public View<T>, public DemoViewInterface
 {
@@ -212,6 +213,7 @@ protected:
 #else
         ShutDown();
 #endif
+		static_cast<FrontendApplication*>(Application::getInstance())->ShutdownAnimationScreen();
     }
 
     virtual void  popCancelHandle()
@@ -223,9 +225,11 @@ protected:
 
     virtual void handleKeyEvent(uint8_t keyValue)
     { 
-    	uint8_t key =  keyValue & 0x3F;
-    	uint8_t event = keyValue >> 6;
-        if ((key == KEYCODE_POWER) && (event == 0x02)){
+		uint8_t key = KEYBOARD_GET_KEYCODE(keyValue);
+		uint8_t event = KEYBOARD_GET_KEYEVENT(keyValue);
+
+		if ((key == KEYCODE_POWER) && (event == KEY_EVENT_LONG_PRESS))
+		{
             popScreen.setAddParams(onPopOkEvent, onPopCancelEvent);
             if (!popScreen.isShowing()){
                 popScreen.show();

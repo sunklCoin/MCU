@@ -6,6 +6,19 @@
  */
 #ifndef KEYEVENT_H
 #define KEYEVENT_H
+#ifndef SIMULATOR
+#define KEYBOARD_GET_KEYEVENT(key) (uint8_t)(key >> 6)
+#define KEYBOARD_GET_KEYCODE(key) (uint8_t)(key & 0X3F)
+#else
+#define KEYBOARD_GET_KEYEVENT(key) (uint8_t)(key)
+#define KEYBOARD_GET_KEYCODE(key) (uint8_t)(key)
+#endif
+typedef enum key_event {
+	KEY_EVENT_DOWN = 0x00,
+	KEY_EVENT_UP = 0x01,
+	KEY_EVENT_LONG_PRESS = 0x02,
+} typedef_key_event;
+
 
 typedef enum key_code {
 #ifdef SIMULATOR

@@ -32,56 +32,20 @@
  * any third party, arising from your use of this software.
  *
  *****************************************************************************/
-#ifndef DEMO_PRESENTER_HPP
-#define DEMO_PRESENTER_HPP
+#include <gui/poweron_screen/ShutdownAnimationPresenter.hpp>
+#include <gui/poweron_screen/ShutdownAnimationView.hpp>
+#include <touchgfx/Texts.hpp>
+#include <texts/TextKeysAndLanguages.hpp>
 
-#include <mvp/Presenter.hpp>
-#include <gui/common/DemoViewInterface.hpp>
-#include <gui/common/FrontendApplication.hpp>
-#include <gui/model/ModelListener.hpp>
-#include <gui/common/TimeUtils.hpp>
-#include <gui/common/ControlData.hpp>
-#include <gui/common/StatusBar.hpp>
-
-using namespace touchgfx;
-
-class DemoPresenter : public Presenter, public ModelListener
+ShutdownAnimationPresenter::ShutdownAnimationPresenter(ShutdownAnimationView& v)
+    : view(v)
 {
-public:
-    DemoPresenter(DemoViewInterface& view);
+}
 
-    void backOptionSelected();
-    void mcuLoadSelected();
-	/**
-	* The activate function is called automatically when this screen is "switched in"
-	* (ie. made active). Initialization logic can be placed here.
-	*/
-	virtual void activate();
+void ShutdownAnimationPresenter::activate()
+{
+}
 
-	/**
-	* The deactivate function is called automatically when this screen is "switched out"
-	* (ie. made inactive). Teardown functionality can be placed here.
-	*/
-	virtual void deactivate();
-    virtual void mcuLoadUpdated(uint8_t mcuLoad);
-
-    void viewStartupDone();
-	virtual void timeUpdated(Time time);
-    virtual void timeUpdated(TimeUtils mTimeUtils);
-    virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll);
-/*
-    virtual void setBluetoothState(bool state);
-    virtual void updateListMenuElements();
-*/
-protected:
-	DemoViewInterface& viewInterface;
-
-	ControlData mControlData(){
-	    return static_cast<FrontendApplication*>(Application::getInstance())->getControlData();
-	}
-
-    void showProcessorLoad();
-    void showProcessorLoadStatusBar();
-};
-
-#endif
+void ShutdownAnimationPresenter::deactivate()
+{
+}
