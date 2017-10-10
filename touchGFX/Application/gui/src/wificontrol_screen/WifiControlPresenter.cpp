@@ -10,7 +10,14 @@ WifiControlPresenter::WifiControlPresenter(WifiControlView& v)
 
 void WifiControlPresenter::activate()
 {
-
+    if (mControlData().isWifiEnable()) {
+        Wifi_Scan();
+        view.startAnimation();
+        setWifiState(true);
+    } else {
+        view.stopAnimation();
+        setWifiState(false);
+    }
 }
 
 void WifiControlPresenter::deactivate()
@@ -20,7 +27,7 @@ void WifiControlPresenter::deactivate()
 
 void WifiControlPresenter::enableWifi()
 {
-    Wifi_Open();
+    Wifi_Scan();
     view.startAnimation();
 }
 
@@ -32,7 +39,6 @@ void WifiControlPresenter::disableWifi()
 
 void WifiControlPresenter::setWifiState(bool state)
 {
-    view.stopAnimation();
     view.setWifiState(state);
 }
 

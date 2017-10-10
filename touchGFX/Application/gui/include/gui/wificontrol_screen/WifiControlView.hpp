@@ -1,10 +1,9 @@
 #ifndef WIFICONTROL_VIEW_HPP
 #define WIFICONTROL_VIEW_HPP
-
+//#include <gui/common/Utils.hpp>
 #include <gui/wificontrol_screen/WifiControlPresenter.hpp>
 #include <gui/common/FrontendApplication.hpp>
 #include <mvp/View.hpp>
-#include <gui/btcontrol_screen/BTControlPresenter.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
 #include <touchgfx/containers/Container.hpp>
@@ -16,10 +15,10 @@
 #include <touchgfx/containers/ScrollableContainer.hpp>
 #include <touchgfx/containers/ListLayout.hpp>
 #include <touchgfx/widgets/AnimatedImage.hpp>
+
 #include <gui/keyboard/InputModal.hpp>
+//#include <gui/framework/DevicePort.h>
 #include <map>
-#include <gui/framework/DevicePort.h>
-#include <gui/common/Utils.hpp>
 using namespace touchgfx;
 using namespace std;
 
@@ -49,6 +48,7 @@ protected:
     Button backBtn;
     TextArea WifiControlDevicesTitle;
     TextArea WifiControlTitle;
+    TextArea WifiTurnOnTips;
     CustomListElement MenuContainer;
     AnimatedImage animation;
     int tickCount;
@@ -65,6 +65,7 @@ protected:
     void handleTickEvent();
 
 private:
+    CustomListElement* curElement;
     /*
     * Callback Handler Declarations
     */
@@ -80,8 +81,10 @@ private:
     Callback<WifiControlView, const AnimatedImage&> animationEndedCallback;
     Callback<WifiControlView, CustomListElement&> listElementClickedCallback;
 
-	Callback<WifiControlView, strEditBox> onInputPasswordEvent;
-	void InputPasswordEvent(strEditBox txtInfo); // param by value!
+    Callback<WifiControlView, strEditBox> onInputPasswordEvent;
+    Callback<WifiControlView> onCancelPasswordEvent;
+    void InputPasswordEvent(strEditBox txtInfo);    // param by value!
+    void CancelPasswordEvent();
 };
 
 #endif // WIFICONTROL_VIEW_HPP

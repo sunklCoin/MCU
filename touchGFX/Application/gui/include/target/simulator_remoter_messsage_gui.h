@@ -60,10 +60,10 @@ typedef enum {
 #define BT_MACADDRESS_LEN       (6)
 
 /* bluetooth */
-typedef struct gui_data_bt_req {
+typedef struct gui_para_bt_req {
     char deviceName[BT_DEVICENAME_LEN];
     uint8_t address[BT_MACADDRESS_LEN];
-} struct_gui_data_bt_req;
+} struct_gui_para_bt_req;
 
 typedef struct gui_data_bt_rsp {
     char deviceName[BT_DEVICENAME_LEN];
@@ -76,14 +76,14 @@ typedef struct gui_data_bt_rsp {
 
 /* powermanager */
 typedef struct gui_data_pm_rsp {
-	uint8_t level;
-	uint8_t battery_temp;
-	uint8_t charging_status;
+    uint8_t level;
+    uint8_t battery_temp;
+    uint8_t charging_status;
 } struct_gui_data_pm_rsp;
 
 typedef struct gui_data_key_rsp {
-	uint8_t key_type;
-	uint8_t key_code;
+    uint8_t key_type;
+    uint8_t key_code;
 } struct_gui_data_key_rsp;
 
 /* wifi */
@@ -97,21 +97,26 @@ typedef struct wifi_scan_list {
 } struct_wifi_scan;
 #else
 typedef struct wifi_scan_list {
-	uint8_t channel;
-	uint8_t ssid_len;
-	uint8_t rssi;
-	uint8_t security_enabled;
-	uint16_t beacon_period;
-	uint8_t preamble;
-	uint8_t bss_type;
-	uint8_t bssid[6];
-	uint8_t ssid[32];
-	uint8_t rsn_cipher;
-	uint8_t rsn_auth;
-	uint8_t wpa_cipher;
-	uint8_t wpa_auth;
+    uint8_t channel;
+    uint8_t ssid_len;
+    uint8_t rssi;
+    uint8_t security_enabled;
+    uint16_t beacon_period;
+    uint8_t preamble;
+    uint8_t bss_type;
+    uint8_t bssid[6];
+    uint8_t ssid[32];
+    uint8_t rsn_cipher;
+    uint8_t rsn_auth;
+    uint8_t wpa_cipher;
+    uint8_t wpa_auth;
 } struct_wifi_scan;
 #endif
+
+typedef struct gui_para_wifi_req {
+    struct_wifi_scan* enet_info;
+    char password[64];
+} struct_gui_para_wifi_req;
 
 typedef struct gui_data_wifi_rsp {
     uint8_t scan_num;
@@ -121,7 +126,8 @@ typedef struct gui_data_wifi_rsp {
 typedef struct message_gui_req {
     uint32_t msgid;
     union gui_data_req {
-    	struct_gui_data_bt_req bt;
+    	struct_gui_para_bt_req bt;
+        struct_gui_para_wifi_req wifi;
     } para;
 } struct_message_gui_req;
 

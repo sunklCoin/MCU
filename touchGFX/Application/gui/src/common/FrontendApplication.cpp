@@ -21,6 +21,7 @@
 #include <gui/setting_screen/SettingPresenter.hpp>
 #include <gui/mic_screen/MicScreenView.hpp>
 #include <gui/mic_screen/MicScreenPresenter.hpp>
+#include <gui/common/DemoView.hpp>
 using namespace touchgfx;
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
@@ -41,13 +42,14 @@ void FrontendApplication::handleTickEvent()
     // no action has been registered for a screenSaverTimeout (time in milliseconds)
     // (Only do the time check sometimes and not in the start)
     tickCounter++;
+
     if ((tickCounter % 100 == 0) && (tickCounter > 1000))//10000
     {
 	    //add by sunkelong 2017/10/03,goto sleep,first show screensaver,begin
         if ((model.getCurrentTime() - lastClickTimeUtils) >= (sleepScheduleArr[mControlData.getSleepSchedule()] * 1000 - 5*1000))
         {
             if (entryScreenId != FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID){
-            //    gotoScreenSaverClockTransition();
+                gotoScreenSaverClockTransition();
             }
         }
 
@@ -69,6 +71,7 @@ void FrontendApplication::handleKeyEvent(uint8_t keyValue)
     MVPApplication::handleKeyEvent(keyValue);
     if (mControlData.isSleepState()){
         mControlData.wakeupLcd();
+        gotoMainMenuScreenTransition();
     }
     resetScreenSaver();
 }
@@ -194,4 +197,21 @@ void FrontendApplication::gotoMicScreen()
 void FrontendApplication::gotoMicScreenImpl()
 {
 	makeTransition<MicScreenView, MicScreenPresenter, SlideTransition<EAST>, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+/*
+ * Screen Transition Declarations
+ */
+// boot animation
+
+void FrontendApplication::BootAnimationScreen()
+{
+    transitionCallback = touchgfx::Callback<FrontendApplication>(this, &FrontendApplication::BootAnimationScreenImpl);
+    pendingScreenTransitionCallback = &transitionCallback;
+    entryScreenId = FRONTENDAPPLICATION_BOOT_SCREEN_ID;
+}
+
+void FrontendApplication::BootAnimationScreenImpl()
+{
+    makeTransition<BootAnimationView, BootAnimationPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

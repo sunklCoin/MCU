@@ -76,7 +76,7 @@ public:
 protected:
 	DemoViewInterface& viewInterface;
 
-	ControlData& mControlData(){
+	ControlData mControlData(){
 	    return static_cast<FrontendApplication*>(Application::getInstance())->getControlData();
 	}
     void showProcessorLoad();

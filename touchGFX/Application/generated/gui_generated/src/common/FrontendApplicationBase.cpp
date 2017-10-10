@@ -17,7 +17,8 @@
 #include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
 #include <gui/wificontrol_screen/WifiControlView.hpp>
 #include <gui/wificontrol_screen/WifiControlPresenter.hpp>
-
+#include <gui/poweron_screen/BootAnimationView.hpp>
+#include <gui/poweron_screen/BootAnimationPresenter.hpp>
 using namespace touchgfx;
 
 

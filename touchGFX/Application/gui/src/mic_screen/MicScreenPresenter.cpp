@@ -28,11 +28,11 @@ void MicScreenPresenter::startRecord()
 
 void MicScreenPresenter::finishRecord()
 {
-	Mic_finishRecord();
+	Mic_FinishRecord();
 }
 
 void MicScreenPresenter::cancelRecord()
 {
-	Mic_cancelRecord();
+	Mic_CancelRecord();
 }
 

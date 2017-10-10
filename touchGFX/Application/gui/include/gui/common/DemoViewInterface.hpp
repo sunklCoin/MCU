@@ -51,6 +51,7 @@ public:
     virtual void setBluetoothState(bool state) {}
     virtual void updateListMenuElements() {}
 */
+    virtual void handleKeyEvent(uint8_t keyValue){}
     virtual void showProcessorLoadStatusBar() {}
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll) {}
 };

@@ -5,13 +5,8 @@
  *      Author: yuhang
  */
 #ifdef SIMULATOR
-#include <target/simulator_remoter_messsage_gui.h>
 #include <stdint.h>
 #include <gui/model/ModelListener.hpp>
-#else
-extern "C" {
-#include "remoter_message.h"
-}
 #endif
 #include <gui/framework/DevicePort.h>
 #include <string.h>
@@ -246,20 +241,53 @@ void Bluetooth_Bond(uint8_t address[]) {
 }
 
 /* wifi */
+struct_wifi_scan* m_scan_list = NULL;
+uint16_t m_scan_num = 0;
+
+enum_wifi_state m_wifi_state = wifi_state_closed;
+
+void Wifi_SetState(enum_wifi_state state) {
+    m_wifi_state = state;
+}
+
+void Wifi_SetScanList(struct_wifi_scan* scan_list, uint16_t scan_num) {
+    m_scan_list = scan_list;
+    m_scan_num = scan_num;
+}
+
+struct_wifi_scan* FindScanListEntry(uint8_t address[]) {
+    for (int i = 0; i < m_scan_num; i++) {
+        if (memcmp(m_scan_list[i].bssid, address, BT_MACADDRESS_LEN) == 0) {
+            return &m_scan_list[i];
+        }
+    }
+    return NULL;
+}
+
+
 void Wifi_Scan();
 
 void Wifi_Open() {
+    if (m_wifi_state != wifi_state_closed) {
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_OPEN_REQ);
 #else
-    /*SM_InitMessage();
+    SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_WIFI_OPEN_RSP;
-    SM_SendMessage();*/
-    Wifi_Scan();
+    SM_SendMessage();
 #endif
+
+    Wifi_SetState(wifi_state_opening);
 }
 
 void Wifi_Close() {
+    if (m_wifi_state != wifi_state_idle) {
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_CLOSE_REQ);
 #else
@@ -267,15 +295,22 @@ void Wifi_Close() {
     sm_message.msgid = MSG_ID_GUI_WIFI_CLOSE_RSP;
     SM_SendMessage();
 #endif
+
+    //Wifi_SetState(wifi_state_closing);
+    Wifi_SetState(wifi_state_closed);
 }
 
 void Wifi_Scan() {
+    if (m_wifi_state != wifi_state_idle && m_wifi_state != wifi_state_closed) {
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_SCAN_REQ);
 #else
     static struct_wifi_scan gWifi_Scan_List[3] = {
-        {0, 5, 40, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
-        {0, 5, 90, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
+        {0, 5, 40, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
+        {0, 5, 90, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
         {0, 6, 60, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}, 0, 0, 0, 0}
     };
 
@@ -285,19 +320,41 @@ void Wifi_Scan() {
     sm_message.data.wifi.scan_list = &gWifi_Scan_List[0];
     SM_SendMessage();
 #endif
+
+    Wifi_SetState(wifi_state_scaning);
 }
 
-void Wifi_Connect() {
+bool Wifi_Connect(uint8_t address[], char password[]) {
+    if (m_wifi_state != wifi_state_idle) {
+        return false;
+    }
+
 #ifndef SIMULATOR
-    SendMessageEmpty(MSG_ID_GUI_WIFI_CONNECT_REQ);
+    struct_wifi_scan* entry = FindScanListEntry(address);
+    if (entry != NULL) {
+        struct_remote_message msg_send;
+        InitMessage(msg_send, MSG_ID_GUI_WIFI_CONNECT_REQ);
+        msg_send.msg.msg_gui_req.para.wifi.enet_info = entry;
+        memcpy(msg_send.msg.msg_gui_req.para.wifi.password, password, sizeof(msg_send.msg.msg_gui_req.para.wifi.password)-1);
+        Message_Send(&msg_send);
+        return true;
+    }
+    return false;
 #else
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_WIFI_CONNECT_RSP;
     SM_SendMessage();
+	return true;
 #endif
+
+    Wifi_SetState(wifi_state_connecting);
 }
 
 void Wifi_Disconnect() {
+    if (m_wifi_state != wifi_state_idle) {
+        return;
+    }
+
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_DISCONNECT_REQ);
 #else
@@ -305,32 +362,39 @@ void Wifi_Disconnect() {
     sm_message.msgid = MSG_ID_GUI_WIFI_DISCONNECT_RSP;
     SM_SendMessage();
 #endif
+
+    Wifi_SetState(wifi_state_disconnecting);
 }
 
+#ifndef SIMULATOR
+extern "C"{
+void Dmic_StartRecord();
+void Dmic_FinishRecord();
+void Dmic_CancelRecord();
+}
+#endif
 /* Mic */
 void Mic_StartRecord() {
 #ifndef SIMULATOR
-	SendMessageEmpty(MSG_ID_GUI_BT_OPEN_REQ);
-#else
-	SM_InitMessage();
-	sm_message.msgid = MSG_ID_GUI_BT_OPEN_RSP;
-	SM_SendMessage();
-#endif
-}
-
-void Mic_finishRecord()
-{
-#ifndef SIMULATOR
-
+    Dmic_StartRecord();
 #else
 
 #endif
 }
 
-void Mic_cancelRecord()
+void Mic_FinishRecord()
 {
 #ifndef SIMULATOR
+    Dmic_FinishRecord();
+#else
 
+#endif
+}
+
+void Mic_CancelRecord()
+{
+#ifndef SIMULATOR
+    Dmic_CancelRecord(); 
 #else
 
 #endif

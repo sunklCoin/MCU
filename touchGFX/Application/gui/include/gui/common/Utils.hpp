@@ -52,7 +52,7 @@ public:
 #ifdef SIMULATOR
         return (int)(lowest + (highest - lowest) * (rand() / (float)RAND_MAX));
 #else
-        uint32_t random = (touchgfx::HAL::getInstance()->getCPUCycles() * HAL::getInstance()->getCPUCycles());
+        uint32_t random = (touchgfx::HAL::getInstance()->getCPUCycles() * touchgfx::HAL::getInstance()->getCPUCycles());
         return lowest + (random % (highest - lowest));
 #endif
     }

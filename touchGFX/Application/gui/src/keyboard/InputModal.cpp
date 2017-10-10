@@ -6,10 +6,12 @@
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 
-InputModal::InputModal():
+InputModal::InputModal()
+: m_onOK_callback(NULL),
+m_onCancel_callback(NULL),
 buttonClickedCallback(this, &InputModal::buttonClicked),
-onUpdateTextEditArea(this, &InputModal::updateTextEditArea),
-m_onOK_callback(NULL)
+onUpdateTextEditArea(this, &InputModal::updateTextEditArea)
+
 {
     setBackground(BitmapId(BITMAP_CONTROLS_BACKGROUND_ID), 0, 0);
     setShadeColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
@@ -32,7 +34,7 @@ m_onOK_callback(NULL)
     devicename.setLinespacing(0);
     add(devicename);
 
-	memset(passwordEditBuffer, L' ', PASSWORDEDIT_SIZE);
+	memset(passwordEditBuffer, ' ', PASSWORDEDIT_SIZE);
 	passwordEdit.setWildcard(passwordEditBuffer);
 	passwordEdit.setTypedText(TypedText(T_PASSWORDEDIT));
 	passwordEdit.setPosition(13, 42,210,20);
@@ -68,11 +70,13 @@ m_onOK_callback(NULL)
 	add(keypad);
 }
 
-void InputModal::setAddParams(const Unicode::UnicodeChar* strHeadLine, GenericCallback<strEditBox>& okCallback) {
-	memset(devicenameBuffer, 0, sizeof(devicenameBuffer));
-	Unicode::strncpy(devicenameBuffer, strHeadLine, DEVICENAME_SIZE - 1);
-	devicename.invalidate();
-	m_onOK_callback = &okCallback;
+void InputModal::setAddParams(const Unicode::UnicodeChar* strHeadLine, 
+    GenericCallback<strEditBox>& okCallback, GenericCallback<>& cancelCallback) {
+    memset(devicenameBuffer, 0, sizeof(devicenameBuffer));
+    Unicode::strncpy(devicenameBuffer, strHeadLine, DEVICENAME_SIZE - 1);
+    devicename.invalidate();
+    m_onOK_callback = &okCallback;
+    m_onCancel_callback = &cancelCallback;
 }
 
 void InputModal::buttonClicked(const AbstractButton& source) {
@@ -83,21 +87,22 @@ void InputModal::buttonClicked(const AbstractButton& source) {
 		int i = 0;
 		while (passwordEditBuffer[i] != '\0' && i < Unicode::strlen(passwordEditBuffer)){
 			addInfo.inputTxt[i] = (uint8_t)passwordEditBuffer[i];
-			TOUCH_GFX_LOG("inputTxt = %c\n", addInfo.inputTxt);
+			//TOUCH_GFX_LOG("inputTxt = %c\n", addInfo.inputTxt);
 			i++;
 		}
 	}
 
-	if (&source == &buttonCancel) {
-		hide();
-	}
-	else if (&source == &buttonOK) {
-		if (m_onOK_callback && m_onOK_callback->isValid())
-		{
+	if (&source == &buttonOK) {
+		if (m_onOK_callback && m_onOK_callback->isValid()) {
 			m_onOK_callback->execute(addInfo);
 		}
 		hide();
-	}
+	} else if (&source == &buttonCancel) {
+		if (m_onCancel_callback && m_onCancel_callback->isValid())	{
+			m_onCancel_callback->execute();
+		}
+		hide();
+       }
 }
 
 void InputModal::updateTextEditArea(Unicode::UnicodeChar* buff)

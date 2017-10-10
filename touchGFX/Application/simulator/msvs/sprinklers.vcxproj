@@ -43,6 +43,7 @@
     <ClCompile Include="..\..\gui\src\custom_controls_screen\Gauge.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalSlideMenu.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\HorizontalWheelSelector.cpp" />
+    <ClCompile Include="..\..\gui\src\custom_controls_screen\PopModal.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ScrollableContainerEx.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\SleepSchedule.cpp" />
     <ClCompile Include="..\..\gui\src\custom_controls_screen\ThreeWayProgressBar.cpp" />
@@ -350,6 +351,7 @@
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\Gauge.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalSlideMenu.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\HorizontalWheelSelector.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\PopModal.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ScrollableContainerEx.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\SleepSchedule.hpp" />
     <ClInclude Include="..\..\gui\include\gui\custom_controls_screen\ThreeWayProgressBar.hpp" />

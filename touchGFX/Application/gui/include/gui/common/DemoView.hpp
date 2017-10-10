@@ -45,14 +45,20 @@
 #include <touchgfx/Color.hpp>
 #include <gui/common/StatusBar.hpp>
 #include <touchgfx/widgets/Box.hpp>
-
+#include <gui/custom_controls_screen/PopModal.hpp>
+#include <gui/framework/KeyEvent.h>
 using namespace touchgfx;
+extern "C"{
+       void ShutDown();
+}
 
 template <class T>
 class DemoView : public View<T>, public DemoViewInterface
 {
 public:
     DemoView() :
+        onPopOkEvent(this, &DemoView::popOkHandle),
+        onPopCancelEvent(this, &DemoView::popCancelHandle),
         onBackButtonClicked(this, &DemoView::backButtonClickedHandler),
         onMcuLoadClicked(this, &DemoView::mcuLoadClickedHandler)
     {
@@ -99,6 +105,8 @@ public:
 		View<T>::add(mStatusBar);
         View<T>::add(mcuLoadArea);
         View<T>::add(mcuLoadSlider);
+        popScreen.hide();
+        View<T>::add(popScreen);
     }
 
 protected:
@@ -130,9 +138,12 @@ protected:
     McuLoadSlider mcuLoadSlider;
     StatusBar  mStatusBar;
 //    ControlData mControlData;
-
+    PopModal popScreen;
     Callback<DemoView, const AbstractButton&> onBackButtonClicked;
     Callback<DemoView, const AbstractButton&> onMcuLoadClicked;
+
+    Callback<DemoView> onPopOkEvent;
+    Callback<DemoView> onPopCancelEvent;
 
     void backButtonClickedHandler(const AbstractButton& button)
     {
@@ -193,6 +204,34 @@ protected:
 	{
 		return 320;
 	}
+
+    virtual void popOkHandle()
+    {
+#ifdef SIMULATOR
+        printf("hi,power off");
+#else
+        ShutDown();
+#endif
+    }
+
+    virtual void  popCancelHandle()
+    {
+#ifdef SIMULATOR
+        printf("hi,cancel power off");
+#endif
+    }
+
+    virtual void handleKeyEvent(uint8_t keyValue)
+    { 
+    	uint8_t key =  keyValue & 0x3F;
+    	uint8_t event = keyValue >> 6;
+        if ((key == KEYCODE_POWER) && (event == 0x02)){
+            popScreen.setAddParams(onPopOkEvent, onPopCancelEvent);
+            if (!popScreen.isShowing()){
+                popScreen.show();
+            }
+        }
+    }
 };
 
 #endif
