@@ -21,7 +21,8 @@
 #include <gui/setting_screen/SettingPresenter.hpp>
 #include <gui/mic_screen/MicScreenView.hpp>
 #include <gui/mic_screen/MicScreenPresenter.hpp>
-#include <gui/common/DemoView.hpp>
+#include <gui/poweron_screen/ShutdownAnimationPresenter.hpp>
+#include <gui/poweron_screen/ShutdownAnimationView.hpp>
 using namespace touchgfx;
 
 FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
@@ -214,4 +215,21 @@ void FrontendApplication::BootAnimationScreen()
 void FrontendApplication::BootAnimationScreenImpl()
 {
     makeTransition<BootAnimationView, BootAnimationPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
+}
+
+/*
+* Screen Transition Declarations
+*/
+// shutdown animation
+
+void FrontendApplication::ShutdownAnimationScreen()
+{
+	transitionCallback = touchgfx::Callback<FrontendApplication>(this, &FrontendApplication::ShutdownAnimationScreenImpl);
+	pendingScreenTransitionCallback = &transitionCallback;
+	entryScreenId = FRONTENDAPPLICATION_SHUTDOWN_SCREEN_ID;
+}
+
+void FrontendApplication::ShutdownAnimationScreenImpl()
+{
+	makeTransition<ShutdownAnimationView, ShutdownAnimationPresenter, touchgfx::NoTransition, Model >(&currentScreen, &currentPresenter, frontendHeap, &currentTransition, &model);
 }

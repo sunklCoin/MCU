@@ -29,6 +29,8 @@
 #include <gui/mic_screen/MicScreenPresenter.hpp>
 #include <gui/poweron_screen/BootAnimationView.hpp>
 #include <gui/poweron_screen/BootAnimationPresenter.hpp>
+#include <gui/poweron_screen/ShutdownAnimationPresenter.hpp>
+#include <gui/poweron_screen/ShutdownAnimationView.hpp>
 /**
  * This class provides the memory that shall be used for memory allocations
  * in the frontend. A single instance of the FrontendHeap is allocated once (in heap
@@ -58,7 +60,8 @@ public:
             meta::TypeList< SettingView,
 			meta::TypeList< MicScreenView,
 			meta::TypeList< BootAnimationView,
-            meta::Nil > > > > > > > >
+			meta::TypeList< ShutdownAnimationView,
+            meta::Nil > > > > > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -79,7 +82,8 @@ public:
             meta::TypeList< SettingPresenter,
             meta::TypeList< MicScreenPresenter,
 			meta::TypeList< BootAnimationPresenter,
-            meta::Nil > > > > > > > >
+			meta::TypeList< ShutdownAnimationPresenter,
+            meta::Nil > > > > > > > > >
             > GeneratedPresenterTypes;
 
     /**

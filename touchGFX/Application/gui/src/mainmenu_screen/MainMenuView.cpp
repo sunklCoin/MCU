@@ -94,8 +94,8 @@ void MainMenuView::imageMenuItemSelected(const uint8_t callbackID)
 //Handles when a key is pressed
 void MainMenuView::handleKeyEvent(uint8_t key)
 {
-    uint8_t powerkey = key & 0x3F;
-    uint8_t event = key >> 6;
+	uint8_t powerkey = KEYBOARD_GET_KEYCODE(key);
+	uint8_t event = KEYBOARD_GET_KEYEVENT(key);
 
     if (powerkey == KEYCODE_POWER)
     {

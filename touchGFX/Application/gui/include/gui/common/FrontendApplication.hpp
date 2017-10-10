@@ -20,6 +20,7 @@ enum eScreenId {
 	FRONTENDAPPLICATION_WIFICONTROLS_SCREEN_ID,
 	FRONTENDAPPLICATION_SETTING_SCREEN_ID,
 	FRONTENDAPPLICATION_MIC_SCREEN_ID,
+	FRONTENDAPPLICATION_SHUTDOWN_SCREEN_ID,
 	FRONTENDAPPLICATION_END_SCREEN_ID
 };
 
@@ -50,6 +51,7 @@ public:
     void gotoWifiControlScreen();
     void gotoSettingScreen();
 	void gotoMicScreen();
+	void ShutdownAnimationScreen();
     ControlData getControlData();
 	TimeUtils getModelTime();
 private:
@@ -64,6 +66,7 @@ private:
     void gotoWifiControlScreenImpl();
     void gotoSettingScreenImpl();
 	void gotoMicScreenImpl();
+	void ShutdownAnimationScreenImpl();
     int tickCounter;
     Time lastClickTime;
     TimeUtils lastClickTimeUtils;
