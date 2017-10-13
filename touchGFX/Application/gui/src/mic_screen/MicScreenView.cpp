@@ -92,13 +92,20 @@ void MicScreenView::setupScreen()
 
     // Text Progress - Showing a percentage text divided in 400 step (in 0.25 steps)
     textProgress.setBackground(Bitmap(BITMAP_IMAGE_PROGRESS_BACKGROUND_ID));
-    textProgress.setXY(30, 133);
+    textProgress.setXY(30, 50);
     textProgress.setProgressIndicatorPosition(0, 0, textProgress.getWidth(), textProgress.getHeight());
     textProgress.setRange(0, 100);
     textProgress.setColor(Color::getColorFrom24BitRGB(0x55, 0x98, 0xC0));
     textProgress.setNumberOfDecimals(2);
     textProgress.setTypedText(TypedText(T_PROGRESS_TEXT));
-    add(textProgress);
+	Progress.add(textProgress);
+
+	sendingTxt.setTypedText(TypedText(T_MICSENDINGTXT));
+	sendingTxt.setPosition(30, textProgress.getY() + textProgress.getHeight() + 2, textProgress.getWidth(), sendingTxt.getHeight());
+	sendingTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(0xFF, 0xFF, 0xFF));
+	Progress.add(sendingTxt);
+	Progress.setPosition(240, 50, 240, 220);
+	add(Progress);
 
     popMessage.hide();
     add(popMessage);
@@ -107,23 +114,39 @@ void MicScreenView::setupScreen()
 void MicScreenView::handleTickEvent()
 {
     tickCounter++;
-    if (recordState == RECORDING){
+	if (recordState == STOPPED){
         static_cast<FrontendApplication*>(Application::getInstance())->resetScreenSaver();
     }
+
+	if (recordState == ANIMATE_TO_SEND_ELEMENT)
+	{
+		animateToSendElement();
+	}
+	else if (recordState == ANIMATE_TO_REC_ELEMENTS)
+	{
+		animateToRecElement();
+	}
+
     animateSoundLevelIndicators();
-    process = presenter->getWifiSendDataState();
-    if (process >= 0){
-            resetMicViewEle(false);
-            recordState = SENDING;
+
+	if (recordState == SENDING){
+		setState(ANIMATE_TO_SEND_ELEMENT);
+	}
 #ifdef SIMULATOR
-            updateProgress((tickCounter/74)% 100);
+	process = (tickCounter / 20) % 101;
 #else
-            updateProgress(tickCounter/100);
+	process = presenter->getWifiSendDataState();
 #endif
-    }else{
-            resetMicViewEle(true);
-            recordState = STOPPED;
-        }
+
+	if (process >= 0){
+		if (process >= 100){
+			sendingTxt.setTypedText(TypedText(T_MICSENDFINISHTXT));
+			sendingTxt.invalidate();
+			setState(ANIMATE_TO_REC_ELEMENTS);
+			process = -1;
+		}
+		updateProgress(process);
+	}
 }
 
 void MicScreenView::updateProgress(int32_t process)
@@ -194,10 +217,10 @@ void MicScreenView::handleClickEvent(const ClickEvent& evt)
     int x = evt.getX();
 	int y = evt.getY();
 	if (evt.getType() == ClickEvent::PRESSED){
-		if (evt.getX() < recordBtn.getX()
-			|| evt.getX() > (recordBtn.getX() + recordBtn.getWidth())
-			|| evt.getY() < recordBtn.getY()
-			|| evt.getY() > (recordBtn.getY() + recordBtn.getHeight())
+		if (evt.getX() < (recordBtn.getX() + micViewEle.getX())
+			|| evt.getX() > (recordBtn.getX() + recordBtn.getWidth() + micViewEle.getX())
+			|| evt.getY() < (recordBtn.getY() + micViewEle.getY())
+			|| evt.getY() > (recordBtn.getY() + recordBtn.getHeight() + micViewEle.getY())
             || !recordBtn.isTouchable())
 		{
             DemoView<MicScreenPresenter>::handleClickEvent(evt);
@@ -230,6 +253,7 @@ void MicScreenView::handleClickEvent(const ClickEvent& evt)
             else
             {
                 presenter->finishRecord();
+				recordState = SENDING;
             }
         }
             DemoView<MicScreenPresenter>::handleClickEvent(evt);
@@ -339,3 +363,88 @@ void MicScreenView::resetMicViewEle(bool state)
     textProgress.setVisible(state == false);
     textProgress.invalidate();
 }
+
+void MicScreenView::animateToSendElement()
+{
+	uint8_t horizontalSlideDuration;
+	uint8_t descriptionFieldSlideDuration;
+	int16_t horizontalScrollAdjustmentTotalDistance = 240;
+	int16_t horizontalScrollStartingPosition = 0;
+#ifdef NXP
+	horizontalSlideDuration = 22 + (horizontalScrollAdjustmentTotalDistance / 30);
+	descriptionFieldSlideDuration = 26;
+#else
+	horizontalSlideDuration = 16 + (horizontalScrollAdjustmentTotalDistance / 30);
+	descriptionFieldSlideDuration = 20;
+#endif
+
+	if (animationCounter <= horizontalSlideDuration)
+	{
+		micViewEle.moveTo(horizontalScrollStartingPosition - EasingEquations::quadEaseInOut(animationCounter, 0, horizontalScrollAdjustmentTotalDistance, horizontalSlideDuration), micViewEle.getY());
+		micViewEle.invalidate();
+	}
+	else if (animationCounter <= horizontalSlideDuration + descriptionFieldSlideDuration)
+	{
+		// Second step: Show the description field
+		int16_t delta = EasingEquations::quadEaseOut(animationCounter - horizontalSlideDuration, 0, 240, descriptionFieldSlideDuration);
+		Progress.moveTo(horizontalScrollAdjustmentTotalDistance - delta, Progress.getY());
+	}
+	else
+	{
+		// Final step: stop the animation
+		setState(ANIMATE_TO_WAIT_ELEMENT);
+		animationCounter = 0;
+	}
+	animationCounter++;
+}
+
+
+void MicScreenView::animateToRecElement()
+{
+	uint8_t horizontalSlideDuration;
+	uint8_t descriptionFieldSlideDuration;
+	int16_t horizontalScrollAdjustmentTotalDistance = 240;
+	int16_t horizontalScrollStartingPosition = 0;
+#ifdef NXP
+	horizontalSlideDuration = 22 + (horizontalScrollAdjustmentTotalDistance / 30);
+	descriptionFieldSlideDuration = 26;
+#else
+	horizontalSlideDuration = 16 + (horizontalScrollAdjustmentTotalDistance / 30);
+	descriptionFieldSlideDuration = 20;
+#endif
+
+	if (animationCounter <= descriptionFieldSlideDuration)
+	{
+		// First step: Collaps the description field
+		int16_t delta = EasingEquations::quadEaseOut(animationCounter, 0, 240, descriptionFieldSlideDuration);
+		Progress.moveTo(delta, Progress.getY());
+	}
+	else if (animationCounter <= horizontalSlideDuration + descriptionFieldSlideDuration)
+	{
+		// Second step: move list back to the position before the animation to single element
+		micViewEle.moveTo(horizontalScrollStartingPosition - horizontalScrollAdjustmentTotalDistance  
+			+ EasingEquations::quadEaseInOut(animationCounter - descriptionFieldSlideDuration,
+			0, 
+			horizontalScrollAdjustmentTotalDistance, horizontalSlideDuration), 
+			micViewEle.getY());
+
+		micViewEle.invalidate();
+	}
+	else
+	{
+		// Final step: stop the animation
+		micViewEle.setTouchable(true);
+		//backButton.setTouchable(false);
+		setState(STOPPED);
+		animationCounter = 0;
+	}
+	animationCounter++;
+
+}
+
+void MicScreenView::setState(RecordStates newState)
+{
+	animationCounter = 1;
+	recordState = newState;
+}
+
