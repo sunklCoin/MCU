@@ -60,6 +60,9 @@ private:
 		STOPPED,
 		RECORDING,
         SENDING,
+		ANIMATE_TO_SEND_ELEMENT,
+		ANIMATE_TO_WAIT_ELEMENT,
+		ANIMATE_TO_REC_ELEMENTS,
 	} recordState;
 
 	uint8_t animationCounter;
@@ -74,8 +77,13 @@ private:
     AnimatedImage loadingAnimation;
     PopModal popMessage;
     TextProgress textProgress;
+	TextArea sendingTxt;
+	Container Progress;
     Callback<MicScreenView> onMicViewPopOkEvent;
     Callback<MicScreenView> onMicViewPopCancelEvent;
+	void animateToRecElement();
+	void animateToSendElement();
+	void setState(RecordStates newState);
 };
 
 #endif // MIC_SCREEN_VIEW_HPP

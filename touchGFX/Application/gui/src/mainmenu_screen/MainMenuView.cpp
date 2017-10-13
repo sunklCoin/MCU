@@ -222,37 +222,37 @@ void MainMenuView::handleDragEvent(const DragEvent& evt)
 	}
 }
 
-void MainMenuView::handleGestureEvent(const GestureEvent& evt)
-{
-	// Do not accept gestures while animating
-	if (currentState != NO_ANIMATION)
-	{
-		return;
-	}
-
-	if (evt.getType() == evt.SWIPE_VERTICAL)
-	{
-		currentState = ANIMATE_UPDOWN;
-		DemoView<MainMenuPresenter>::handleGestureEvent(evt);
-		return;
-	}
-
-	if (evt.getType() == evt.SWIPE_HORIZONTAL)
-	{
-		// Save current position for use during animation
-		animateDistance = dragX;
-		startX = infoScreens.getX();
-
-		if (evt.getVelocity() < 0 && currentScreen < NUMBER_OF_SCREENS - 1)
-		{
-			currentState = ANIMATE_LEFT;
-		}
-		else if (evt.getVelocity() > 0 && currentScreen > 0)
-		{
-			currentState = ANIMATE_RIGHT;
-		}
-	}
-}
+//void MainMenuView::handleGestureEvent(const GestureEvent& evt)
+//{
+//	// Do not accept gestures while animating
+//	if (currentState != NO_ANIMATION)
+//	{
+//		return;
+//	}
+//
+//	if (evt.getType() == evt.SWIPE_VERTICAL)
+//	{
+//		currentState = ANIMATE_UPDOWN;
+//		DemoView<MainMenuPresenter>::handleGestureEvent(evt);
+//		return;
+//	}
+//
+//	if (evt.getType() == evt.SWIPE_HORIZONTAL)
+//	{
+//		//// Save current position for use during animation
+//		//animateDistance = dragX;
+//		//startX = infoScreens.getX();
+//
+//		//if (evt.getVelocity() < 0 && currentScreen < NUMBER_OF_SCREENS - 1)
+//		//{
+//		//	currentState = ANIMATE_LEFT;
+//		//}
+//		//else if (evt.getVelocity() > 0 && currentScreen > 0)
+//		//{
+//		//	currentState = ANIMATE_RIGHT;
+//		//}
+//	}
+//}
 
 void MainMenuView::adjustInfoScreens()
 {

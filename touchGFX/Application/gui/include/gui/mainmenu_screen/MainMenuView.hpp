@@ -20,7 +20,7 @@ public:
 	virtual void handleDragEvent(const DragEvent& evt);
 	virtual void handleTickEvent();
     virtual void handleClickEvent(const ClickEvent& evt);
-    virtual void handleGestureEvent(const GestureEvent& evt);
+    //virtual void handleGestureEvent(const GestureEvent& evt);
 protected:
 	enum callbackIds
 	{
