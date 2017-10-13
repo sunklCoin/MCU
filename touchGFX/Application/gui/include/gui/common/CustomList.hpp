@@ -29,8 +29,10 @@ public:
     CustomList();
     virtual ~CustomList() {}
     void clear();
+    void markClear();
+    void doClear();
     //void refreshStart();
-    void addElement(uint8_t address[], const Bitmap& bmp, const Unicode::UnicodeChar* strName, int rssi = 0);
+    void addElement(uint8_t address[], const Bitmap& bmp, const Unicode::UnicodeChar* strName, int rssi = 0, bool needPwd = false);
     //void refreshEnd();
     void sort();
     void setAction(GenericCallback< CustomListElement& >* callback) { mCallback = callback; }
@@ -38,7 +40,9 @@ public:
     void addAnimation(Container& list) { list.add(animation); } 
     void startAnimation(CustomListElement& element);
     void stopAnimation();
-
+    void setCurElementStatus(CustomListElementStatus status);
+    void clearElementStatus(CustomListElementStatus status = cesAll);
+    CustomListElement* getElement(uint8_t address[]);
 };
 
 #endif /* CUSTOM_LIST_HPP */

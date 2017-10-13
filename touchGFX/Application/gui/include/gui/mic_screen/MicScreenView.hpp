@@ -11,6 +11,7 @@
 #include <gui/mic_screen/MicScreenPresenter.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/containers/progress_indicators/TextProgress.hpp>
 using namespace touchgfx;
 
 class MicScreenView : public DemoView<MicScreenPresenter>
@@ -23,6 +24,10 @@ public:
 	//virtual void handleGestureEvent(const GestureEvent& evt);
     virtual void handleDragEvent(const DragEvent& evt);
 	void setupScreen();
+    void onPrepareState(bool state);
+    void popMicViewOkHandle();
+    void popMicViewCancelHandle();
+    void resetMicViewEle(bool isReset);
 protected:
 	FrontendApplication& application() {
 		return *static_cast<FrontendApplication*>(Application::getInstance());
@@ -40,6 +45,8 @@ protected:
     Container recordBtn;
 	Container soundRecAnim;
     TextArea undoTxt;
+    TextArea loadingTxt;
+    Container micViewEle;
 private:
 	enum AnimationStates
 	{
@@ -51,16 +58,24 @@ private:
 	enum RecordStates
 	{
 		STOPPED,
-		RECORDING
+		RECORDING,
+        SENDING,
 	} recordState;
 
 	uint8_t animationCounter;
 	uint32_t tickCounter;
     int16_t dragY;
+    int32_t process;
 	void animateSoundLevelIndicators();
 	Callback<MicScreenView, const AbstractButton&> onButtonPressed;
 	void buttonPressedhandler(const AbstractButton& button);
     bool checkPositionToSend(int16_t);
+    void updateProgress(int32_t);
+    AnimatedImage loadingAnimation;
+    PopModal popMessage;
+    TextProgress textProgress;
+    Callback<MicScreenView> onMicViewPopOkEvent;
+    Callback<MicScreenView> onMicViewPopCancelEvent;
 };
 
 #endif // MIC_SCREEN_VIEW_HPP

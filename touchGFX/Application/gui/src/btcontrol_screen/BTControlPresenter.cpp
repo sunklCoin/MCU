@@ -43,25 +43,13 @@ void BTControlPresenter::disableBlueTooth()
 #endif
 }
 
-/*
-void BTControlPresenter::setBluetoothState(bool state)
-{
-    view.stopAnimation();
-    view.setBluetoothState(state);
-}
-
-void BTControlPresenter::updateListMenuElements()
-{
-    view.updateListMenuElements();
-}
-*/
-
 void BTControlPresenter::onBluetoothStateChange(bool state) {
     view.stopAnimation();
     view.setBluetoothState(state);
 
     if (state) {
         Bluetooth_Scan_Start();
+        view.startAnimation();
     } else {
         ///Bluetooth_Scan_Stop();
     }
@@ -69,21 +57,31 @@ void BTControlPresenter::onBluetoothStateChange(bool state) {
 
 void BTControlPresenter::onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[]) {
     view.updateListMenuElements(strName, address);
-}
-
-void BTControlPresenter::onBluetoothScanComplete(int num) {
     view.updateListMenuLayout();
 }
 
+void BTControlPresenter::onBluetoothScanComplete(int num) {
+    //view.updateListMenuLayout();
+    view.stopAnimation();
+}
+
 void BTControlPresenter::onBluetoothConnected(bool status, uint8_t address[]) {
+    if (status) {
+        view.setCustomListStatus(cesConnected);
+    } else {
+        view.setCustomListStatus(cesConnectError);
+    }
     view.stopListAnimation();
+    view.updateListMenuLayout();
 }
 
 void BTControlPresenter::onBluetoothDisonnected(int reason, uint8_t address[]) {
     view.stopListAnimation();
+    view.updateListMenuLayout();
 }
 
 void BTControlPresenter::onBluetoothBonded(bool status, int bonded, uint8_t address[]) {
     view.stopListAnimation();
+    view.updateListMenuLayout();
 }
 

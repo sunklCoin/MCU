@@ -47,10 +47,6 @@ public:
     virtual void showProcessorLoad(bool visible) {}
     virtual void updateProcessorLoad(uint8_t mcuLoadInProcent) {}
     virtual void handleTimeUpdated(uint8_t hours, uint8_t minutes, uint8_t seconds, bool is24Hour) {}
-/*
-    virtual void setBluetoothState(bool state) {}
-    virtual void updateListMenuElements() {}
-*/
     virtual void handleKeyEvent(uint8_t keyValue){}
     virtual void showProcessorLoadStatusBar() {}
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll) {}

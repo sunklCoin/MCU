@@ -35,9 +35,11 @@ public:
     bool isAnimationRunning();
     /*void updateListMenuElements();*/
     void clearListMenuElements();
-    void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
+    void makeClearListMenuElements();
+    void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd);
     void updateListMenuLayout();
     void stopListAnimation() { mList.stopAnimation(); }
+    void setCustomListStatus(CustomListElementStatus status);
 protected:
     /*
     * Member Declarations
@@ -57,7 +59,7 @@ protected:
     ScrollableContainer scrollCnt;
     ListLayout list;
     CustomList mList;
-	InputModal mInputModal;
+    InputModal mInputModal;
     Callback<WifiControlView, const uint8_t> onImageMenuItemSelected;
 
 	void getWifiState(bool);

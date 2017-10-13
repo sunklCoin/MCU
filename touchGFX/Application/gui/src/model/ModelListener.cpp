@@ -17,6 +17,7 @@
 void ModelListener::dispatchMessage(message_gui_rsp &message) {
     Unicode::UnicodeChar strParam[61] = {0};
     memset(strParam, 0, sizeof(strParam));
+    bool status = false;
 
 #ifndef SIMULATOR
     PRINTF("%s | msgid=%0x\n", __func__, message.msgid);
@@ -47,12 +48,15 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             Bluetooth_RedoAction(bt_action_scan);
             break;
         case MSG_ID_GUI_BT_CONNECT_RSP:
+            Bluetooth_SetState(bt_state_advertised);
             onBluetoothConnected(message.result == 0x00, message.data.bt.address);
             break;
         case MSG_ID_GUI_BT_DISCONNECT_RSP:
+            Bluetooth_SetState(bt_state_advertised);
             onBluetoothDisonnected(message.data.bt.reason, message.data.bt.address);
             break;
         case MSG_ID_GUI_BT_BOND_RSP:
+            Bluetooth_SetState(bt_state_advertised);
             onBluetoothBonded(message.result == 0x00, message.data.bt.bonded, message.data.bt.address);
             break;
         /* pm */
@@ -65,23 +69,43 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             updateStatusBar(StatusBar::utBattery);
             break;
         /* wifi */
+        case MSG_ID_GUI_WIFI_OPEN_RSP:
+            Wifi_SetState(wifi_state_idle);
+            status = message.result == 0;
+            model->mControlData.enableWifiState(status);
+            onWifiOpened(status);
+            // go to scan
         case MSG_ID_GUI_WIFI_SCAN_RSP:
             Wifi_SetState(wifi_state_idle);
             Wifi_SetScanList(message.data.wifi.scan_list, message.data.wifi.scan_num);
-            model->mControlData.enableWifiState(true);
             for (int i = 0; i < message.data.wifi.scan_num; i++) {
                 Unicode::strncpy(strParam, (char*) message.data.wifi.scan_list[i].ssid, 32);
-                onWifiScanResult(strParam, message.data.wifi.scan_list[i].bssid, message.data.wifi.scan_list[i].rssi);
+                onWifiScanResult(strParam, message.data.wifi.scan_list[i].bssid, 
+                    message.data.wifi.scan_list[i].rssi, 
+                    message.data.wifi.scan_list[i].security_enabled != 0);
             }
             onWifiScanCompleted(message.data.wifi.scan_num);
             break;
+        case MSG_ID_GUI_WIFI_CLOSE_RSP:
+            Wifi_SetState(wifi_state_closed);
+            status = message.result == 0;
+            model->mControlData.enableWifiState(!status);
+            onWifiClosed(status);
+            break;
         case MSG_ID_GUI_WIFI_CONNECT_RSP:
             Wifi_SetState(wifi_state_idle);
-            onWifiConnected(true);
+            status = message.result
+            		== 0;
+            onWifiConnected(status);
             break;
         case MSG_ID_GUI_WIFI_DISCONNECT_RSP:
             Wifi_SetState(wifi_state_idle);
-            onWifiDisonnected(0);
+            status = message.result == 0;
+            onWifiDisonnected(status);
+            break;
+        case MSG_ID_GUI_WIFI_MIC_TRANSFER_CHANNLE_RSP:
+            status = message.result == -1;
+            onTransferConnectState(!status);
             break;
         /* keypad */
         case MSG_ID_GUI_KEYPAD_INPUT_IND:
@@ -137,7 +161,20 @@ void ModelListener::onBluetoothBonded(bool status, int bonded, uint8_t address[]
 #endif // !SIMULATOR
 }
 
-void ModelListener::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi) {
+/* Wifi */
+void ModelListener::onWifiOpened(bool status) {
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
+}
+
+void ModelListener::onWifiClosed(bool status) {
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
+}
+
+void ModelListener::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd) {
 #ifndef SIMULATOR
     PRINTF("%s | \n", __func__);
 #endif // !SIMULATOR
@@ -155,8 +192,16 @@ void ModelListener::onWifiConnected(bool status) {
 #endif // !SIMULATOR
 }
 
-void ModelListener::onWifiDisonnected(int reason) {
+void ModelListener::onWifiDisonnected(bool status) {
 #ifndef SIMULATOR
     PRINTF("%s | \n", __func__);
 #endif // !SIMULATOR
 }
+
+void ModelListener::onTransferConnectState(bool reason)
+{
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
+}
+

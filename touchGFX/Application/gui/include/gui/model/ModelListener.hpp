@@ -73,10 +73,6 @@ public:
     virtual void timeUpdated(Time time) {}
     virtual void timeUpdated(TimeUtils time) {}
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll) {}
-/*
-    virtual void setBluetoothState(bool state) {}
-    virtual void updateListMenuElements() {}
-*/
     void dispatchMessage(message_gui_rsp &message);
     /* keyevent */
     virtual void handleKeyEvent(uint8_t key);
@@ -88,10 +84,14 @@ public:
     virtual void onBluetoothDisonnected(int reason, uint8_t address[]);
     virtual void onBluetoothBonded(bool status, int bonded, uint8_t address[]);
     /* wifi */
-    virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
+    virtual void onWifiOpened(bool status);
+    virtual void onWifiClosed(bool status);
+    virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd);
     virtual void onWifiScanCompleted(int num);
     virtual void onWifiConnected(bool status);
-    virtual void onWifiDisonnected(int reason);
+    virtual void onWifiDisonnected(bool status);
+    /*Mic and wifi transfer channel*/
+    virtual void onTransferConnectState(bool state);
 protected:
     Model* model;
 };

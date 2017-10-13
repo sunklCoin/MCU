@@ -14,6 +14,10 @@ recordState(STOPPED),
 animationCounter(0),
 tickCounter(0),
 dragY(0),
+process(0),
+loadingAnimation(BITMAP_BTN_ANI_01_ID, BITMAP_BTN_ANI_04_ID, 10),
+onMicViewPopOkEvent(this, &MicScreenView::popMicViewOkHandle),
+onMicViewPopCancelEvent(this, &MicScreenView::popMicViewCancelHandle),
 onButtonPressed(this, &MicScreenView::buttonPressedhandler)
 {
 	//background.setXY(0, 0);
@@ -24,7 +28,7 @@ onButtonPressed(this, &MicScreenView::buttonPressedhandler)
 
 void MicScreenView::setupScreen()
 {
-	soundRecAnim.setPosition(0, 90, HAL::DISPLAY_WIDTH, 64);
+	soundRecAnim.setPosition(0, 40, HAL::DISPLAY_WIDTH, 64);
 
 	for (uint8_t i = 0; i < NUMBER_OF_SOUND_LEVEL_INDICATORS; i++)
 	{
@@ -40,35 +44,91 @@ void MicScreenView::setupScreen()
 		soundLevelIndicators[i].setBitmap(Bitmap(BITMAP_RECORD_SOUND_LEVLE_0_ID + soundLevels[i]));
 		soundRecAnim.add(soundLevelIndicators[i]);
 	}
-	add(soundRecAnim);
+    soundRecAnim.setVisible(false);
+	//add(soundRecAnim);
 
     undoTxt.setTypedText(TypedText(T_CANCELRECORD));
     undoTxt.setPosition(0, soundRecAnim.getY() + soundRecAnim.getHeight() + (32 - undoTxt.getHeight()) / 2, HAL::DISPLAY_WIDTH, 32);
     undoTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    add(undoTxt);
+    undoTxt.setVisible(false);
+    //add(undoTxt);
+    
+    loadingTxt.setTypedText(TypedText(T_MICLOADING));
+    loadingTxt.setPosition(0, soundRecAnim.getY() + soundRecAnim.getHeight() + (32 - undoTxt.getHeight()) / 2 - 50, HAL::DISPLAY_WIDTH, 32);
+    loadingTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    loadingTxt.setWideTextAction(WIDE_TEXT_WORDWRAP);
+    loadingTxt.setVisible(true);
+    //add(loadingTxt);
 
-	recordBtn.setPosition(35, 217, 170, 60);
+	recordBtn.setPosition(35, 217 - 50, 170, 60);
     recordBtnImg.setXY(0, 0);
-    recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID));
+    recordBtnImg.setBitmap(Bitmap(BITMAP_ROUND_EDGE_SMALL_DISABLE_ID));//BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID
     recordBtn.add(recordBtnImg);
 	//recordBtn.setBitmaps(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID), Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
     recordTxt.setTypedText(TypedText(T_STARTRECORD));
     recordTxt.setPosition(0, (recordBtn.getHeight() - recordTxt.getHeight())/2, recordBtn.getWidth(), recordBtn.getHeight());
     recordTxt.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     recordBtn.add(recordTxt);
-	add(recordBtn);
+    recordBtn.setTouchable(false);
+	//add(recordBtn);
 
+    loadingAnimation.setXY(110, 133 - 50);
+    loadingAnimation.setVisible(true);
+    loadingAnimation.startAnimation(loadingAnimation.isReverse(), false, true);
+    //add(loadingAnimation);
+
+    micViewEle.add(soundRecAnim);
+    micViewEle.add(undoTxt);
+    micViewEle.add(loadingTxt);
+    micViewEle.add(recordBtn);
+
+    micViewEle.setPosition(0,50,240,220);
+    add(micViewEle);
 
 	gotoMenuButton.setBitmaps(Bitmap(BITMAP_CONTROL_MENU_BUTTON_ID), Bitmap(BITMAP_CONTROL_MENU_BUTTON_PRESSED_ID));
 	gotoMenuButton.setXY(0, 279);
 	gotoMenuButton.setAction(onButtonPressed);
 	add(gotoMenuButton);
+
+    // Text Progress - Showing a percentage text divided in 400 step (in 0.25 steps)
+    textProgress.setBackground(Bitmap(BITMAP_IMAGE_PROGRESS_BACKGROUND_ID));
+    textProgress.setXY(30, 133);
+    textProgress.setProgressIndicatorPosition(0, 0, textProgress.getWidth(), textProgress.getHeight());
+    textProgress.setRange(0, 100);
+    textProgress.setColor(Color::getColorFrom24BitRGB(0x55, 0x98, 0xC0));
+    textProgress.setNumberOfDecimals(2);
+    textProgress.setTypedText(TypedText(T_PROGRESS_TEXT));
+    add(textProgress);
+
+    popMessage.hide();
+    add(popMessage);
 }
 
 void MicScreenView::handleTickEvent()
 {
-    //tickCounter++;
+    tickCounter++;
+    if (recordState == RECORDING){
+        static_cast<FrontendApplication*>(Application::getInstance())->resetScreenSaver();
+    }
     animateSoundLevelIndicators();
+    process = presenter->getWifiSendDataState();
+    if (process >= 0){
+            resetMicViewEle(false);
+            recordState = SENDING;
+#ifdef SIMULATOR
+            updateProgress((tickCounter/74)% 100);
+#else
+            updateProgress(tickCounter/100);
+#endif
+    }else{
+            resetMicViewEle(true);
+            recordState = STOPPED;
+        }
+}
+
+void MicScreenView::updateProgress(int32_t process)
+{
+    textProgress.setValue(process);
 }
 
 void MicScreenView::animateSoundLevelIndicators()
@@ -137,11 +197,13 @@ void MicScreenView::handleClickEvent(const ClickEvent& evt)
 		if (evt.getX() < recordBtn.getX()
 			|| evt.getX() > (recordBtn.getX() + recordBtn.getWidth())
 			|| evt.getY() < recordBtn.getY()
-			|| evt.getY() > (recordBtn.getY() + recordBtn.getHeight()))
+			|| evt.getY() > (recordBtn.getY() + recordBtn.getHeight())
+            || !recordBtn.isTouchable())
 		{
             DemoView<MicScreenPresenter>::handleClickEvent(evt);
 			return;
 		}
+
         dragY = recordBtn.getY();
 		recordState = RECORDING;
         recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_PRESSED_ID));
@@ -152,21 +214,23 @@ void MicScreenView::handleClickEvent(const ClickEvent& evt)
 	}
 	else if (evt.getType() == ClickEvent::RELEASED)
 	{
-        recordState = STOPPED;
-        recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID));
-        recordBtnImg.invalidate();
-        recordTxt.setTypedText(TypedText(T_STARTRECORD));
-        recordTxt.invalidate();
-        undoTxt.setTypedText(TypedText(T_CANCELRECORD));
-        undoTxt.invalidate();
+        if (recordState == RECORDING){
+            recordState = STOPPED;
+            recordBtnImg.setBitmap(Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID));
+            recordBtnImg.invalidate();
+            recordTxt.setTypedText(TypedText(T_STARTRECORD));
+            recordTxt.invalidate();
+            undoTxt.setTypedText(TypedText(T_CANCELRECORD));
+            undoTxt.invalidate();
 
-        if (!checkPositionToSend(evt.getY()))
-        {
-            presenter->cancelRecord();
-        }
-        else
-        {
-            presenter->finishRecord();
+            if (!checkPositionToSend(evt.getY()))
+            {
+                presenter->cancelRecord();
+            }
+            else
+            {
+                presenter->finishRecord();
+            }
         }
             DemoView<MicScreenPresenter>::handleClickEvent(evt);
 	}
@@ -206,13 +270,72 @@ void MicScreenView::handleDragEvent(const DragEvent& evt)
 
 void MicScreenView::buttonPressedhandler(const AbstractButton& button)
 {
-//	if (&button == &recordBtn)
-//	{
-////		recordState = RECORDING;
-////		presenter->startRecord();
-//	}
-//	else if (&button == &gotoMenuButton)
-	{
-		presenter->backOptionSelected();
-	}
+	presenter->backOptionSelected();
+}
+
+
+void MicScreenView::onPrepareState(bool state)
+{
+    recordBtn.setTouchable(state);
+    recordTxt.setColor(state == true ? Color::getColorFrom24BitRGB(255, 255, 255) : Color::getColorFrom24BitRGB(128, 128, 128));
+    recordBtnImg.setBitmap(state == true ? Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID) : Bitmap(BITMAP_ROUND_EDGE_SMALL_DISABLE_ID));
+    recordBtnImg.invalidate();
+    loadingAnimation.setVisible(false == state);
+    loadingAnimation.stopAnimation();
+    soundRecAnim.setVisible(true == state);
+    soundRecAnim.invalidate();
+    undoTxt.setVisible(true == state);
+    undoTxt.invalidate();
+    loadingTxt.setVisible(false == state);
+    loadingTxt.invalidate();
+    micViewEle.invalidate();
+    if (!state){
+        popMessage.setupScreen(BITMAP_ALERT_48_ID, T_MICRECONNECT);
+        popMessage.setAddParams(onMicViewPopOkEvent, onMicViewPopCancelEvent);
+        if (!popMessage.isShowing()){
+            popMessage.show();
+        }
+    }
+}
+
+void MicScreenView::popMicViewOkHandle()
+{
+    loadingAnimation.startAnimation(loadingAnimation.isReverse(), false, true);
+    loadingAnimation.setVisible(true);
+
+    loadingTxt.setTypedText(TypedText(T_MICLOADING));
+    loadingTxt.setVisible(true);
+    loadingTxt.invalidate();
+    micViewEle.invalidate();
+    presenter->transferReConnect();
+}
+
+void MicScreenView::popMicViewCancelHandle()
+{
+    loadingAnimation.stopAnimation();
+    loadingAnimation.setVisible(false);
+
+    loadingTxt.setTypedText(TypedText(T_MICLOADINGFAIL));
+    loadingTxt.invalidate();
+    micViewEle.invalidate();
+}
+
+void MicScreenView::resetMicViewEle(bool state)
+{
+    recordBtn.setTouchable(state);
+    recordTxt.setColor(state == true ? Color::getColorFrom24BitRGB(255, 255, 255) : Color::getColorFrom24BitRGB(128, 128, 128));
+    recordBtnImg.setBitmap(state == true ? Bitmap(BITMAP_BLUE_BUTTONS_ROUND_EDGE_SMALL_ID) : Bitmap(BITMAP_ROUND_EDGE_SMALL_DISABLE_ID));
+    recordBtnImg.invalidate();
+    //loadingAnimation.setVisible(false == state);
+    //loadingAnimation.stopAnimation();
+    soundRecAnim.setVisible(true == state);
+    soundRecAnim.invalidate();
+    undoTxt.setVisible(true == state);
+    undoTxt.invalidate();
+    //loadingTxt.setVisible(false == state);
+    //loadingTxt.invalidate();
+    micViewEle.invalidate();
+
+    textProgress.setVisible(state == false);
+    textProgress.invalidate();
 }

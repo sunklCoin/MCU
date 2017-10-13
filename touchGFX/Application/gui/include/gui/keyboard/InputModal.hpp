@@ -29,6 +29,7 @@ public:
     virtual ~InputModal() {}
     void setAddParams(const Unicode::UnicodeChar* strHeadLine, 
         GenericCallback<strEditBox>& okCallback, GenericCallback<>& cancelCallback);
+    void clearPassword();
 protected:
     FrontendApplication& application() {
         return *static_cast<FrontendApplication*>(Application::getInstance());

@@ -27,8 +27,6 @@ public:
     virtual void deactivate();
     virtual void enableBlueTooth();
     virtual void disableBlueTooth();
-    /*void setBluetoothState(bool);
-    void updateListMenuElements();*/
     virtual ~BTControlPresenter() {};
     virtual void onBluetoothStateChange(bool state);
     virtual void onBluetoothScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[]);

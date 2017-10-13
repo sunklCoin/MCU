@@ -32,10 +32,11 @@ public:
     void stopAnimation();
     bool isAnimationRunning();
     void clearListMenuElements();
-     /*void updateListMenuElements();*/
     void updateListMenuElements(touchgfx::Unicode::UnicodeChar* strDeviceName, uint8_t address[]);
     void updateListMenuLayout();
     void stopListAnimation() { mList.stopAnimation(); }
+    void setCustomListStatus(CustomListElementStatus status);
+
 protected:
     /*
      * Member Declarations

@@ -79,7 +79,6 @@ protected:
 	ControlData mControlData(){
 	    return static_cast<FrontendApplication*>(Application::getInstance())->getControlData();
 	}
-
     void showProcessorLoad();
     void showProcessorLoadStatusBar();
 };

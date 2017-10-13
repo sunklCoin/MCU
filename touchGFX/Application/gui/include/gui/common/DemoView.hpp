@@ -227,13 +227,20 @@ protected:
     { 
 		uint8_t key = KEYBOARD_GET_KEYCODE(keyValue);
 		uint8_t event = KEYBOARD_GET_KEYEVENT(keyValue);
-
-		if ((key == KEYCODE_POWER) && (event == KEY_EVENT_LONG_PRESS))
+#ifdef SIMULATOR
+		if ((key == KEYCODE_POWER))
+#else
+        if ((key == KEYCODE_POWER) && (event == KEY_EVENT_LONG_PRESS))
+#endif
 		{
             popScreen.setAddParams(onPopOkEvent, onPopCancelEvent);
             if (!popScreen.isShowing()){
                 popScreen.show();
             }
+        }
+        else if (key == KEYCODE_BACK)
+        {
+            View<T>::presenter->backOptionSelected();
         }
     }
 };

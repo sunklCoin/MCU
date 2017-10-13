@@ -63,9 +63,11 @@ public:
      * CustomKeyboard.
      */
     void setTouchable(bool touch);
-	void setupScreen(int keyboardX, int keyboardY, int width, int Height, int textAreaX, int textAreaY);
-	//void setTextAreaHandle(TextAreaWithOneWildcard* passwordEdit, Unicode::UnicodeChar* passwordEditBuffer);
-	void setKeyboardHandle(GenericCallback<Unicode::UnicodeChar*>& keyCallback);
+    void setupScreen(int keyboardX, int keyboardY, int width, int Height, int textAreaX, int textAreaY);
+    //void setTextAreaHandle(TextAreaWithOneWildcard* passwordEdit, Unicode::UnicodeChar* passwordEditBuffer);
+    void setKeyboardHandle(GenericCallback<Unicode::UnicodeChar*>& keyCallback);
+    void clearBuffer();
+
 private:
     /*
      * The size of the buffer that is used by the keyboard.
@@ -151,7 +153,7 @@ private:
      */
     void keyPressedhandler(Unicode::UnicodeChar keyChar);
 
-	void updateEditArea();
+    void updateEditArea();
 };
 
 #endif /* TGFXKEYBOARD_HPP_ */

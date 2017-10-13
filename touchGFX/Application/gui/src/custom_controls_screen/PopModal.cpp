@@ -21,17 +21,18 @@ buttonClickedCallback(this, &PopModal::buttonClicked)
     backgroudBox.setAlpha(255);
     add(backgroudBox);*/
 
-    txtPop.setXY(49, 90);
+    txtPop.setPosition(0, 90, 192, 44);
     txtPop.setColor(touchgfx::Color::getColorFrom24BitRGB(46, 88, 122));
     txtPop.setLinespacing(0);
     txtPop.setTypedText(TypedText(T_POWEROFFPOP));
+    txtPop.setWideTextAction(WIDE_TEXT_WORDWRAP);
     add(txtPop);
 
     imgPop.setXY(72, 29);
     imgPop.setBitmap(Bitmap(BITMAP_QUESTION_48_ID));
     add(imgPop);
 
-    buttonOK.setPosition(132, 136, 60, 44);
+    buttonOK.setPosition(128, 132, 60, 44);
     buttonOK.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
     buttonOK.setLabelText(TypedText(T_BUTTONOK));
     buttonOK.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
@@ -39,7 +40,7 @@ buttonClickedCallback(this, &PopModal::buttonClicked)
     buttonOK.setAction(buttonClickedCallback);
     add(buttonOK);
 
-    buttonCancel.setPosition(0, 135, 60, 44);
+    buttonCancel.setPosition(4, 132, 60, 44);
     buttonCancel.setBitmaps(Bitmap(BITMAP_MODAL_BUTTON_ID), Bitmap(BITMAP_MODAL_BUTTON_PRESSED_ID));
     buttonCancel.setLabelText(TypedText(T_BUTTONCANCLE));
     buttonCancel.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));

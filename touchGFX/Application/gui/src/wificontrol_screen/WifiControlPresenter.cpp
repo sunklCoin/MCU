@@ -1,6 +1,7 @@
 #include <gui/wificontrol_screen/WifiControlView.hpp>
 #include <gui/wificontrol_screen/WifiControlPresenter.hpp>
 #include <gui/framework/DevicePort.h>
+#include <gui/common/CustomListElement.hpp>
 
 WifiControlPresenter::WifiControlPresenter(WifiControlView& v)
 :DemoPresenter(v),
@@ -11,7 +12,7 @@ WifiControlPresenter::WifiControlPresenter(WifiControlView& v)
 void WifiControlPresenter::activate()
 {
     if (mControlData().isWifiEnable()) {
-        Wifi_Scan();
+        Wifi_Open();
         view.startAnimation();
         setWifiState(true);
     } else {
@@ -27,7 +28,7 @@ void WifiControlPresenter::deactivate()
 
 void WifiControlPresenter::enableWifi()
 {
-    Wifi_Scan();
+    Wifi_Open();
     view.startAnimation();
 }
 
@@ -42,8 +43,8 @@ void WifiControlPresenter::setWifiState(bool state)
     view.setWifiState(state);
 }
 
-void WifiControlPresenter::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi) {
-    view.updateListMenuElements(strName, address, rssi);
+void WifiControlPresenter::onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd) {
+	view.updateListMenuElements(strName, address, rssi, needPwd);
 }
 
 void WifiControlPresenter::onWifiScanCompleted(int num) {
@@ -53,9 +54,17 @@ void WifiControlPresenter::onWifiScanCompleted(int num) {
 }
 
 void WifiControlPresenter::onWifiConnected(bool status) {
+    if (status) {
+        view.setCustomListStatus(cesConnected);
+    } else {
+        view.setCustomListStatus(cesConnectError);
+    }
     view.stopListAnimation();
+    view.updateListMenuLayout();
 }
 
 void WifiControlPresenter::onWifiDisonnected(int reason) {
+    view.setCustomListStatus(cesDisconnected);
     view.stopListAnimation();
+    view.updateListMenuLayout();
 }

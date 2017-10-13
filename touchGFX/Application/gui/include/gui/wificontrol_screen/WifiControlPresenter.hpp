@@ -28,7 +28,7 @@ public:
     virtual void disableWifi();
     void setWifiState(bool);
     virtual ~WifiControlPresenter() {};
-    virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi);
+    virtual void onWifiScanResult(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd);
     virtual void onWifiScanCompleted(int num);
     virtual void onWifiConnected(bool status);
     virtual void onWifiDisonnected(int reason);

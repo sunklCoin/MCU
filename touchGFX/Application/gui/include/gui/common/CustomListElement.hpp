@@ -47,17 +47,28 @@ using namespace touchgfx;
 
 class MainView;
 
+typedef enum {
+    cesNone = 0,
+    cesConnecting,
+    cesConnected,
+    cesConnectError,
+    cesDisconnected,
+    cesAll,
+} CustomListElementStatus;
+
 /**
 * CustomListElement is the representation of each entry in our list.
 * The list element contains an image and a button.
 */
 class CustomListElement : public Container
 {
+//friend class CustomList;
 private:
     Image smallIcon;
     Box buttonImg;
     Button btn;
     TextAreaWithOneWildcard ListMenuEle;
+    TextArea taHint;
 
     /**
     * Callback that is called when the button is clicked
@@ -68,25 +79,33 @@ private:
     */
     GenericCallback< CustomListElement& >* viewCallback;
 protected:
-    static const uint16_t LISTMENUELE_SIZE = 60;
-    static const uint16_t ADDRESS_SIZE = 6;
-    uint8_t mAddress[ADDRESS_SIZE];
     int mRssi;
+    bool mNeedPwd;
+    bool mNeedDel;
+    CustomListElementStatus mStatus;
 
 public:
+    static const uint16_t LISTMENUELE_SIZE = 60;
+    static const uint16_t ADDRESS_SIZE = 6;
     touchgfx::Unicode::UnicodeChar mListMenuEleBuffer[LISTMENUELE_SIZE];
 
     CustomListElement();
     /**
     * Initialize this containers widgets
     */
+    void setupListElement(uint8_t address[], const Unicode::UnicodeChar* strName, int rssi, bool needPwd);
     void setupListElement(const Bitmap& bmp);
-    void setupListElement(const Bitmap& bmp, uint8_t address[], const Unicode::UnicodeChar* strName, int rssi = 0);
+    void setupListElement(const Bitmap& bmp, uint8_t address[], const Unicode::UnicodeChar* strName, int rssi = 0, bool needPwd = false);
     int getRssi() {return mRssi; }
-	uint8_t* getAddress() { return mAddress; }
+    CustomListElementStatus getStatus() { return mStatus; }
+    bool isNeedPwd() { return mNeedPwd; }
+    uint8_t* getAddress() { return mAddress; }
     int16_t getIconX() { return getX() + smallIcon.getX(); }
     int16_t getIconY() { return getY() + smallIcon.getY(); }
-	void setIconVisible(bool visible) { smallIcon.setVisible(visible); }
+    void setIconVisible(bool visible) { smallIcon.setVisible(visible); }
+    void setStatus(CustomListElementStatus status);
+    void setNeedDel(bool value) { mNeedDel = value; }
+    bool isNeedDel() { return mNeedDel; }
 
     /**
     * Setup the view callback
@@ -99,6 +118,9 @@ public:
     * Handler of button click events
     */
     void buttonClicked(const AbstractButton& source);
+
+protected:
+    uint8_t mAddress[ADDRESS_SIZE];
 };
 
 #endif /* CUSTOM_LIST_ELEMENT_HPP */

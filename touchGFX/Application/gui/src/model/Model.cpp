@@ -90,13 +90,13 @@ void Model::tick()
     int ret = 0;
     struct_remote_message msg_recv = {0};
 
-        memset(&msg_recv, 0, sizeof(remote_message));
-        ret = Message_Receive_NoBlock(&msg_recv);
-        if (ret != pdFAIL) {
-            if (msg_recv.msg.msg_gui_rsp.msgid != 0) {
-                modelListener->dispatchMessage(msg_recv.msg.msg_gui_rsp);
-            }
+    memset(&msg_recv, 0, sizeof(remote_message));
+    ret = Message_Receive_NoBlock(&msg_recv);
+    if (ret != pdFAIL) {
+        if (msg_recv.msg.msg_gui_rsp.msgid != 0) {
+            modelListener->dispatchMessage(msg_recv.msg.msg_gui_rsp);
         }
+    }
 #if 0
    uint16_t msg = 0;
     if (xQueueReceive(gui_msg_q, &msg, 0) == pdTRUE)
@@ -140,7 +140,9 @@ void Model::tick()
 #ifdef SIMULATOR
     extern void SM_DispatchMessage();
 
-    SM_DispatchMessage();
+    if (m_tick_count_down % 20 == 0) {
+        SM_DispatchMessage();
+    }
 #endif
 }
 

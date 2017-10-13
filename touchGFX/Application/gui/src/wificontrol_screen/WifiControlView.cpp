@@ -73,21 +73,18 @@ void WifiControlView::tearDownScreen()
 
 }
 
-
 void WifiControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
 {
-    if (&src == &switchBtn)
-    {
+    if (&src == &switchBtn) {
         clearListMenuElements();
         //Interaction1
         //When switchBTBtn clicked execute C++ code
         //Execute C++ code
-        if (switchBtn.getState() == true){
+        if (switchBtn.getState() == true) {
             switchBtn.setVisible(false);
             presenter->enableWifi();
             scrollCnt.setVisible(true);
-        }
-        else{
+        } else {
             presenter->disableWifi();
             scrollCnt.setVisible(false);
             scrollCnt.invalidate();
@@ -96,9 +93,7 @@ void WifiControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         WifiTurnOnTips.setVisible(false == switchBtn.getState());
         WifiControlDevicesTitle.invalidate();
         WifiTurnOnTips.invalidate();
-    }
-    else if (&src == &backBtn)
-    {
+    } else if (&src == &backBtn) {
         presenter->backOptionSelected();
     }
 }
@@ -109,11 +104,22 @@ void WifiControlView::listElementClicked(CustomListElement& element)
     // so it is removed from the list
     /*list.remove(element);
     scrollCnt.invalidate();*/
+    if (Wifi_GetState() != wifi_state_idle || 
+        element.getStatus() == cesConnected)
+        return;
+
     curElement = &element;
-    mList.startAnimation(element);
-    mInputModal.setAddParams(element.mListMenuEleBuffer, onInputPasswordEvent, onCancelPasswordEvent);
-    mInputModal.show();
-    mStatusBar.hide();
+
+    if (curElement->isNeedPwd()) {
+        mInputModal.setAddParams(element.mListMenuEleBuffer, onInputPasswordEvent, onCancelPasswordEvent);
+        mInputModal.clearPassword();
+        mInputModal.show();
+        mStatusBar.hide();
+    } else {
+        mList.startAnimation(element);
+        mList.setCurElementStatus(cesConnecting);
+        Wifi_Connect(curElement->getAddress(), "");
+    }
 }
 
 void WifiControlView::InputPasswordEvent(strEditBox txtInfo) {
@@ -121,7 +127,12 @@ void WifiControlView::InputPasswordEvent(strEditBox txtInfo) {
         TOUCH_GFX_LOG("passwor = %s\n", txtInfo.inputTxt);
     }
     mStatusBar.show();
-    Wifi_Connect(curElement->getAddress(), txtInfo.inputTxt);
+
+    if (curElement != NULL) {
+        mList.startAnimation(*curElement);
+        mList.setCurElementStatus(cesConnecting);
+        Wifi_Connect(curElement->getAddress(), txtInfo.inputTxt);
+    }
 }
 
 void WifiControlView::CancelPasswordEvent() {
@@ -200,37 +211,34 @@ void WifiControlView::clearListMenuElements() {
     mList.clear();
 }
 
-void WifiControlView::updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi) {
-#if 0
-    memset(ListMenuMap[numberOfListElements].mListMenuEleBuffer, 0, sizeof(ListMenuMap[numberOfListElements].mListMenuEleBuffer));
-    Unicode::strncpy(ListMenuMap[numberOfListElements].mListMenuEleBuffer, strName, 32);
+void WifiControlView::makeClearListMenuElements() {
+    list.removeAll();
+    mList.markClear();
+}
 
-    if (rssi <= 25)
-        ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID));
-    else if (rssi <= 50)
-        ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_2_DARK_ID));
-    else if (rssi <= 75)
-        ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_3_DARK_ID));
-    else
-        ListMenuMap[numberOfListElements].setupListElement(Bitmap(BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID));
-
-    ///ListMenuMap[numberOfListElements].setAction(listElementClickedCallback);
-    list.add(ListMenuMap[numberOfListElements]);
-    numberOfListElements++;
-    scrollCnt.invalidate();
-#endif
-
+void WifiControlView::updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd) {
     uint16_t bmp_id;
-    if (rssi <= 25)
-        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID;
-    else if (rssi <= 50)
-        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_2_DARK_ID;
-    else if (rssi <= 75)
-        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_3_DARK_ID;
-    else
-        bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID;
+    if (needPwd) {
+        if (rssi <= 25)
+            bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID;
+        else if (rssi <= 50)
+            bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_2_DARK_ID;
+        else if (rssi <= 75)
+            bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_3_DARK_ID;
+        else
+            bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID;
+    } else {
+        if (rssi <= 25)
+            bmp_id = BITMAP_IC_WIFI_SIGNAL_1_DARK_ID;
+        else if (rssi <= 50)
+            bmp_id = BITMAP_IC_WIFI_SIGNAL_2_DARK_ID;
+        else if (rssi <= 75)
+            bmp_id = BITMAP_IC_WIFI_SIGNAL_3_DARK_ID;
+        else
+            bmp_id = BITMAP_IC_WIFI_SIGNAL_4_DARK_ID;
+    }
 
-    mList.addElement(address, Bitmap(bmp_id), strName, rssi);
+    mList.addElement(address, Bitmap(bmp_id), strName, rssi, needPwd);
 }
 
 void WifiControlView::handleTickEvent()
@@ -240,9 +248,11 @@ void WifiControlView::handleTickEvent()
     }*/
 
     tickCount++;
-    if (tickCount % 200 == 0) {
-        if (switchBtn.getState() == true) {
-            clearListMenuElements();
+    if (tickCount % 500 == 0) {
+        if (switchBtn.getState() == true && 
+            !mInputModal.isShowing() &&
+            Wifi_GetState() == wifi_state_idle) {
+            makeClearListMenuElements();
             Wifi_Scan();
             startAnimation();
         }
@@ -251,8 +261,17 @@ void WifiControlView::handleTickEvent()
 }
 
 void WifiControlView::updateListMenuLayout() {
+    mList.doClear();
     mList.sort();
     mList.genListLayout(list);
     mList.addAnimation(list);
     scrollCnt.invalidate();
 }
+
+void WifiControlView::setCustomListStatus(CustomListElementStatus status) {
+    if (status == cesConnected) {
+        mList.clearElementStatus(cesConnected);
+    }
+    mList.setCurElementStatus(status);
+}
+
