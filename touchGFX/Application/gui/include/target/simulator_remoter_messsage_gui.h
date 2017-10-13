@@ -46,6 +46,11 @@ typedef enum {
     MSG_ID_GUI_WIFI_CONNECT_RSP,
     MSG_ID_GUI_WIFI_DISCONNECT_REQ,
     MSG_ID_GUI_WIFI_DISCONNECT_RSP,
+	//sunkl add for enter mic screen,creat wifi data channel begin
+    MSG_ID_GUI_WIFI_CREATE_MIC_TRANSFER_CHANNLE_REQ, 
+    MSG_ID_GUI_WIFI_DESTROY_MIC_TRANSFER_CHANNLE_REQ,
+    MSG_ID_GUI_WIFI_MIC_TRANSFER_CHANNLE_RSP,
+	//sunkl add for enter mic screen,creat wifi data channel end
     MSG_ID_GUI_WIFI_END,
     MSG_ID_GUI_PM_BEGIN,
     MSG_ID_GUI_PM_REFRESH_IND,
@@ -133,7 +138,7 @@ typedef struct message_gui_req {
 
 typedef struct message_gui_rsp {
     uint32_t msgid;
-    uint8_t result;
+    int16_t result;
     union gui_data_rsp {
         struct_gui_data_bt_rsp bt;
         struct_gui_data_pm_rsp pm;

@@ -33,6 +33,9 @@ public:
 	virtual void startRecord();
 	virtual void finishRecord();
 	virtual void cancelRecord();
+    virtual void onTransferConnectState(bool state);
+    void transferReConnect();
+    int getWifiSendDataState();
 private:
 	MicScreenPresenter();
 

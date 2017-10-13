@@ -7,12 +7,12 @@ extern "C"{
 bool sleepFlag = false;
 #endif
 bool glb_BtState = false;
-bool glb_Wifistate = true;
+bool glb_Wifistate = false;
 int glb_wifiSignal = 0;
 int glb_BatteryState = 0;
 int glb_BatteryLevel = 0;
 int glb_currBacklight = 0;
-int glb_currSleepSchedule = 1;
+int glb_currSleepSchedule = 6;
 
 
 ControlData::ControlData()

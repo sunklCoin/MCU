@@ -111,3 +111,10 @@ void InputModal::updateTextEditArea(Unicode::UnicodeChar* buff)
 	Unicode::strncpy(passwordEditBuffer, buff, PASSWORDEDIT_SIZE);
 	passwordEdit.invalidate();
 }
+
+void InputModal::clearPassword()
+{
+    memset(passwordEditBuffer, 0, sizeof(passwordEditBuffer));
+    keypad.clearBuffer();
+}
+

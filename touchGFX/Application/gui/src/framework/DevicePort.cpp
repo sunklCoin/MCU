@@ -22,6 +22,17 @@ int sm_message_queue_front = 0;
 int sm_message_queue_rear = -1;
 bool sm_message_queue_flag = false;
 
+static struct_wifi_scan gWifi_Scan_List2[2] = {
+    {0, 5, 40, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
+    {0, 5, 90, 1, 0, 0, 0, {0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
+};
+
+static struct_wifi_scan gWifi_Scan_List1[3] = {
+    {0, 5, 40, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
+    {0, 5, 90, 1, 0, 0, 0, {0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
+    {0, 6, 60, 0, 0, 0, 0, {0xA2, 0xB3, 0xC4, 0xD5, 0xE6, 0xF7}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}, 0, 0, 0, 0}
+};
+
 void SM_InitMessage() {
     memset(&sm_message, 0, sizeof(sm_message));
 }
@@ -90,6 +101,10 @@ void Bluetooth_SetState(enum_bluetooth_state state) {
     bluetooth_state = state;
 }
 
+enum_bluetooth_state Bluetooth_GetState() {
+    return bluetooth_state;
+}
+
 void Bluetooth_SetAction(enum_bluetooth_action action) {
     bluetooth_action = action;
 }
@@ -146,7 +161,7 @@ void Bluetooth_Close() {
 }
 
 void Bluetooth_Scan_Start() {
-    if (bluetooth_state != bt_state_advertised) {
+    if (bluetooth_state == bt_state_scaning) {
         Bluetooth_SetAction(bt_action_scan);
         return;
     }
@@ -208,6 +223,8 @@ void Bluetooth_Connect(uint8_t address[]) {
     sm_message.msgid = MSG_ID_GUI_BT_CONNECT_RSP;
     SM_SendMessage();
 #endif
+
+    Bluetooth_SetState(bt_state_connecting);
 }
 
 void Bluetooth_Disconnect(uint8_t address[]) {
@@ -223,6 +240,8 @@ void Bluetooth_Disconnect(uint8_t address[]) {
     sm_message.msgid = MSG_ID_GUI_BT_DISCONNECT_REQ;
     SM_SendMessage();
 #endif
+
+    Bluetooth_SetState(bt_state_disconnecting);
 }
 
 void Bluetooth_Bond(uint8_t address[]) {
@@ -238,6 +257,8 @@ void Bluetooth_Bond(uint8_t address[]) {
     sm_message.msgid = MSG_ID_GUI_BT_BOND_RSP;
     SM_SendMessage();
 #endif
+
+    Bluetooth_SetState(bt_state_bonding);
 }
 
 /* wifi */
@@ -248,6 +269,10 @@ enum_wifi_state m_wifi_state = wifi_state_closed;
 
 void Wifi_SetState(enum_wifi_state state) {
     m_wifi_state = state;
+}
+
+enum_wifi_state Wifi_GetState() {
+    return m_wifi_state;
 }
 
 void Wifi_SetScanList(struct_wifi_scan* scan_list, uint16_t scan_num) {
@@ -268,7 +293,7 @@ struct_wifi_scan* FindScanListEntry(uint8_t address[]) {
 void Wifi_Scan();
 
 void Wifi_Open() {
-    if (m_wifi_state != wifi_state_closed) {
+    if (m_wifi_state == wifi_state_opening) {
         return;
     }
 
@@ -277,6 +302,8 @@ void Wifi_Open() {
 #else
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_WIFI_OPEN_RSP;
+    sm_message.data.wifi.scan_num = 3;
+    sm_message.data.wifi.scan_list = &gWifi_Scan_List1[0];
     SM_SendMessage();
 #endif
 
@@ -301,23 +328,17 @@ void Wifi_Close() {
 }
 
 void Wifi_Scan() {
-    if (m_wifi_state != wifi_state_idle && m_wifi_state != wifi_state_closed) {
+    if (m_wifi_state == wifi_state_scaning) {
         return;
     }
 
 #ifndef SIMULATOR
     SendMessageEmpty(MSG_ID_GUI_WIFI_SCAN_REQ);
 #else
-    static struct_wifi_scan gWifi_Scan_List[3] = {
-        {0, 5, 40, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x41, 0x62, 0x63, 0x64, 0}, 0, 0, 0, 0},
-        {0, 5, 90, 1, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x65, 0x6F, 0x73, 0x63, 0x76, 0x0}, 0, 0, 0, 0},
-        {0, 6, 60, 0, 0, 0, 0, {0xA0, 0xB1, 0xC2, 0xD3, 0xE4, 0xF5}, {0x52, 0x45, 0x58, 0x4A, 0x57, 0}, 0, 0, 0, 0}
-    };
-
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_WIFI_SCAN_RSP;
-    sm_message.data.wifi.scan_num = 3;
-    sm_message.data.wifi.scan_list = &gWifi_Scan_List[0];
+    sm_message.data.wifi.scan_num = 2;
+    sm_message.data.wifi.scan_list = &gWifi_Scan_List2[0];
     SM_SendMessage();
 #endif
 
@@ -395,6 +416,28 @@ void Mic_CancelRecord()
 {
 #ifndef SIMULATOR
     Dmic_CancelRecord(); 
+#else
+
+#endif
+}
+
+void Mic_CreatTransferConnect()
+{
+#ifndef SIMULATOR
+    SendMessageEmpty(MSG_ID_GUI_WIFI_CREATE_MIC_TRANSFER_CHANNLE_REQ);
+#else
+    SM_InitMessage();
+    int8_t channelState = -(int)(0 + (2) * (rand() / (float)RAND_MAX));
+    sm_message.msgid = MSG_ID_GUI_WIFI_MIC_TRANSFER_CHANNLE_RSP;
+    sm_message.result = channelState;
+    SM_SendMessage();
+#endif
+}
+
+void Mic_DestroyTransferConnect()
+{
+#ifndef SIMULATOR
+    SendMessageEmpty(MSG_ID_GUI_WIFI_DESTROY_MIC_TRANSFER_CHANNLE_REQ);
 #else
 
 #endif

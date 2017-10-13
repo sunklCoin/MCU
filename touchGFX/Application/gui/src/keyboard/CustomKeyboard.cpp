@@ -184,3 +184,8 @@ void CustomKeyboard::updateEditArea()
 		m_onKey_callback->execute(buffer);
 	}
 }
+
+void CustomKeyboard::clearBuffer() {
+    memset(buffer, 0, sizeof(buffer));
+    keyboard.setBufferPosition(0);
+}

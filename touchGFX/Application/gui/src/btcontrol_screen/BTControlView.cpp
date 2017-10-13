@@ -125,8 +125,13 @@ void BTControlView::listElementClicked(CustomListElement& element)
     // so it is removed from the list
     /*list.remove(element);
     scrollCnt.invalidate();*/
-    Bluetooth_Connect(element.getAddress());
+    if (Bluetooth_GetState() != bt_state_advertised || 
+        element.getStatus() == cesConnected)
+        return;
+
     mList.startAnimation(element);
+    mList.setCurElementStatus(cesConnecting);
+    Bluetooth_Connect(element.getAddress());
 }
 
 void BTControlView::setBluetoothState(bool state)
@@ -209,7 +214,12 @@ void BTControlView::updateListMenuElements(Unicode::UnicodeChar* strDeviceName, 
 }
 
 void BTControlView::updateListMenuLayout() {
+    mList.sort();
     mList.genListLayout(list);
     mList.addAnimation(list);
     scrollCnt.invalidate();
+}
+
+void BTControlView::setCustomListStatus(CustomListElementStatus status) {
+    mList.setCurElementStatus(status);
 }
