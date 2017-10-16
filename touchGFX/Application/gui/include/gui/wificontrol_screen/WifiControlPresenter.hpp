@@ -32,6 +32,7 @@ public:
     virtual void onWifiScanCompleted(int num);
     virtual void onWifiConnected(bool status);
     virtual void onWifiDisonnected(int reason);
+    virtual void onWifiClosed(bool status);
 private:
     WifiControlPresenter();
 

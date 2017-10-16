@@ -73,6 +73,7 @@ public:
     virtual void timeUpdated(Time time) {}
     virtual void timeUpdated(TimeUtils time) {}
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll) {}
+    virtual void showScreenSaver() {}
     void dispatchMessage(message_gui_rsp &message);
     /* keyevent */
     virtual void handleKeyEvent(uint8_t key);
@@ -83,6 +84,9 @@ public:
     virtual void onBluetoothConnected(bool status, uint8_t address[]);
     virtual void onBluetoothDisonnected(int reason, uint8_t address[]);
     virtual void onBluetoothBonded(bool status, int bonded, uint8_t address[]);
+    virtual void onBluetoothCentralUpdateParam(bool status);
+    virtual void onBluetoothPeripheralUpdateParam(bool status);
+
     /* wifi */
     virtual void onWifiOpened(bool status);
     virtual void onWifiClosed(bool status);

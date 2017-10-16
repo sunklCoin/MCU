@@ -1,11 +1,9 @@
-#ifndef SCREENSAVERCLOCK_VIEW_HPP
-#define SCREENSAVERCLOCK_VIEW_HPP
+#ifndef SCREENSAVERCLOCK_MODAL_HPP
+#define SCREENSAVERCLOCK_MODAL_HPP
 
-#include <gui_generated/screensaverclock_screen/ScreenSaverClockViewBase.hpp>
-#include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
 #include <gui/common/FrontendApplication.hpp>
-#include <mvp/View.hpp>
-#include <gui/screensaverclock_screen/ScreenSaverClockPresenter.hpp>
+//#include <mvp/View.hpp>
+#include <gui/common/TimeUtils.hpp>
 #include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/containers/Container.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
@@ -13,14 +11,13 @@
 #include <gui/screensaverclock_screen/AnalogClock.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <gui/screensaverclock_screen/DigitalClock.hpp>
-#include <gui/screensaverclock_screen/ScreenSaverClockModal.hpp>
-
+#include <touchgfx/containers/ModalWindow.hpp>
 using namespace touchgfx;
-class ScreenSaverClockView : public View<ScreenSaverClockPresenter>
+class ScreenSaverClockModal : public ModalWindow 
 {
 public:
-    ScreenSaverClockView();
-    virtual ~ScreenSaverClockView() {}
+ScreenSaverClockModal();
+virtual ~ScreenSaverClockModal() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
     virtual void afterTransition();
@@ -43,7 +40,7 @@ protected:
     bool transitionDone;
     bool firstPresenterCall;
 
-    Button gotoMainScreen;
+    Button backBtn;
     Image ScreenSaverClockBg;
     AnalogClock mAnalogClock;
     DigitalClock mDigitalClock;
@@ -52,7 +49,6 @@ protected:
 	Unicode::UnicodeChar dateTextBuffer[11];
 
 	TextArea dayOfWeekTxt;
-    ScreenSaverClockModal mScreenSaverClockModal;
     /*
     * Wildcard Buffers
     */
@@ -60,8 +56,8 @@ protected:
     touchgfx::Unicode::UnicodeChar ScreenSaverDataBuffer[SCREENSAVERDATA_SIZE];
 
 
-    Callback<ScreenSaverClockView, const AbstractButton&> onButtonPressed;
+    Callback<ScreenSaverClockModal, const AbstractButton&> onButtonPressed;
     void buttonPressedHandler(const AbstractButton& button);
 };
 
-#endif // SCREENSAVERCLOCK_VIEW_HPP
+#endif // SCREENSAVERCLOCK_MODAL_HPP

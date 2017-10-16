@@ -5,7 +5,6 @@
 #include "BitmapDatabase.hpp"
 #include <touchgfx/Color.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
-
 InputModal::InputModal()
 : m_onOK_callback(NULL),
 m_onCancel_callback(NULL),

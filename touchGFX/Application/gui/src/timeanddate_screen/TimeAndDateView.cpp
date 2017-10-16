@@ -4,7 +4,7 @@
 #include <touchgfx/Color.hpp>
 #include <touchgfx/EasingEquations.hpp>
 #include <gui/common/Utils.hpp>
-
+LOCATION_EXTFLASH_ATTRIBUTE
 TimeAndDateView::TimeAndDateView() :
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
 DemoView(),

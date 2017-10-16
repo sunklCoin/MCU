@@ -50,6 +50,7 @@ public:
     virtual void handleKeyEvent(uint8_t keyValue){}
     virtual void showProcessorLoadStatusBar() {}
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll) {}
+    virtual void showScreenSaver() {}
 };
 
 #endif

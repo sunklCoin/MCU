@@ -29,14 +29,14 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             onBluetoothStateChange(true);
             model->mControlData.enableBTState(true);
             updateStatusBar(StatusBar::utBluetooth);
-            Bluetooth_RedoAction(bt_action_open);
+            //Bluetooth_RedoAction(bt_action_open);
             break;
         case MSG_ID_GUI_BT_CLOSE_RSP:
             Bluetooth_SetState(bt_state_idle);
             onBluetoothStateChange(false);
             model->mControlData.enableBTState(false);
             updateStatusBar(StatusBar::utBluetooth);
-            Bluetooth_RedoAction(bt_action_close);
+            //Bluetooth_RedoAction(bt_action_close);
             break;
         case MSG_ID_GUI_BT_SCAN_RESULT_IND:
             Unicode::strncpy(strParam, message.data.bt.deviceName, BT_DEVICENAME_LEN);
@@ -45,7 +45,7 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
         case MSG_ID_GUI_BT_SCAN_COMPLETE_IND:
             Bluetooth_SetState(bt_state_advertised);
             onBluetoothScanComplete(message.data.bt.num);
-            Bluetooth_RedoAction(bt_action_scan);
+            //Bluetooth_RedoAction(bt_action_scan);
             break;
         case MSG_ID_GUI_BT_CONNECT_RSP:
             Bluetooth_SetState(bt_state_advertised);
@@ -58,6 +58,14 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
         case MSG_ID_GUI_BT_BOND_RSP:
             Bluetooth_SetState(bt_state_advertised);
             onBluetoothBonded(message.result == 0x00, message.data.bt.bonded, message.data.bt.address);
+            break;
+        case MSG_ID_GUI_BT_CENTRAL_UPDATE_PARAM_RSP:
+            Bluetooth_SetState(bt_state_advertised);
+            onBluetoothCentralUpdateParam(message.result == 0x00);
+            break;
+        case MSG_ID_GUI_BT_PERIPHERAL_UPDATE_PARAM_RSP:
+            Bluetooth_SetState(bt_state_advertised);
+            onBluetoothPeripheralUpdateParam(message.result == 0x00);
             break;
         /* pm */
         case MSG_ID_GUI_PM_REFRESH_IND:
@@ -79,7 +87,9 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             Wifi_SetState(wifi_state_idle);
             Wifi_SetScanList(message.data.wifi.scan_list, message.data.wifi.scan_num);
             for (int i = 0; i < message.data.wifi.scan_num; i++) {
-                Unicode::strncpy(strParam, (char*) message.data.wifi.scan_list[i].ssid, 32);
+                memset(strParam, 0, sizeof(strParam));
+                Unicode::strncpy(strParam, (char*) message.data.wifi.scan_list[i].ssid, message.data.wifi.scan_list[i].ssid_len);
+                strParam[message.data.wifi.scan_list[i].ssid_len] = '\0';
                 onWifiScanResult(strParam, message.data.wifi.scan_list[i].bssid, 
                     message.data.wifi.scan_list[i].rssi, 
                     message.data.wifi.scan_list[i].security_enabled != 0);
@@ -94,8 +104,7 @@ void ModelListener::dispatchMessage(message_gui_rsp &message) {
             break;
         case MSG_ID_GUI_WIFI_CONNECT_RSP:
             Wifi_SetState(wifi_state_idle);
-            status = message.result
-            		== 0;
+            status = message.result == 0;
             onWifiConnected(status);
             break;
         case MSG_ID_GUI_WIFI_DISCONNECT_RSP:
@@ -156,6 +165,18 @@ void ModelListener::onBluetoothDisonnected(int reason, uint8_t address[]) {
 }
 
 void ModelListener::onBluetoothBonded(bool status, int bonded, uint8_t address[]) {
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
+}
+
+void ModelListener::onBluetoothCentralUpdateParam(bool status) {
+#ifndef SIMULATOR
+    PRINTF("%s | \n", __func__);
+#endif // !SIMULATOR
+}
+
+void ModelListener::onBluetoothPeripheralUpdateParam(bool status) {
 #ifndef SIMULATOR
     PRINTF("%s | \n", __func__);
 #endif // !SIMULATOR

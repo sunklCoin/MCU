@@ -15,7 +15,10 @@ BTControlView::BTControlView() :
     //numberOfListElements(0),
     buttonCallback(this, &BTControlView::buttonCallbackHandler),
     animationEndedCallback(this, &BTControlView::animationEnded),
-    listElementClickedCallback(this, &BTControlView::listElementClicked)
+    listElementClickedCallback(this, &BTControlView::listElementClicked),
+    onBTControlViewPopOkEvent(this, &BTControlView::popBTControlViewOkHandle),
+    onBTControlViewPopCancelEvent(this, &BTControlView::popBTControlViewCancelHandle),
+    mBTConnectTickCount(0)
 {
     //menuBg.setXY(0, 0);
     //menuBg.setBitmap(Bitmap(BITMAP_MAIN_BG_240X320PX_ID));
@@ -72,8 +75,12 @@ BTControlView::BTControlView() :
 
     mList.setAction(&listElementClickedCallback);
     count = 0;
-}
 
+    popMessage.hide();
+    popMessage.setupScreen(BITMAP_ALERT_48_ID, T_BT_DISCONNECT_CONFIRM);
+    popMessage.setAddParams(onBTControlViewPopOkEvent, onBTControlViewPopCancelEvent);
+    add(popMessage);
+}
 
 void BTControlView::setupScreen()
 {
@@ -94,7 +101,7 @@ void BTControlView::buttonCallbackHandler(const touchgfx::AbstractButton& src)
         //When switchBTBtn clicked execute C++ code
         //Execute C++ code
         if (switchBTBtn.getState() == true){
-            switchBTBtn.setVisible(false);
+            ///switchBTBtn.setVisible(false);
             presenter->enableBlueTooth();
             scrollCnt.setVisible(true);
         }
@@ -125,13 +132,23 @@ void BTControlView::listElementClicked(CustomListElement& element)
     // so it is removed from the list
     /*list.remove(element);
     scrollCnt.invalidate();*/
-    if (Bluetooth_GetState() != bt_state_advertised || 
-        element.getStatus() == cesConnected)
+    if (Bluetooth_GetState() != bt_state_advertised)
         return;
 
-    mList.startAnimation(element);
-    mList.setCurElementStatus(cesConnecting);
-    Bluetooth_Connect(element.getAddress());
+    if (element.getStatus() == cesNone || 
+        element.getStatus() == cesConnectError || 
+        element.getStatus() == cesDisconnected) {
+        mList.setCurElement(&element);
+        mList.setCurElementStatus(cesConnecting);
+        mList.startAnimation();
+        Bluetooth_Connect(element.getAddress());
+        mBTConnectTickCount = BLUETOOTH_CONNECT_TIMEOUT;
+    } else if (element.getStatus() == cesConnected) {
+        if (!popMessage.isShowing()) {
+            mList.setCurElement(&element);
+            popMessage.show();
+        }
+    }
 }
 
 void BTControlView::setBluetoothState(bool state)
@@ -194,6 +211,12 @@ void BTControlView::handleTickEvent()
     /*if (numberOfListElements < 20) {
         updateListMenuElements();
     }*/
+    if (mBTConnectTickCount > 0) {
+        mBTConnectTickCount--;
+        if (mBTConnectTickCount == 0) {
+            Bluetooth_AbortConnect(mList.getCurElement()->getAddress());
+        }
+    }
 }
 
 void BTControlView::clearListMenuElements() {
@@ -222,4 +245,16 @@ void BTControlView::updateListMenuLayout() {
 
 void BTControlView::setCustomListStatus(CustomListElementStatus status) {
     mList.setCurElementStatus(status);
+}
+
+void BTControlView::popBTControlViewOkHandle()
+{
+	mList.startAnimation();
+	mList.setCurElementStatus(cesDisconnecting);
+	Bluetooth_Disconnect(mList.getCurElement()->getAddress());
+}
+
+void BTControlView::popBTControlViewCancelHandle()
+{
+    //
 }

@@ -95,14 +95,14 @@ static Keyboard::CallbackArea callbackAreas[3] =
 /**
  * The layout for the CustomKeyboard.
  */
-static /*const*/ Keyboard::Layout layout =
+static const Keyboard::Layout layout =
 {
     BITMAP_KEYBOARD_BACKGROUND_ID,
     keyArray,
     30,
     callbackAreas,
     3,
-    Rect(0, 7, 10 * 24, 41),
+    Rect(999, 999, 10 * 24, 41),
     TypedText(T_ENTEREDTEXT),
 #if !defined(USE_BPP) || USE_BPP==16
     0x0000,

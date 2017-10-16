@@ -35,7 +35,7 @@ void WifiControlPresenter::enableWifi()
 void WifiControlPresenter::disableWifi()
 {
     Wifi_Close();
-    view.stopAnimation();
+    view.startAnimation();
 }
 
 void WifiControlPresenter::setWifiState(bool state)
@@ -67,4 +67,9 @@ void WifiControlPresenter::onWifiDisonnected(int reason) {
     view.setCustomListStatus(cesDisconnected);
     view.stopListAnimation();
     view.updateListMenuLayout();
+}
+
+void WifiControlPresenter::onWifiClosed(bool status) {
+    view.stopAnimation();
+    setWifiState(false);
 }

@@ -393,6 +393,9 @@
     <ClCompile Include="..\..\gui\src\poweron_screen\ShutdownAnimationView.cpp">
       <Filter>Source Files\gui\poweron_screen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockModal.cpp">
+      <Filter>Source Files\gui\screensaverclock_screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\assets\fonts\SIMYOU.TTF">
@@ -1326,6 +1329,9 @@
     </ClInclude>
     <ClInclude Include="..\..\gui\include\gui\poweron_screen\ShutdownAnimationView.hpp">
       <Filter>Header Files\gui\poweron_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockModal.hpp">
+      <Filter>Header Files\gui\screensaverclock_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

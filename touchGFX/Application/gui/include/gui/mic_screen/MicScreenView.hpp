@@ -33,20 +33,6 @@ protected:
 		return *static_cast<FrontendApplication*>(Application::getInstance());
 	}
 
-	/*
-	* Member Declarations
-	*/
-	//Image background;
-	static const uint8_t NUMBER_OF_SOUND_LEVEL_INDICATORS = 5;
-	Image soundLevelIndicators[NUMBER_OF_SOUND_LEVEL_INDICATORS];
-	uint8_t soundLevels[NUMBER_OF_SOUND_LEVEL_INDICATORS];
-    Image recordBtnImg;
-    TextArea recordTxt;
-    Container recordBtn;
-	Container soundRecAnim;
-    TextArea undoTxt;
-    TextArea loadingTxt;
-    Container micViewEle;
 private:
 	enum AnimationStates
 	{
@@ -64,6 +50,24 @@ private:
 		ANIMATE_TO_WAIT_ELEMENT,
 		ANIMATE_TO_REC_ELEMENTS,
 	} recordState;
+	/*
+	* Member Declarations
+	*/
+	//Image background;
+	static const uint8_t NUMBER_OF_SOUND_LEVEL_INDICATORS = 5;
+	Image soundLevelIndicators[NUMBER_OF_SOUND_LEVEL_INDICATORS];
+	uint8_t  soundLevels[NUMBER_OF_SOUND_LEVEL_INDICATORS];
+    Image recordBtnImg;
+    TextArea recordTxt;
+    Container recordBtn;
+	Container soundRecAnim;
+    TextArea undoTxt;
+    TextArea loadingTxt;
+    Container micViewEle;
+	PopModal popMessage;
+    TextProgress textProgress;
+	TextArea sendingTxt;
+	Container Progress;
 
 	uint8_t animationCounter;
 	uint32_t tickCounter;
@@ -75,10 +79,7 @@ private:
     bool checkPositionToSend(int16_t);
     void updateProgress(int32_t);
     AnimatedImage loadingAnimation;
-    PopModal popMessage;
-    TextProgress textProgress;
-	TextArea sendingTxt;
-	Container Progress;
+
     Callback<MicScreenView> onMicViewPopOkEvent;
     Callback<MicScreenView> onMicViewPopCancelEvent;
 	void animateToRecElement();

@@ -37,6 +37,7 @@
 #include <BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
 #include <gui/common/FrontendApplication.hpp>
+LOCATION_EXTFLASH_ATTRIBUTE
 void ShutdownAnimationView::setupScreen()
 {
 	// Setup background image

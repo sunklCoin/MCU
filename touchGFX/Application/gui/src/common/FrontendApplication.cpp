@@ -31,6 +31,7 @@ FrontendApplication::FrontendApplication(Model& m, FrontendHeap& heap)
     lastClickTime(0),
     lastClickTimeUtils()
 {
+
 }
 
 void FrontendApplication::handleTickEvent()
@@ -49,9 +50,11 @@ void FrontendApplication::handleTickEvent()
 	    //add by sunkelong 2017/10/03,goto sleep,first show screensaver,begin
         if ((model.getCurrentTime() - lastClickTimeUtils) >= (sleepScheduleArr[mControlData.getSleepSchedule()] * 1000 - 5*1000))
         {
-            if (entryScreenId != FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID){
+            /*if (entryScreenId != FRONTENDAPPLICATION_SSCLOCK_SCREEN_ID){
                 gotoScreenSaverClockTransition();
-            }
+            }*/
+            model.getModelListener()->showScreenSaver();
+
         }
 
         if ((model.getCurrentTime() - lastClickTimeUtils) >= sleepScheduleArr[mControlData.getSleepSchedule()] * 1000)

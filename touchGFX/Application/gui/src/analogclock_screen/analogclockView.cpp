@@ -14,6 +14,7 @@ analogclockView::analogclockView():
 
 }
 
+LOCATION_EXTFLASH_ATTRIBUTE
 void analogclockView::setupScreen()
 {
 #if 1

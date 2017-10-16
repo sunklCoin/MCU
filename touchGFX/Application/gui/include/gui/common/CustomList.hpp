@@ -38,8 +38,10 @@ public:
     void setAction(GenericCallback< CustomListElement& >* callback) { mCallback = callback; }
     void genListLayout(ListLayout &listLayout);
     void addAnimation(Container& list) { list.add(animation); } 
-    void startAnimation(CustomListElement& element);
+    void startAnimation();
     void stopAnimation();
+    CustomListElement* getCurElement() { return curElement; }
+    void setCurElement(CustomListElement* element) { curElement = element; }
     void setCurElementStatus(CustomListElementStatus status);
     void clearElementStatus(CustomListElementStatus status = cesAll);
     CustomListElement* getElement(uint8_t address[]);

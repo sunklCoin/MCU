@@ -47,6 +47,8 @@
 #include <touchgfx/widgets/Box.hpp>
 #include <gui/custom_controls_screen/PopModal.hpp>
 #include <gui/framework/KeyEvent.h>
+#include <gui/screensaverclock_screen/ScreenSaverClockModal.hpp>
+
 using namespace touchgfx;
 #ifndef SIMULATOR
 extern "C"{
@@ -85,8 +87,9 @@ public:
         //mcuLoadArea.setPosition(0, HAL::DISPLAY_HEIGHT - 54, backButton.getWidth(), 54);
 		//mcuLoadArea.setPosition(0, HAL::DISPLAY_HEIGHT - 54, 54, 54);
         //mcuLoadArea.setAction(onMcuLoadClicked);
-
 		mStatusBar.setXY(HAL::DISPLAY_WIDTH - mStatusBar.getWidth(), 0);
+        //isAnalog = static_cast<FrontendApplication*>(Application::getInstance())->getModelTime().isAnalogClock();
+        //is24Hour = static_cast<FrontendApplication*>(Application::getInstance())->getModelTime().is24Hour();
     }
 
     void setDemoVieBackground(BitmapId id)
@@ -108,6 +111,9 @@ public:
         View<T>::add(mcuLoadSlider);
         popScreen.hide();
         View<T>::add(popScreen);
+        mScreenSaverClockModal.hide();
+        mScreenSaverClockModal.afterTransition();
+        View<T>::add(mScreenSaverClockModal);
     }
 
 protected:
@@ -125,6 +131,7 @@ protected:
 	Image StatusWifi;
 	Image StatusBluetooth;
 
+    /*Time*/
 	uint8_t currentSecondCounter;
 	uint8_t currentMinuteCounter;
 	uint8_t currentHourCounter;
@@ -139,6 +146,7 @@ protected:
     McuLoadSlider mcuLoadSlider;
     StatusBar  mStatusBar;
 //    ControlData mControlData;
+    ScreenSaverClockModal mScreenSaverClockModal;
     PopModal popScreen;
     Callback<DemoView, const AbstractButton&> onBackButtonClicked;
     Callback<DemoView, const AbstractButton&> onMcuLoadClicked;
@@ -188,13 +196,31 @@ protected:
         mcuLoadSlider.setValue(mcuLoadInProcent);
     }
 
-	void handleTimeUpdated(uint8_t hours, uint8_t minutes, uint8_t seconds,bool is24Hour)
-	{
-		currentSecondCounter = seconds;
-		currentMinuteCounter = minutes;
-		currentHourCounter = hours;
+    void handleTimeUpdated(uint8_t hours, uint8_t minutes, uint8_t seconds, bool is24Hour)
+    {
+        currentSecondCounter = seconds;
+        currentMinuteCounter = minutes;
+        currentHourCounter = hours;
+        
         mStatusBar.updateClock(currentHourCounter, currentMinuteCounter, currentSecondCounter, is24Hour);
+        if (mScreenSaverClockModal.isShowing()){
+            bool isAnalog = static_cast<FrontendApplication*>(Application::getInstance())->getModelTime().isAnalogClock();
+            mScreenSaverClockModal.handleTimeUpdated(currentHourCounter, currentMinuteCounter, currentSecondCounter, is24Hour, isAnalog);
+        }
 	}
+
+    void showScreenSaver()
+    {
+        if (mScreenSaverClockModal.isShowing()){
+            return;
+        }
+
+        bool isAnalog = static_cast<FrontendApplication*>(Application::getInstance())->getModelTime().isAnalogClock();
+        bool is24Hour = static_cast<FrontendApplication*>(Application::getInstance())->getModelTime().is24Hour();
+        mScreenSaverClockModal.handleTimeUpdated(currentHourCounter, currentMinuteCounter, currentSecondCounter, is24Hour, isAnalog);
+        mScreenSaverClockModal.show();
+    }
+
 
 	int getActiveDisplayWidth()
 	{
