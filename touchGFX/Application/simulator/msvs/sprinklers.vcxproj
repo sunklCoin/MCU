@@ -69,6 +69,7 @@
     <ClCompile Include="..\..\gui\src\poweron_screen\ShutdownAnimationView.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\analogclock.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\DigitalClock.cpp" />
+    <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockModal.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockPresenter.cpp" />
     <ClCompile Include="..\..\gui\src\screensaverclock_screen\ScreenSaverClockView.cpp" />
     <ClCompile Include="..\..\gui\src\setting_screen\SettingPresenter.cpp" />
@@ -383,6 +384,7 @@
     <ClInclude Include="..\..\gui\include\gui\poweron_screen\ShutdownAnimationView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\analogclock.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\DigitalClock.hpp" />
+    <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockModal.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockPresenter.hpp" />
     <ClInclude Include="..\..\gui\include\gui\screensaverclock_screen\ScreenSaverClockView.hpp" />
     <ClInclude Include="..\..\gui\include\gui\setting_screen\SettingPresenter.hpp" />

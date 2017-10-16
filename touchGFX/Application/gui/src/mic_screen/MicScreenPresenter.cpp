@@ -14,8 +14,8 @@ MicScreenPresenter::MicScreenPresenter(MicScreenView& v)
 
 void MicScreenPresenter::activate()
 {
-    //Mic_CreatTransferConnect();
-    view.onPrepareState(true);
+    Mic_CreatTransferConnect();
+    //view.onPrepareState(true);
 }
 
 void MicScreenPresenter::deactivate()
@@ -50,5 +50,5 @@ void MicScreenPresenter::transferReConnect()
 
 int MicScreenPresenter::getWifiSendDataState()
 {
-    return  10;
+    return  Mic_GetTransferState();
 }

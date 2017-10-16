@@ -92,7 +92,7 @@ void SendMessageEmpty(uint32_t msg_id) {
 
 /* bluetooth */
 enum_bluetooth_state bluetooth_state = bt_state_idle;
-enum_bluetooth_action bluetooth_action = bt_action_none;
+//enum_bluetooth_action bluetooth_action = bt_action_none;
 
 void Bluetooth_Open();
 void Bluetooth_Close();
@@ -105,6 +105,7 @@ enum_bluetooth_state Bluetooth_GetState() {
     return bluetooth_state;
 }
 
+/*
 void Bluetooth_SetAction(enum_bluetooth_action action) {
     bluetooth_action = action;
 }
@@ -125,10 +126,11 @@ void Bluetooth_RedoAction(enum_bluetooth_action action) {
     }
     bluetooth_action = bt_action_none;
 }
+*/
 
 void Bluetooth_Open() {
-    if (bluetooth_state != bt_state_idle) {
-        Bluetooth_SetAction(bt_action_open);
+    if (bluetooth_state != bt_state_idle && bluetooth_state != bt_state_advertised) {
+        //Bluetooth_SetAction(bt_action_open);
         return;
     }
 
@@ -145,7 +147,7 @@ void Bluetooth_Open() {
 
 void Bluetooth_Close() {
     if (bluetooth_state != bt_state_advertised) {
-        Bluetooth_SetAction(bt_action_close);
+        //Bluetooth_SetAction(bt_action_close);
         return;
     }
 
@@ -162,7 +164,7 @@ void Bluetooth_Close() {
 
 void Bluetooth_Scan_Start() {
     if (bluetooth_state == bt_state_scaning) {
-        Bluetooth_SetAction(bt_action_scan);
+        //Bluetooth_SetAction(bt_action_scan);
         return;
     }
 
@@ -221,6 +223,7 @@ void Bluetooth_Connect(uint8_t address[]) {
 #else
     SM_InitMessage();
     sm_message.msgid = MSG_ID_GUI_BT_CONNECT_RSP;
+    sm_message.result = 0x00;
     SM_SendMessage();
 #endif
 
@@ -232,16 +235,34 @@ void Bluetooth_Disconnect(uint8_t address[]) {
 
 #ifndef SIMULATOR
     struct_remote_message msg_send;
-    InitMessage(msg_send, MSG_ID_GUI_BT_DISCONNECT_RSP);
+    InitMessage(msg_send, MSG_ID_GUI_BT_DISCONNECT_REQ);
     memcpy(msg_send.msg.msg_gui_req.para.bt.address, address, BT_MACADDRESS_LEN);
     Message_Send(&msg_send);
 #else
     SM_InitMessage();
-    sm_message.msgid = MSG_ID_GUI_BT_DISCONNECT_REQ;
+    sm_message.msgid = MSG_ID_GUI_BT_DISCONNECT_RSP;
     SM_SendMessage();
 #endif
 
     Bluetooth_SetState(bt_state_disconnecting);
+}
+
+void Bluetooth_AbortConnect(uint8_t address[]) {
+    if (bluetooth_state != bt_state_connecting) return;
+
+#ifndef SIMULATOR
+    struct_remote_message msg_send;
+    InitMessage(msg_send, MSG_ID_GUI_BT_ABORT_CONNECT_REQ);
+    memcpy(msg_send.msg.msg_gui_req.para.bt.address, address, BT_MACADDRESS_LEN);
+    Message_Send(&msg_send);
+#else
+    SM_InitMessage();
+    sm_message.msgid = MSG_ID_GUI_BT_CONNECT_RSP;
+    sm_message.result = 0x01;
+    SM_SendMessage();
+#endif
+
+    Bluetooth_SetState(bt_state_connecting);
 }
 
 void Bluetooth_Bond(uint8_t address[]) {
@@ -323,8 +344,7 @@ void Wifi_Close() {
     SM_SendMessage();
 #endif
 
-    //Wifi_SetState(wifi_state_closing);
-    Wifi_SetState(wifi_state_closed);
+    Wifi_SetState(wifi_state_closing);
 }
 
 void Wifi_Scan() {
@@ -392,6 +412,7 @@ extern "C"{
 void Dmic_StartRecord();
 void Dmic_FinishRecord();
 void Dmic_CancelRecord();
+int WiFi_Transmit_Progress(void);
 }
 #endif
 /* Mic */
@@ -440,5 +461,14 @@ void Mic_DestroyTransferConnect()
     SendMessageEmpty(MSG_ID_GUI_WIFI_DESTROY_MIC_TRANSFER_CHANNLE_REQ);
 #else
 
+#endif
+}
+
+int16_t Mic_GetTransferState()
+{
+#ifndef SIMULATOR
+   return WiFi_Transmit_Progress();
+#else
+    return -1;
 #endif
 }

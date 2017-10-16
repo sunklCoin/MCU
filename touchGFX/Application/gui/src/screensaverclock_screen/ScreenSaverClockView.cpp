@@ -12,36 +12,37 @@ transitionDone(false),
 onButtonPressed(this, &ScreenSaverClockView::buttonPressedHandler),
 firstPresenterCall(true)
 {
-    ScreenSaverClockBg.setXY(0, 0);
-    ScreenSaverClockBg.setBitmap(Bitmap(BITMAP_BACKGROUND_ID));
-    add(ScreenSaverClockBg);
+ //   ScreenSaverClockBg.setXY(0, 0);
+ //   ScreenSaverClockBg.setBitmap(Bitmap(BITMAP_BACKGROUND_ID));
+ //   add(ScreenSaverClockBg);
 
-    mAnalogClock.setPosition(0, 40, 240, 320);
-    mAnalogClock.setVisible(false);
-    add(mAnalogClock);
+ //   mAnalogClock.setPosition(0, 40, 240, 320);
+ //   mAnalogClock.setVisible(false);
+ //   add(mAnalogClock);
 
-    mDigitalClock.setPosition(0, 40, 240, 320);
-    mDigitalClock.setVisible(false);
-    add(mDigitalClock);
+ //   mDigitalClock.setPosition(0, 40, 240, 320);
+ //   mDigitalClock.setVisible(false);
+ //   add(mDigitalClock);
 
-	dayOfWeekTxt.setTypedText(TypedText(T_SUNDAY));
-	dayOfWeekTxt.setPosition(10, 10, 110, 20);
-	dayOfWeekTxt.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
-	add(dayOfWeekTxt);
+	//dayOfWeekTxt.setTypedText(TypedText(T_SUNDAY));
+	//dayOfWeekTxt.setPosition(10, 10, 110, 20);
+	//dayOfWeekTxt.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));
+	//add(dayOfWeekTxt);
 
-	Unicode::snprintf(dateTextBuffer, 11, "%04d-%02d-%02d", 2017, 10, 7);
-	dateText.setWildcard(dateTextBuffer);
-	dateText.setTypedText(TypedText(T_DATETEXT));
-	dateText.setPosition(dayOfWeekTxt.getX() + dayOfWeekTxt.getWidth(), 10, 120, 20);
-	dateText.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));// (0xFF, 0xFF, 0xFF)
-	add(dateText);
+	//Unicode::snprintf(dateTextBuffer, 11, "%04d-%02d-%02d", 2017, 10, 7);
+	//dateText.setWildcard(dateTextBuffer);
+	//dateText.setTypedText(TypedText(T_DATETEXT));
+	//dateText.setPosition(dayOfWeekTxt.getX() + dayOfWeekTxt.getWidth(), 10, 120, 20);
+	//dateText.setColor(Color::getColorFrom24BitRGB(0x17, 0x3C, 0x51));// (0xFF, 0xFF, 0xFF)
+	//add(dateText);
 
-    // Invisible button for navigating in the side menu
-    gotoMainScreen.setWidth(240);
-    gotoMainScreen.setHeight(320);
-    gotoMainScreen.setXY(0, 0);
-    gotoMainScreen.setAction(onButtonPressed);
-    add(gotoMainScreen);
+ //   // Invisible button for navigating in the side menu
+ //   gotoMainScreen.setWidth(240);
+ //   gotoMainScreen.setHeight(320);
+ //   gotoMainScreen.setXY(0, 0);
+ //   gotoMainScreen.setAction(onButtonPressed);
+ //   add(gotoMainScreen);
+
 }
 
 
@@ -68,6 +69,7 @@ void ScreenSaverClockView::tearDownScreen()
 void ScreenSaverClockView::afterTransition()
 {
     //DemoView<ClockPresenter>::afterTransition();
+    mScreenSaverClockModal.show();
     transitionDone = true;
 }
 

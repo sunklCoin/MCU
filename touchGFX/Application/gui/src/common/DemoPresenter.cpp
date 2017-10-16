@@ -109,6 +109,11 @@ void DemoPresenter::showProcessorLoadStatusBar()
     viewInterface.showProcessorLoadStatusBar();
 }
 
+void DemoPresenter::showScreenSaver()
+{
+    viewInterface.showScreenSaver();
+}
+
 /*
 void DemoPresenter::setBluetoothState(bool state)
 {

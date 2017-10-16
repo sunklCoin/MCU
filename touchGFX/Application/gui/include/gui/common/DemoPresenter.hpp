@@ -69,6 +69,7 @@ public:
 	virtual void timeUpdated(Time time);
     virtual void timeUpdated(TimeUtils mTimeUtils);
     virtual void updateStatusBar(StatusBar::UpdateType updateType = StatusBar::utAll);
+    virtual void showScreenSaver();
 /*
     virtual void setBluetoothState(bool state);
     virtual void updateListMenuElements();

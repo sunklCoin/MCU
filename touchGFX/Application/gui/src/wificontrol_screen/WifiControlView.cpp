@@ -116,8 +116,9 @@ void WifiControlView::listElementClicked(CustomListElement& element)
         mInputModal.show();
         mStatusBar.hide();
     } else {
-        mList.startAnimation(element);
+        mList.setCurElement(&element);
         mList.setCurElementStatus(cesConnecting);
+        mList.startAnimation();
         Wifi_Connect(curElement->getAddress(), "");
     }
 }
@@ -129,8 +130,9 @@ void WifiControlView::InputPasswordEvent(strEditBox txtInfo) {
     mStatusBar.show();
 
     if (curElement != NULL) {
-        mList.startAnimation(*curElement);
+        mList.setCurElement(curElement);
         mList.setCurElementStatus(cesConnecting);
+        mList.startAnimation();
         Wifi_Connect(curElement->getAddress(), txtInfo.inputTxt);
     }
 }
@@ -219,20 +221,20 @@ void WifiControlView::makeClearListMenuElements() {
 void WifiControlView::updateListMenuElements(touchgfx::Unicode::UnicodeChar* strName, uint8_t address[], int rssi, bool needPwd) {
     uint16_t bmp_id;
     if (needPwd) {
-        if (rssi <= 25)
+        if (rssi <= 20)
             bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_1_DARK_ID;
-        else if (rssi <= 50)
+        else if (rssi <= 40)
             bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_2_DARK_ID;
-        else if (rssi <= 75)
+        else if (rssi <= 60)
             bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_3_DARK_ID;
         else
             bmp_id = BITMAP_IC_WIFI_LOCK_SIGNAL_4_DARK_ID;
     } else {
-        if (rssi <= 25)
+        if (rssi <= 20)
             bmp_id = BITMAP_IC_WIFI_SIGNAL_1_DARK_ID;
-        else if (rssi <= 50)
+        else if (rssi <= 40)
             bmp_id = BITMAP_IC_WIFI_SIGNAL_2_DARK_ID;
-        else if (rssi <= 75)
+        else if (rssi <= 60)
             bmp_id = BITMAP_IC_WIFI_SIGNAL_3_DARK_ID;
         else
             bmp_id = BITMAP_IC_WIFI_SIGNAL_4_DARK_ID;
@@ -248,7 +250,7 @@ void WifiControlView::handleTickEvent()
     }*/
 
     tickCount++;
-    if (tickCount % 500 == 0) {
+    if (tickCount % 1500 == 0) {
         if (switchBtn.getState() == true && 
             !mInputModal.isShowing() &&
             Wifi_GetState() == wifi_state_idle) {

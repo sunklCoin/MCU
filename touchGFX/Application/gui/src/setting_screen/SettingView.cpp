@@ -2,6 +2,7 @@
 #include <touchgfx/Color.hpp>
 #include "BitmapDatabase.hpp"
 using namespace touchgfx;
+LOCATION_EXTFLASH_ATTRIBUTE
 SettingView::SettingView(): 
 #if GUI_RESOURCE_ONLY_INTERNAL_FLASH == 1
 DemoView(),

@@ -14,7 +14,7 @@ recordState(STOPPED),
 animationCounter(0),
 tickCounter(0),
 dragY(0),
-process(0),
+process(-1),
 loadingAnimation(BITMAP_BTN_ANI_01_ID, BITMAP_BTN_ANI_04_ID, 10),
 onMicViewPopOkEvent(this, &MicScreenView::popMicViewOkHandle),
 onMicViewPopCancelEvent(this, &MicScreenView::popMicViewCancelHandle),
@@ -114,7 +114,7 @@ void MicScreenView::setupScreen()
 void MicScreenView::handleTickEvent()
 {
     tickCounter++;
-	if (recordState == STOPPED){
+	if (recordState != STOPPED){
         static_cast<FrontendApplication*>(Application::getInstance())->resetScreenSaver();
     }
 
@@ -125,27 +125,33 @@ void MicScreenView::handleTickEvent()
 	else if (recordState == ANIMATE_TO_REC_ELEMENTS)
 	{
 		animateToRecElement();
-	}
+    }
+    else if (recordState == ANIMATE_TO_WAIT_ELEMENT){
+#ifdef SIMULATOR
+        process = (tickCounter / 5) % 101;
+#else
+        process = presenter->getWifiSendDataState();
+#endif
+        if (process >= 0){
+            if (process >= 100){
+                sendingTxt.setTypedText(TypedText(T_MICSENDFINISHTXT));
+                sendingTxt.invalidate();
+                setState(ANIMATE_TO_REC_ELEMENTS);
+                process = -1;
+            }
+            updateProgress(process);
+        }
+    }
 
     animateSoundLevelIndicators();
 
 	if (recordState == SENDING){
-		setState(ANIMATE_TO_SEND_ELEMENT);
-	}
 #ifdef SIMULATOR
-	process = (tickCounter / 20) % 101;
-#else
-	process = presenter->getWifiSendDataState();
+        tickCounter = 0;
 #endif
-
-	if (process >= 0){
-		if (process >= 100){
-			sendingTxt.setTypedText(TypedText(T_MICSENDFINISHTXT));
-			sendingTxt.invalidate();
-			setState(ANIMATE_TO_REC_ELEMENTS);
-			process = -1;
-		}
-		updateProgress(process);
+        sendingTxt.setTypedText(TypedText(T_MICSENDINGTXT));
+        sendingTxt.invalidate();
+		setState(ANIMATE_TO_SEND_ELEMENT);
 	}
 }
 

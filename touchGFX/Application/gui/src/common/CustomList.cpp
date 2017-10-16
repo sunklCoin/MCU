@@ -76,12 +76,11 @@ void CustomList::genListLayout(ListLayout &listLayout) {
     }
 }
 
-void CustomList::startAnimation(CustomListElement& element)
+void CustomList::startAnimation( )
 {
-    animation.setX(element.getIconX());
-    animation.setY(element.getIconY());
-    element.setIconVisible(false);
-    curElement = &element;
+    animation.setX(curElement->getIconX());
+    animation.setY(curElement->getIconY());
+    curElement->setIconVisible(false);
     animation.setVisible(true);
     animation.startAnimation(animation.isReverse(), false, true);
 }
@@ -90,7 +89,6 @@ void CustomList::stopAnimation()
 {
     if (curElement != NULL) {
         curElement->setIconVisible(true);
-        curElement = NULL;
     }
     animation.setVisible(false);
     animation.stopAnimation();

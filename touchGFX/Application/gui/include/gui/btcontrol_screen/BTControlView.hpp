@@ -53,6 +53,9 @@ protected:
     ScrollableContainer scrollCnt;
     ListLayout list;
     CustomList mList;
+    PopModal popMessage;
+    Callback<BTControlView> onBTControlViewPopOkEvent;
+    Callback<BTControlView> onBTControlViewPopCancelEvent;
 /*
     int numberOfListElements;
     CustomListElement listElements;
@@ -62,6 +65,7 @@ protected:
     void getBluetoothState(bool);
     void handleTickEvent();
 private:
+    int mBTConnectTickCount;
 
     /*
     * Callback Handler Declarations
@@ -69,6 +73,8 @@ private:
     void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void animationEnded(const AnimatedImage& source);
     void listElementClicked(CustomListElement& element);
+    void popBTControlViewOkHandle();
+    void popBTControlViewCancelHandle();
 
     /*
     * Callback Declarations

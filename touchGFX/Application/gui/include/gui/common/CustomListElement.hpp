@@ -52,6 +52,7 @@ typedef enum {
     cesConnecting,
     cesConnected,
     cesConnectError,
+    cesDisconnecting,
     cesDisconnected,
     cesAll,
 } CustomListElementStatus;

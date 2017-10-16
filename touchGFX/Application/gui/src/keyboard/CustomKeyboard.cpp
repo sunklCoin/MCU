@@ -72,8 +72,8 @@ void CustomKeyboard::setupScreen(int keyboardX, int keyboardY, int width, int He
 {
 	keyboard.setPosition(keyboardX, keyboardY, width, Height);
 	modeBtnTextArea.setPosition(1, keyboardY + KEYBOARD_KEY_OFFSET_Y + 145, 34, 41);
-	layout.textAreaPosition.x = textAreaX;
-	layout.textAreaPosition.y = textAreaY;
+	//layout.textAreaPosition.x = textAreaX;
+	//layout.textAreaPosition.y = textAreaY;
 	keyboard.setLayout(&layout);
 	updateEditArea();
 }

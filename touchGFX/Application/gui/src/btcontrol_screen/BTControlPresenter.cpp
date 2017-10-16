@@ -30,17 +30,13 @@ void BTControlPresenter::deactivate()
 void BTControlPresenter::enableBlueTooth()
 {
     Bluetooth_Open();
-    /*model->switchBluetooth(true);*/
     view.startAnimation();
 }
 
 void BTControlPresenter::disableBlueTooth()
 {
     Bluetooth_Close();
-    /*model->switchBluetooth(false);*/
-#ifdef SIMULATOR
-    //mControlData.enableBTState(false);
-#endif
+    view.startAnimation();
 }
 
 void BTControlPresenter::onBluetoothStateChange(bool state) {
@@ -76,6 +72,7 @@ void BTControlPresenter::onBluetoothConnected(bool status, uint8_t address[]) {
 }
 
 void BTControlPresenter::onBluetoothDisonnected(int reason, uint8_t address[]) {
+    view.setCustomListStatus(cesDisconnected);
     view.stopListAnimation();
     view.updateListMenuLayout();
 }

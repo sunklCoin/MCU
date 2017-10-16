@@ -86,7 +86,10 @@ public:
     {
         return mTimeUtils;
     }
-    /*void switchBluetooth(bool);*/
+    ModelListener* getModelListener()
+    {
+        return modelListener;
+    }
 protected:
     /**
      * Pointer to the currently active presenter.

@@ -54,6 +54,7 @@ public:
 	void ShutdownAnimationScreen();
     ControlData getControlData();
 	TimeUtils getModelTime();
+
 private:
 	touchgfx::Callback<FrontendApplication> transitionCallback;
     static const int SCREEN_SAVER_TIMEOUT = 180000; // Milliseconds
